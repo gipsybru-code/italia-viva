@@ -856,14 +856,18 @@ function AiChat({ lesson }) {
     setMessages(prev => [...prev, userMsg]);
     setInput("");
     setLoading(true);
+    if (lesson.free) {
+      await new Promise(r => setTimeout(r, 600));
+      setMessages(prev => [...prev, { role: "assistant", content: "AI conversation practice is unlocked with a subscription. Subscribe from $3/month to practise live with your AI Italian tutor! 🇮🇹" }]);
+      setLoading(false);
+      return;
+    }
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
+          model: "claude-sonnet-4-6",
           max_tokens: 1000,
           system: lesson.aiPrompt,
           messages: [...messages, userMsg],
