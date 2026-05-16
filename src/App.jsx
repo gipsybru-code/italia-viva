@@ -853,28 +853,13 @@ function AiChat({ lesson }) {
   async function sendMessage() {
     if (!input.trim() || loading) return;
     const userMsg = { role: "user", content: input.trim() };
-    const newMessages = [...messages, userMsg];
-    setMessages(newMessages);
+    setMessages(prev => [...prev, userMsg]);
     setInput("");
     setLoading(true);
-
-    try {
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          system: lesson.aiPrompt,
-          messages: newMessages,
-        }),
-      });
-      const data = await response.json();
-      const reply = data.content?.find(b => b.type === "text")?.text || "Mi dispiace, riprova.";
-      setMessages(prev => [...prev, { role: "assistant", content: reply }]);
-    } catch {
-      setMessages(prev => [...prev, { role: "assistant", content: "Connessione interrotta. Riprova!" }]);
-    }
+    await new Promise(r => setTimeout(r, 600));
+    setMessages(prev => [...prev, { role: "assistant", content: "AI conversation practice is unlocked with a subscription. Subscribe from $3/month to practise live with your AI Italian tutor! 🇮🇹" }]);
+    setLoading(false);
+  }
     setLoading(false);
   }
 
