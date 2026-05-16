@@ -859,7 +859,7 @@ function AiChat({ lesson }) {
     try {
       const response = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
           "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY,
           "anthropic-version": "2023-06-01",
@@ -873,7 +873,7 @@ function AiChat({ lesson }) {
         }),
       });
       const data = await response.json();
-      const reply = data.content?.find(b => b.type === "text")?.text || "Mi dispiace, riprova.";
+      const reply = data.content?.find(b => b.type === "text")?.text || "Connection error. Please try again!";
       setMessages(prev => [...prev, { role: "assistant", content: reply }]);
     } catch {
       setMessages(prev => [...prev, { role: "assistant", content: "Connection error. Please try again!" }]);
