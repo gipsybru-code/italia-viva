@@ -860,8 +860,6 @@ function AiChat({ lesson }) {
     setMessages(prev => [...prev, { role: "assistant", content: "AI conversation practice is unlocked with a subscription. Subscribe from $3/month to practise live with your AI Italian tutor! 🇮🇹" }]);
     setLoading(false);
   }
-    setLoading(false);
-  }
 
   return (
     <div style={styles.chatWrap}>
