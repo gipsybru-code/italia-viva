@@ -1029,6 +1029,21 @@ function LessonView({ lesson, onBack }) {
   );
 }
 
+// ── Checkout ─────────────────────────────────────────────────────────────────
+async function handleCheckout(plan) {
+  try {
+    const response = await fetch("/api/create-checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan }),
+    });
+    const data = await response.json();
+    if (data.url) window.location.href = data.url;
+  } catch (error) {
+    alert("Something went wrong. Please try again.");
+  }
+}
+
 // ── Home / Lesson List ────────────────────────────────────────────────────────
 function Home({ onSelect }) {
   return (
@@ -1088,7 +1103,11 @@ function Home({ onSelect }) {
             <span style={styles.pricingSaveBest}>Best Value</span>
           </div>
         </div>
-        <button style={styles.ctaBtn}>Start Now →</button>
+        <div style={styles.pricingButtons}>
+          <button style={styles.ctaBtn} onClick={() => handleCheckout("monthly")}>Monthly — $3</button>
+          <button style={styles.ctaBtn} onClick={() => handleCheckout("yearly")}>Yearly — $30</button>
+          <button style={{...styles.ctaBtn, background: "#B8860B"}} onClick={() => handleCheckout("lifetime")}>Lifetime — $49</button>
+        </div>
         <div style={styles.giftLink}>🎁 Give as a gift — <span style={styles.giftLinkText}>Buy a gift card</span></div>
       </div>
     </div>
@@ -1245,6 +1264,9 @@ const styles = {
     color: C.terracottaLight, textDecoration: "underline", cursor: "pointer",
   },
   pricingDivider: { color: C.textMuted, fontSize: 12, fontStyle: "italic" },
+  pricingButtons: {
+    display: "flex", flexDirection: "column", gap: 10, marginBottom: 16,
+  },
   ctaBtn: {
     background: C.terracotta,
     color: C.white,
