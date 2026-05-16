@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     let body = req.body;
     if (typeof body === 'string') body = JSON.parse(body);
 
-    body.model = 'claude-sonnet-4-5-20251001';
+    body.model = 'claude-sonnet-4-6';
     
     if (!process.env.ANTHROPIC_API_KEY) {
       return res.status(500).json({ error: 'API key not found' });
