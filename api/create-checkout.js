@@ -3,9 +3,9 @@ import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const PRICES = {
-  monthly: 'REPLACE_WITH_MONTHLY_PRICE_ID',
-  yearly: 'REPLACE_WITH_YEARLY_PRICE_ID',
-  lifetime: 'REPLACE_WITH_LIFETIME_PRICE_ID',
+  monthly: 'price_1TXi8u0TXzGEDjaLzLOOmCVW',
+  yearly: 'price_1TXi9Y0TXzGEDjaL7C4HayDj',
+  lifetime: 'price_1TXi9y0TXzGEDjaLv6sWlms6',
 };
 
 export default async function handler(req, res) {
