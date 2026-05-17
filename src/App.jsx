@@ -16,10 +16,10 @@ const LESSONS = [
       { italian: "Tutto bene", english: "All good / Everything's fine" },
     ],
     dialogue: [
-      { speaker: "A", line: "Buongiorno! Salve." },
-      { speaker: "B", line: "Ciao! Come stai?" },
-      { speaker: "A", line: "Tutto bene, grazie. E tu?" },
-      { speaker: "B", line: "Bene, grazie!" },
+      { speaker: "A", line: "Buongiorno! Salve.", translation: "Good morning! Hello." },
+      { speaker: "B", line: "Ciao! Come stai?", translation: "Hi! How are you?" },
+      { speaker: "A", line: "Tutto bene, grazie. E tu?", translation: "All good, thank you. And you?" },
+      { speaker: "B", line: "Bene, grazie!", translation: "Well, thank you!" },
     ],
     grammar: {
       title: "Come — How / What",
@@ -31,7 +31,7 @@ const LESSONS = [
       ],
       note: "\"Come\" literally means \"how\" or \"as\" — it's your go-to word for asking about states and situations.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian language tutor. The student just learned Lesson 1: Greetings. Help them practice by having a short greeting conversation in Italian. Keep it simple — only use words from this lesson: Ciao, Salve, Buongiorno, Buonasera, Arrivederci, Tutto bene, Come stai, Come va. After each student reply, gently correct mistakes if any, then continue the conversation. Always respond in a warm, encouraging tone. Keep responses short.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian language tutor. The student just learned Lesson 1: Greetings. Help them practice by having a short greeting conversation in Italian. Keep it simple — only use words from this lesson: Ciao, Salve, Buongiorno, Buonasera, Arrivederci, Tutto bene, Come stai, Come va. After each student reply, gently correct mistakes if any, then continue the conversation. Always respond in a warm, encouraging tone. Keep responses short.",
   },
   {
     id: 2,
@@ -47,11 +47,11 @@ const LESSONS = [
       { italian: "Quanti anni hai?", english: "How old are you?" },
     ],
     dialogue: [
-      { speaker: "A", line: "Ciao! Sono Paolo." },
-      { speaker: "B", line: "Ciao, Paolo. Sono Monica. Piacere!" },
-      { speaker: "A", line: "Piacere mio. Di dove sei?" },
-      { speaker: "B", line: "Sono di Firenze. E tu?" },
-      { speaker: "A", line: "Sono di Milano." },
+      { speaker: "A", line: "Ciao! Sono Paolo.", translation: "Hi! I'm Paolo." },
+      { speaker: "B", line: "Ciao, Paolo. Sono Monica. Piacere!", translation: "Hi, Paolo. I'm Monica. Nice to meet you!" },
+      { speaker: "A", line: "Piacere mio. Di dove sei?", translation: "Nice to meet you too. Where are you from?" },
+      { speaker: "B", line: "Sono di Firenze. E tu?", translation: "I'm from Florence. And you?" },
+      { speaker: "A", line: "Sono di Milano.", translation: "I'm from Milan." },
     ],
     grammar: {
       title: "Essere — The Verb \"To Be\"",
@@ -64,7 +64,7 @@ const LESSONS = [
       ],
       note: "In Italian you rarely need to say \"io\" (I) — the verb ending tells you who is speaking.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor. The student learned Lesson 2: Introducing yourself. Practice introductions with them. Use only: Mi chiamo, Sono, Piacere, Di dove sei, Sono di. Gently correct mistakes and keep it short and warm.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor. The student learned Lesson 2: Introducing yourself. Practice introductions with them. Use only: Mi chiamo, Sono, Piacere, Di dove sei, Sono di. Gently correct mistakes and keep it short and warm.",
   },
   {
     id: 3,
@@ -80,11 +80,11 @@ const LESSONS = [
       { italian: "Grazie mille", english: "Thank you very much" },
     ],
     dialogue: [
-      { speaker: "Cliente", line: "Buongiorno! Un caffè, per favore." },
-      { speaker: "Barista", line: "Subito! Vuole anche un cornetto?" },
-      { speaker: "Cliente", line: "Sì, grazie. Quanto costa?" },
-      { speaker: "Barista", line: "Un euro e cinquanta, prego." },
-      { speaker: "Cliente", line: "Ecco. Grazie mille!" },
+      { speaker: "Cliente", line: "Buongiorno! Un caffè, per favore.", translation: "Good morning! A coffee, please." },
+      { speaker: "Barista", line: "Subito! Vuole anche un cornetto?", translation: "Right away! Would you like a croissant too?" },
+      { speaker: "Cliente", line: "Sì, grazie. Quanto costa?", translation: "Yes, thank you. How much is it?" },
+      { speaker: "Barista", line: "Un euro e cinquanta, prego.", translation: "One euro fifty, please." },
+      { speaker: "Cliente", line: "Ecco. Grazie mille!", translation: "Here you go. Thank you very much!" },
     ],
     grammar: {
       title: "Vorrei — Polite Requests",
@@ -96,7 +96,7 @@ const LESSONS = [
       ],
       note: "\"Vorrei\" is the conditional of \"volere\" (to want). It's more polite than \"voglio\" (I want) — use it always in shops and restaurants.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a barista. The student is practicing ordering at an Italian café. Use only lesson 3 vocabulary. Be warm, correct gently, keep it short.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a barista. The student is practicing ordering at an Italian café. Use only lesson 3 vocabulary. Be warm, correct gently, keep it short.",
   },
   {
     id: 4,
@@ -112,14 +112,14 @@ const LESSONS = [
       { italian: "Posso assaggiare?", english: "Can I taste?" },
     ],
     dialogue: [
-      { speaker: "Cliente", line: "Buonasera! Vorrei un gelato." },
-      { speaker: "Gelataio", line: "Certo! Cono o coppetta?" },
-      { speaker: "Cliente", line: "Cono, grazie. Posso assaggiare il pistacchio?" },
-      { speaker: "Gelataio", line: "Certo, ecco a lei." },
-      { speaker: "Cliente", line: "Mmm, che buono! Pistacchio e cioccolato, per favore." },
-      { speaker: "Gelataio", line: "Piccolo, medio o grande?" },
-      { speaker: "Cliente", line: "Medio. Quanto costa?" },
-      { speaker: "Gelataio", line: "Due euro e cinquanta." },
+      { speaker: "Cliente", line: "Buonasera! Vorrei un gelato.", translation: "Good evening! I would like an ice cream." },
+      { speaker: "Gelataio", line: "Certo! Cono o coppetta?", translation: "Of course! Cone or cup?" },
+      { speaker: "Cliente", line: "Cono, grazie. Posso assaggiare il pistacchio?", translation: "Cone please. Can I taste the pistachio?" },
+      { speaker: "Gelataio", line: "Certo, ecco a lei.", translation: "Of course, here you go." },
+      { speaker: "Cliente", line: "Mmm, che buono! Pistacchio e cioccolato, per favore.", translation: "Mmm, how delicious! Pistachio and chocolate, please." },
+      { speaker: "Gelataio", line: "Piccolo, medio o grande?", translation: "Small, medium or large?" },
+      { speaker: "Cliente", line: "Medio. Quanto costa?", translation: "Medium. How much is it?" },
+      { speaker: "Gelataio", line: "Due euro e cinquanta.", translation: "Two euros fifty." },
     ],
     grammar: {
       title: "questo / quello — This / That",
@@ -131,7 +131,7 @@ const LESSONS = [
       ],
       note: "Use \"questo\" for things close to you and \"quello\" for things further away — same logic as this/that in English.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a gelateria worker in Italy. The student is practicing ordering gelato. Use vocabulary from lesson 4: gelato, gusti, cono, coppetta, assaggiare, buono. Be playful and warm, correct gently, keep responses short.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a gelateria worker in Italy. The student is practicing ordering gelato. Use vocabulary from lesson 4: gelato, gusti, cono, coppetta, assaggiare, buono. Be playful and warm, correct gently, keep responses short.",
   },
   {
     id: 5,
@@ -147,12 +147,12 @@ const LESSONS = [
       { italian: "Scusi!", english: "Excuse me! (formal)" },
     ],
     dialogue: [
-      { speaker: "Turista", line: "Scusi! Dov'è il Colosseo?" },
-      { speaker: "Passante", line: "Allora… vada sempre dritto, poi a destra." },
-      { speaker: "Turista", line: "È lontano?" },
-      { speaker: "Passante", line: "No, è vicino. Cinque minuti a piedi." },
-      { speaker: "Turista", line: "Grazie mille!" },
-      { speaker: "Passante", line: "Prego! Buona visita!" },
+      { speaker: "Turista", line: "Scusi! Dov'è il Colosseo?", translation: "Excuse me! Where is the Colosseum?" },
+      { speaker: "Passante", line: "Allora… vada sempre dritto, poi a destra.", translation: "Go straight ahead, then turn right." },
+      { speaker: "Turista", line: "È lontano?", translation: "Is it far?" },
+      { speaker: "Passante", line: "No, è vicino. Cinque minuti a piedi.", translation: "No, it's nearby. Five minutes on foot." },
+      { speaker: "Turista", line: "Grazie mille!", translation: "Thank you very much!" },
+      { speaker: "Passante", line: "Prego! Buona visita!", translation: "You're welcome! Enjoy your visit!" },
     ],
     grammar: {
       title: "C'è / Ci sono — There is / There are",
@@ -164,7 +164,7 @@ const LESSONS = [
       ],
       note: "\"C'è\" and \"ci sono\" are your go-to phrases for asking if something exists or is available — incredibly useful in daily life.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a local Roman. The student needs directions in Italian. Use lesson 5 vocabulary: dov'è, destra, sinistra, dritto, vicino, lontano, scusi. Give directions to famous places. Correct gently and keep it short.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a local Roman. The student needs directions in Italian. Use lesson 5 vocabulary: dov'è, destra, sinistra, dritto, vicino, lontano, scusi. Give directions to famous places. Correct gently and keep it short.",
   },
   {
     id: 6,
@@ -180,12 +180,12 @@ const LESSONS = [
       { italian: "In ritardo / in orario", english: "Delayed / on time" },
     ],
     dialogue: [
-      { speaker: "Agente", line: "Buongiorno! Il passaporto, per favore." },
-      { speaker: "Passeggero", line: "Eccolo. Ho anche un bagaglio da imbarcare." },
-      { speaker: "Agente", line: "Quanti bagagli ha?" },
-      { speaker: "Passeggero", line: "Solo uno. Il volo è in orario?" },
-      { speaker: "Agente", line: "Sì, parte alle undici. Gate B7." },
-      { speaker: "Passeggero", line: "Grazie mille!" },
+      { speaker: "Agente", line: "Buongiorno! Il passaporto, per favore.", translation: "Good morning! Your passport, please." },
+      { speaker: "Passeggero", line: "Eccolo. Ho anche un bagaglio da imbarcare.", translation: "Here it is. I also have a bag to check in." },
+      { speaker: "Agente", line: "Quanti bagagli ha?", translation: "How many bags do you have?" },
+      { speaker: "Passeggero", line: "Solo uno. Il volo è in orario?", translation: "Just one. Is the flight on time?" },
+      { speaker: "Agente", line: "Sì, parte alle undici. Gate B7.", translation: "Yes, it departs at eleven. Gate B7." },
+      { speaker: "Passeggero", line: "Grazie mille!", translation: "Thank you very much!" },
     ],
     grammar: {
       title: "Avere — The Verb \"To Have\"",
@@ -198,7 +198,7 @@ const LESSONS = [
       ],
       note: "\"Avere\" is one of the two most important verbs in Italian (with \"essere\"). It's also used to express age: \"ho trent'anni\" = I am thirty years old.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing an airport check-in agent in Italy. The student is practicing airport Italian from lesson 6. Use: volo, passaporto, bagaglio, gate, in ritardo, in orario, avere. Be professional but warm, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing an airport check-in agent in Italy. The student is practicing airport Italian from lesson 6. Use: volo, passaporto, bagaglio, gate, in ritardo, in orario, avere. Be professional but warm, correct gently.",
   },
   {
     id: 7,
@@ -214,12 +214,12 @@ const LESSONS = [
       { italian: "Il coperto", english: "The cover charge" },
     ],
     dialogue: [
-      { speaker: "Cliente", line: "Buonasera! Un tavolo per due, per favore." },
-      { speaker: "Cameriere", line: "Certo, prego. Ecco il menù." },
-      { speaker: "Cliente", line: "Grazie. Sono vegetariana — cosa consiglia?" },
-      { speaker: "Cameriere", line: "Ottime le tagliatelle ai funghi!" },
-      { speaker: "Cliente", line: "Perfetto. E il coperto è compreso?" },
-      { speaker: "Cameriere", line: "Sì, è già incluso. Buon appetito!" },
+      { speaker: "Cliente", line: "Buonasera! Un tavolo per due, per favore.", translation: "Good evening! A table for two, please." },
+      { speaker: "Cameriere", line: "Certo, prego. Ecco il menù.", translation: "Of course. Here is the menu." },
+      { speaker: "Cliente", line: "Grazie. Sono vegetariana — cosa consiglia?", translation: "Thank you. I'm vegetarian — what do you recommend?" },
+      { speaker: "Cameriere", line: "Ottime le tagliatelle ai funghi!", translation: "The tagliatelle with mushrooms is excellent!" },
+      { speaker: "Cliente", line: "Perfetto. E il coperto è compreso?", translation: "Perfect. Is the cover charge included?" },
+      { speaker: "Cameriere", line: "Sì, è già incluso. Buon appetito!", translation: "Yes, it's included. Enjoy your meal!" },
     ],
     grammar: {
       title: "Mi piace / Mi piacciono — I like",
@@ -231,7 +231,7 @@ const LESSONS = [
       ],
       note: "\"Piacere\" works backwards from English — you say \"to me it is pleasing\". Use \"piace\" for one thing, \"piacciono\" for many.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a restaurant waiter in Italy. The student is practicing dining out in Italian. Use lesson 7 vocabulary: tavolo, menù, primo, secondo, vegetariano, coperto, mi piace. Be elegant and warm, correct gently, keep it real.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a restaurant waiter in Italy. The student is practicing dining out in Italian. Use lesson 7 vocabulary: tavolo, menù, primo, secondo, vegetariano, coperto, mi piace. Be elegant and warm, correct gently, keep it real.",
   },
   {
     id: 8,
@@ -247,13 +247,13 @@ const LESSONS = [
       { italian: "Accettate carte?", english: "Do you accept cards?" },
     ],
     dialogue: [
-      { speaker: "Cliente", line: "Buongiorno! Posso provare questa giacca?" },
-      { speaker: "Commessa", line: "Certo! Che taglia porta?" },
-      { speaker: "Cliente", line: "La media, grazie." },
-      { speaker: "Cliente", line: "Hmm… quanto costa?" },
-      { speaker: "Commessa", line: "Centoventi euro. C'è il 20% di sconto oggi!" },
-      { speaker: "Cliente", line: "Perfetto, lo prendo! Accettate carte?" },
-      { speaker: "Commessa", line: "Sì, certo." },
+      { speaker: "Cliente", line: "Buongiorno! Posso provare questa giacca?", translation: "Good morning! Can I try on this jacket?" },
+      { speaker: "Commessa", line: "Certo! Che taglia porta?", translation: "Of course! What size do you wear?" },
+      { speaker: "Cliente", line: "La media, grazie.", translation: "Medium, thank you." },
+      { speaker: "Cliente", line: "Hmm… quanto costa?", translation: "Hmm… how much does it cost?" },
+      { speaker: "Commessa", line: "Centoventi euro. C'è il 20% di sconto oggi!", translation: "One hundred and twenty euros. There's 20% off today!" },
+      { speaker: "Cliente", line: "Perfetto, lo prendo! Accettate carte?", translation: "Perfect, I'll take it! Do you accept cards?" },
+      { speaker: "Commessa", line: "Sì, certo.", translation: "Yes, of course." },
     ],
     grammar: {
       title: "Potere — Can / To be able to",
@@ -265,7 +265,7 @@ const LESSONS = [
       ],
       note: "\"Potere\" is a modal verb — it pairs with the infinitive of another verb. It's your key to asking permission and expressing ability.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a shop assistant in an Italian boutique. The student is practicing shopping in Italian. Use lesson 8 vocabulary: provare, taglia, caro, sconto, prendere, carte, potere. Be helpful and stylish, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a shop assistant in an Italian boutique. The student is practicing shopping in Italian. Use lesson 8 vocabulary: provare, taglia, caro, sconto, prendere, carte, potere. Be helpful and stylish, correct gently.",
   },
   {
     id: 9,
@@ -281,12 +281,12 @@ const LESSONS = [
       { italian: "La chiave", english: "The key" },
     ],
     dialogue: [
-      { speaker: "Ospite", line: "Buonasera! Ho una prenotazione. Mi chiamo Rossi." },
-      { speaker: "Receptionist", line: "Benvenuto! Sì, camera doppia per tre notti." },
-      { speaker: "Ospite", line: "Perfetto. La colazione è inclusa?" },
-      { speaker: "Receptionist", line: "Sì, dalle sette alle dieci. C'è anche il wifi gratuito." },
-      { speaker: "Ospite", line: "Ottimo. A che ora è il check-out?" },
-      { speaker: "Receptionist", line: "Alle undici. Ecco la sua chiave. Buona permanenza!" },
+      { speaker: "Ospite", line: "Buonasera! Ho una prenotazione. Mi chiamo Rossi.", translation: "Good evening! I have a reservation. My name is Rossi." },
+      { speaker: "Receptionist", line: "Benvenuto! Sì, camera doppia per tre notti.", translation: "Welcome! Yes, double room for three nights." },
+      { speaker: "Ospite", line: "Perfetto. La colazione è inclusa?", translation: "Perfect. Is breakfast included?" },
+      { speaker: "Receptionist", line: "Sì, dalle sette alle dieci. C'è anche il wifi gratuito.", translation: "Yes, from seven to ten. There's also free wifi." },
+      { speaker: "Ospite", line: "Ottimo. A che ora è il check-out?", translation: "Excellent. What time is check-out?" },
+      { speaker: "Receptionist", line: "Alle undici. Ecco la sua chiave. Buona permanenza!", translation: "At eleven. Here is your key. Enjoy your stay!" },
     ],
     grammar: {
       title: "Prepositions: a, di, da, in",
@@ -298,7 +298,7 @@ const LESSONS = [
       ],
       note: "Italian prepositions don't always match English ones. \"In\" is used with countries, \"a\" with cities — this small rule saves a lot of confusion.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a hotel receptionist in Italy. The student is checking in and asking questions in Italian. Use lesson 9 vocabulary: prenotazione, camera, check-out, colazione, wifi, chiave. Be professional and warm, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a hotel receptionist in Italy. The student is checking in and asking questions in Italian. Use lesson 9 vocabulary: prenotazione, camera, check-out, colazione, wifi, chiave. Be professional and warm, correct gently.",
   },
   {
     id: 10,
@@ -314,12 +314,12 @@ const LESSONS = [
       { italian: "Il treno è in ritardo", english: "The train is delayed" },
     ],
     dialogue: [
-      { speaker: "Viaggiatore", line: "Buongiorno! Un biglietto per Venezia, per favore." },
-      { speaker: "Bigliettaio", line: "Andata e ritorno?" },
-      { speaker: "Viaggiatore", line: "Solo andata. A che ora arriva?" },
-      { speaker: "Bigliettaio", line: "Alle tredici e venti. Binario 4." },
-      { speaker: "Viaggiatore", line: "Grazie. È occupato questo posto?" },
-      { speaker: "Passeggero", line: "No, si accomodi!" },
+      { speaker: "Viaggiatore", line: "Buongiorno! Un biglietto per Venezia, per favore.", translation: "Good morning! A ticket to Venice, please." },
+      { speaker: "Bigliettaio", line: "Andata e ritorno?", translation: "Return trip?" },
+      { speaker: "Viaggiatore", line: "Solo andata. A che ora arriva?", translation: "One way only. What time does it arrive?" },
+      { speaker: "Bigliettaio", line: "Alle tredici e venti. Binario 4.", translation: "At thirteen twenty. Platform 4." },
+      { speaker: "Viaggiatore", line: "Grazie. È occupato questo posto?", translation: "Thank you. Is this seat taken?" },
+      { speaker: "Passeggero", line: "No, si accomodi!", translation: "No, please sit down!" },
     ],
     grammar: {
       title: "Telling the Time",
@@ -331,7 +331,7 @@ const LESSONS = [
       ],
       note: "Italians use the 24-hour clock for transport. \"Sono le tredici\" = 1 PM. For times, always use \"sono le\" except for 1 o'clock: \"è l'una\".",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a train station ticket agent and fellow passenger in Italy. The student is buying a train ticket and finding their seat. Use lesson 10 vocabulary: biglietto, andata e ritorno, binario, occupato, orario, ritardo. Correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a train station ticket agent and fellow passenger in Italy. The student is buying a train ticket and finding their seat. Use lesson 10 vocabulary: biglietto, andata e ritorno, binario, occupato, orario, ritardo. Correct gently.",
   },
   {
     id: 11,
@@ -347,13 +347,13 @@ const LESSONS = [
       { italian: "Il resto", english: "The change" },
     ],
     dialogue: [
-      { speaker: "Cliente", line: "Buongiorno! Questi pomodori sono freschi?" },
-      { speaker: "Venditore", line: "Freschissimi! Di stagione. Quanti ne vuole?" },
-      { speaker: "Cliente", line: "Me ne dà un chilo, per favore." },
-      { speaker: "Cliente", line: "E anche mezzo chilo di mozzarella." },
-      { speaker: "Venditore", line: "Basta così?" },
-      { speaker: "Cliente", line: "Sì, grazie. Ecco cinque euro." },
-      { speaker: "Venditore", line: "Ecco il resto. Grazie, a presto!" },
+      { speaker: "Cliente", line: "Buongiorno! Questi pomodori sono freschi?", translation: "Good morning! Are these tomatoes fresh?" },
+      { speaker: "Venditore", line: "Freschissimi! Di stagione. Quanti ne vuole?", translation: "Very fresh! In season. How many do you want?" },
+      { speaker: "Cliente", line: "Me ne dà un chilo, per favore.", translation: "Give me a kilo, please." },
+      { speaker: "Cliente", line: "E anche mezzo chilo di mozzarella.", translation: "And also half a kilo of mozzarella." },
+      { speaker: "Venditore", line: "Basta così?", translation: "Is that all?" },
+      { speaker: "Cliente", line: "Sì, grazie. Ecco cinque euro.", translation: "Yes, thank you. Here's five euros." },
+      { speaker: "Venditore", line: "Ecco il resto. Grazie, a presto!", translation: "Here's the change. Thank you, see you soon!" },
     ],
     grammar: {
       title: "Ne — The Partitive Pronoun",
@@ -365,7 +365,7 @@ const LESSONS = [
       ],
       note: "\"Ne\" replaces a noun with a quantity. It has no direct English equivalent but means roughly \"of it\" or \"of them\". Italians use it constantly.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a market vendor in an Italian outdoor market. The student is buying produce and food. Use lesson 11 vocabulary: quanto pesa, chilo, fresco, stagione, basta così, resto, ne. Be lively and authentic, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a market vendor in an Italian outdoor market. The student is buying produce and food. Use lesson 11 vocabulary: quanto pesa, chilo, fresco, stagione, basta così, resto, ne. Be lively and authentic, correct gently.",
   },
   {
     id: 12,
@@ -381,12 +381,12 @@ const LESSONS = [
       { italian: "Sono allergico/a a…", english: "I am allergic to…" },
     ],
     dialogue: [
-      { speaker: "Turista", line: "Scusi! Ho bisogno di aiuto." },
-      { speaker: "Passante", line: "Cosa succede?" },
-      { speaker: "Turista", line: "Mi fa molto male la testa. Ho la febbre." },
-      { speaker: "Passante", line: "C'è una farmacia qui vicino." },
-      { speaker: "Turista", line: "Sono allergico alla penicillina." },
-      { speaker: "Passante", line: "Lo dica al farmacista. Venga, l'accompagno." },
+      { speaker: "Turista", line: "Scusi! Ho bisogno di aiuto.", translation: "Excuse me! I need help." },
+      { speaker: "Passante", line: "Cosa succede?", translation: "What's happening?" },
+      { speaker: "Turista", line: "Mi fa molto male la testa. Ho la febbre.", translation: "My head hurts a lot. I have a fever." },
+      { speaker: "Passante", line: "C'è una farmacia qui vicino.", translation: "There's a pharmacy nearby." },
+      { speaker: "Turista", line: "Sono allergico alla penicillina.", translation: "I'm allergic to penicillin." },
+      { speaker: "Passante", line: "Lo dica al farmacista. Venga, l'accompagno.", translation: "Tell the pharmacist. Come, I'll take you there." },
     ],
     grammar: {
       title: "Mi fa male — Expressing Pain",
@@ -398,7 +398,7 @@ const LESSONS = [
       ],
       note: "\"Mi fa male\" literally means \"it makes pain to me\". Use \"fa male\" for one thing hurting and \"fanno male\" for multiple body parts.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor helping a student practice emergency and health vocabulary from lesson 12. Role-play as a helpful local Italian. Use: aiuto, medico, mi fa male, ambulanza, farmacia, allergico. Be calm and reassuring, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor helping a student practice emergency and health vocabulary from lesson 12. Role-play as a helpful local Italian. Use: aiuto, medico, mi fa male, ambulanza, farmacia, allergico. Be calm and reassuring, correct gently.",
   },
   {
     id: 13,
@@ -414,12 +414,12 @@ const LESSONS = [
       { italian: "Quante volte al giorno?", english: "How many times a day?" },
     ],
     dialogue: [
-      { speaker: "Cliente", line: "Buongiorno. Ho bisogno di qualcosa per il mal di testa." },
-      { speaker: "Farmacista", line: "Ha la ricetta?" },
-      { speaker: "Cliente", line: "No, è senza ricetta." },
-      { speaker: "Farmacista", line: "Allora le do queste compresse. Due volte al giorno." },
-      { speaker: "Cliente", line: "Grazie. Ho anche la tosse." },
-      { speaker: "Farmacista", line: "Prenda questo sciroppo, tre volte al giorno dopo i pasti." },
+      { speaker: "Cliente", line: "Buongiorno. Ho bisogno di qualcosa per il mal di testa.", translation: "Good morning. I need something for a headache." },
+      { speaker: "Farmacista", line: "Ha la ricetta?", translation: "Do you have a prescription?" },
+      { speaker: "Cliente", line: "No, è senza ricetta.", translation: "No, it's over the counter." },
+      { speaker: "Farmacista", line: "Allora le do queste compresse. Due volte al giorno.", translation: "Then I'll give you these tablets. Twice a day." },
+      { speaker: "Cliente", line: "Grazie. Ho anche la tosse.", translation: "Thank you. I also have a cough." },
+      { speaker: "Farmacista", line: "Prenda questo sciroppo, tre volte al giorno dopo i pasti.", translation: "Take this syrup, three times a day after meals." },
     ],
     grammar: {
       title: "Imperativo — Giving Instructions",
@@ -431,7 +431,7 @@ const LESSONS = [
       ],
       note: "The formal imperative (Lei form) is used by professionals like doctors and pharmacists. It sounds like the third person singular — just remember it's a polite command.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a pharmacist in Italy. The student needs medication and advice. Use lesson 13 vocabulary: bisogno, ricetta, mal di testa, tosse, qualcosa per, volte al giorno. Be professional and helpful, correct gently, keep it real.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a pharmacist in Italy. The student needs medication and advice. Use lesson 13 vocabulary: bisogno, ricetta, mal di testa, tosse, qualcosa per, volte al giorno. Be professional and helpful, correct gently, keep it real.",
   },
   {
     id: 14,
@@ -447,14 +447,14 @@ const LESSONS = [
       { italian: "È occupato", english: "The line is busy" },
     ],
     dialogue: [
-      { speaker: "A", line: "Pronto?" },
-      { speaker: "B", line: "Buongiorno! Posso parlare con la signora Bianchi?" },
-      { speaker: "A", line: "Sono io. Con chi parlo?" },
-      { speaker: "B", line: "Sono Marco Rossi, chiamo per la prenotazione." },
-      { speaker: "A", line: "Un momento, la metto in attesa." },
-      { speaker: "B", line: "Grazie." },
-      { speaker: "A", line: "Mi dispiace, la linea è occupata. Può richiamare?" },
-      { speaker: "B", line: "Certo, richiamo più tardi. Grazie!" },
+      { speaker: "A", line: "Pronto?", translation: "Hello?" },
+      { speaker: "B", line: "Buongiorno! Posso parlare con la signora Bianchi?", translation: "Good morning! Can I speak with Mrs Bianchi?" },
+      { speaker: "A", line: "Sono io. Con chi parlo?", translation: "Speaking. Who am I talking to?" },
+      { speaker: "B", line: "Sono Marco Rossi, chiamo per la prenotazione.", translation: "I'm Marco Rossi, calling about the reservation." },
+      { speaker: "A", line: "Un momento, la metto in attesa.", translation: "One moment, I'll put you on hold." },
+      { speaker: "B", line: "Grazie.", translation: "Thank you." },
+      { speaker: "A", line: "Mi dispiace, la linea è occupata. Può richiamare?", translation: "I'm sorry, the line is busy. Can you call back?" },
+      { speaker: "B", line: "Certo, richiamo più tardi. Grazie!", translation: "Of course, I'll call back later. Thank you!" },
     ],
     grammar: {
       title: "Potere + Infinitive — Asking Permission",
@@ -466,7 +466,7 @@ const LESSONS = [
       ],
       note: "On the phone, Italians always say \"Pronto!\" when answering — it literally means \"ready\" and has been the standard phone greeting for over a century.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor role-playing phone call scenarios with the student. Use lesson 14 vocabulary: pronto, con chi parlo, posso parlare con, un momento, richiamare, occupato. Practice both answering and making calls. Correct gently and keep it natural.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor role-playing phone call scenarios with the student. Use lesson 14 vocabulary: pronto, con chi parlo, posso parlare con, un momento, richiamare, occupato. Practice both answering and making calls. Correct gently and keep it natural.",
   },
   {
     id: 15,
@@ -482,13 +482,13 @@ const LESSONS = [
       { italian: "Raccomandata", english: "Registered mail" },
     ],
     dialogue: [
-      { speaker: "Cliente", line: "Buongiorno! Vorrei spedire questo pacco in Inghilterra." },
-      { speaker: "Impiegato", line: "Per via aerea o normale?" },
-      { speaker: "Cliente", line: "Aerea. Quanto ci vuole?" },
-      { speaker: "Impiegato", line: "Circa cinque giorni lavorativi." },
-      { speaker: "Cliente", line: "Va bene. E vorrei anche tre francobolli." },
-      { speaker: "Impiegato", line: "Vuole la raccomandata per il pacco?" },
-      { speaker: "Cliente", line: "Sì, meglio. Quanto costa in tutto?" },
+      { speaker: "Cliente", line: "Buongiorno! Vorrei spedire questo pacco in Inghilterra.", translation: "Good morning! I'd like to send this parcel to England." },
+      { speaker: "Impiegato", line: "Per via aerea o normale?", translation: "By airmail or standard?" },
+      { speaker: "Cliente", line: "Aerea. Quanto ci vuole?", translation: "Airmail. How long does it take?" },
+      { speaker: "Impiegato", line: "Circa cinque giorni lavorativi.", translation: "About five working days." },
+      { speaker: "Cliente", line: "Va bene. E vorrei anche tre francobolli.", translation: "That's fine. And I'd also like three stamps." },
+      { speaker: "Impiegato", line: "Vuole la raccomandata per il pacco?", translation: "Would you like registered mail for the parcel?" },
+      { speaker: "Cliente", line: "Sì, meglio. Quanto costa in tutto?", translation: "Yes, better. How much is it in total?" },
     ],
     grammar: {
       title: "Ci vuole / Ci vogliono — It takes",
@@ -500,7 +500,7 @@ const LESSONS = [
       ],
       note: "\"Ci vuole\" is one of those perfectly practical Italian expressions — use it any time you want to say how long something takes or what is required.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a post office clerk in Italy. The student needs to send mail and parcels. Use lesson 15 vocabulary: spedire, pacco, lettera, aerea, francobollo, raccomandata, ci vuole. Be helpful and patient, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a post office clerk in Italy. The student needs to send mail and parcels. Use lesson 15 vocabulary: spedire, pacco, lettera, aerea, francobollo, raccomandata, ci vuole. Be helpful and patient, correct gently.",
   },
   {
     id: 16,
@@ -516,14 +516,14 @@ const LESSONS = [
       { italian: "Riconsegnare", english: "To return (the car)" },
     ],
     dialogue: [
-      { speaker: "Cliente", line: "Buongiorno! Vorrei noleggiare un'auto per tre giorni." },
-      { speaker: "Agente", line: "Certo. Ha la patente con sé?" },
-      { speaker: "Cliente", line: "Sì, eccola. L'assicurazione è inclusa?" },
-      { speaker: "Agente", line: "Sì, quella base è inclusa. Vuole quella completa?" },
-      { speaker: "Cliente", line: "Sì, meglio. Il serbatoio è pieno?" },
-      { speaker: "Agente", line: "Sì, e deve riconsegnare l'auto col pieno." },
-      { speaker: "Cliente", line: "Capito. I chilometri sono illimitati?" },
-      { speaker: "Agente", line: "Sì, nessun limite." },
+      { speaker: "Cliente", line: "Buongiorno! Vorrei noleggiare un'auto per tre giorni.", translation: "Good morning! I'd like to rent a car for three days." },
+      { speaker: "Agente", line: "Certo. Ha la patente con sé?", translation: "Of course. Do you have your licence with you?" },
+      { speaker: "Cliente", line: "Sì, eccola. L'assicurazione è inclusa?", translation: "Yes, here it is. Is insurance included?" },
+      { speaker: "Agente", line: "Sì, quella base è inclusa. Vuole quella completa?", translation: "Yes, the basic one is included. Would you like full coverage?" },
+      { speaker: "Cliente", line: "Sì, meglio. Il serbatoio è pieno?", translation: "Yes, better. Is the tank full?" },
+      { speaker: "Agente", line: "Sì, e deve riconsegnare l'auto col pieno.", translation: "Yes, and you must return the car with a full tank." },
+      { speaker: "Cliente", line: "Capito. I chilometri sono illimitati?", translation: "Understood. Are the kilometres unlimited?" },
+      { speaker: "Agente", line: "Sì, nessun limite.", translation: "Yes, no limit." },
     ],
     grammar: {
       title: "Dovere — Must / To have to",
@@ -535,7 +535,7 @@ const LESSONS = [
       ],
       note: "\"Dovere\" expresses obligation — pair it with an infinitive. It's one of the three key modal verbs in Italian: potere (can), volere (want), dovere (must).",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a car rental agent in Italy. The student is renting a car. Use lesson 16 vocabulary: noleggiare, patente, pieno, assicurazione, chilometri, riconsegnare, dovere. Be professional and clear, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a car rental agent in Italy. The student is renting a car. Use lesson 16 vocabulary: noleggiare, patente, pieno, assicurazione, chilometri, riconsegnare, dovere. Be professional and clear, correct gently.",
   },
   {
     id: 17,
@@ -551,12 +551,12 @@ const LESSONS = [
       { italian: "Che caldo!", english: "It's so hot!" },
     ],
     dialogue: [
-      { speaker: "Turista", line: "Buongiorno! Vorrei un ombrellone e due sdraio." },
-      { speaker: "Bagnino", line: "Certo! Prima fila o seconda?" },
-      { speaker: "Turista", line: "Seconda va bene. Si può fare il bagno?" },
-      { speaker: "Bagnino", line: "Sì, il mare è calmo oggi. Attenzione però al sole — che caldo!" },
-      { speaker: "Turista", line: "Sì! Ha una crema solare da comprare?" },
-      { speaker: "Bagnino", line: "Sì, al chiosco là. Buona giornata!" },
+      { speaker: "Turista", line: "Buongiorno! Vorrei un ombrellone e due sdraio.", translation: "Good morning! I'd like a beach umbrella and two sun loungers." },
+      { speaker: "Bagnino", line: "Certo! Prima fila o seconda?", translation: "Of course! First row or second?" },
+      { speaker: "Turista", line: "Seconda va bene. Si può fare il bagno?", translation: "Second is fine. Can we swim?" },
+      { speaker: "Bagnino", line: "Sì, il mare è calmo oggi. Attenzione però al sole — che caldo!", translation: "Yes, the sea is calm today. But watch out for the sun — it's so hot!" },
+      { speaker: "Turista", line: "Sì! Ha una crema solare da comprare?", translation: "Yes! Do you have sun cream to buy?" },
+      { speaker: "Bagnino", line: "Sì, al chiosco là. Buona giornata!", translation: "Yes, at the kiosk over there. Have a great day!" },
     ],
     grammar: {
       title: "Fare — The Verb \"To Do / To Make\"",
@@ -568,7 +568,7 @@ const LESSONS = [
       ],
       note: "\"Fare\" is one of the most versatile Italian verbs. It appears in dozens of fixed expressions — weather, activities, actions. Learn these phrases as blocks.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a beach attendant in Italy. The student is spending a day at the beach. Use lesson 17 vocabulary: ombrellone, sdraio, crema solare, mare mosso, fare il bagno, caldo, fare. Be relaxed and sunny, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a beach attendant in Italy. The student is spending a day at the beach. Use lesson 17 vocabulary: ombrellone, sdraio, crema solare, mare mosso, fare il bagno, caldo, fare. Be relaxed and sunny, correct gently.",
   },
   {
     id: 18,
@@ -584,12 +584,12 @@ const LESSONS = [
       { italian: "Hai figli?", english: "Do you have children?" },
     ],
     dialogue: [
-      { speaker: "A", line: "Sei sposato?" },
-      { speaker: "B", line: "Sì, ho una moglie e due figli. E tu?" },
-      { speaker: "A", line: "Sono fidanzata. Ci sposiamo l'anno prossimo!" },
-      { speaker: "B", line: "Congratulazioni! Hai fratelli o sorelle?" },
-      { speaker: "A", line: "Ho una sorella. I miei genitori vivono a Napoli." },
-      { speaker: "B", line: "Bella città! La mia famiglia è di Roma." },
+      { speaker: "A", line: "Sei sposato?", translation: "Are you married?" },
+      { speaker: "B", line: "Sì, ho una moglie e due figli. E tu?", translation: "Yes, I have a wife and two children. And you?" },
+      { speaker: "A", line: "Sono fidanzata. Ci sposiamo l'anno prossimo!", translation: "I'm engaged. We're getting married next year!" },
+      { speaker: "B", line: "Congratulazioni! Hai fratelli o sorelle?", translation: "Congratulations! Do you have brothers or sisters?" },
+      { speaker: "A", line: "Ho una sorella. I miei genitori vivono a Napoli.", translation: "I have a sister. My parents live in Naples." },
+      { speaker: "B", line: "Bella città! La mia famiglia è di Roma.", translation: "Beautiful city! My family is from Rome." },
     ],
     grammar: {
       title: "Possessives — My, Your, His/Her",
@@ -601,7 +601,7 @@ const LESSONS = [
       ],
       note: "Italian possessives agree in gender and number with the noun, not the owner. \"Mio fratello\" and \"mia sorella\" — the word changes, not because of who owns it, but because of what is owned.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor having a friendly conversation about family with the student. Use lesson 18 vocabulary: marito, moglie, figli, fratello, sorella, genitori, sposato, possessives. Be warm and curious, correct gently, keep it natural.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor having a friendly conversation about family with the student. Use lesson 18 vocabulary: marito, moglie, figli, fratello, sorella, genitori, sposato, possessives. Be warm and curious, correct gently, keep it natural.",
   },
   {
     id: 19,
@@ -617,13 +617,13 @@ const LESSONS = [
       { italian: "La diagnosi", english: "The diagnosis" },
     ],
     dialogue: [
-      { speaker: "Paziente", line: "Buongiorno, ho un appuntamento con il dottor Marini." },
-      { speaker: "Receptionist", line: "Prego, si accomodi. Come si sente?" },
-      { speaker: "Paziente", line: "Non molto bene. Ho mal di stomaco e la nausea." },
-      { speaker: "Dottore", line: "Da quanto tempo ha questi sintomi?" },
-      { speaker: "Paziente", line: "Da due giorni. Ho anche un po' di febbre." },
-      { speaker: "Dottore", line: "Le misuro la pressione. Respiri profondamente." },
-      { speaker: "Dottore", line: "Non è grave. Le scrivo una ricetta." },
+      { speaker: "Paziente", line: "Buongiorno, ho un appuntamento con il dottor Marini.", translation: "Good morning, I have an appointment with Doctor Marini." },
+      { speaker: "Receptionist", line: "Prego, si accomodi. Come si sente?", translation: "Please, have a seat. How are you feeling?" },
+      { speaker: "Paziente", line: "Non molto bene. Ho mal di stomaco e la nausea.", translation: "Not very well. I have a stomach ache and nausea." },
+      { speaker: "Dottore", line: "Da quanto tempo ha questi sintomi?", translation: "How long have you had these symptoms?" },
+      { speaker: "Paziente", line: "Da due giorni. Ho anche un po' di febbre.", translation: "For two days. I also have a slight fever." },
+      { speaker: "Dottore", line: "Le misuro la pressione. Respiri profondamente.", translation: "I'll take your blood pressure. Breathe deeply." },
+      { speaker: "Dottore", line: "Non è grave. Le scrivo una ricetta.", translation: "It's not serious. I'll write you a prescription." },
     ],
     grammar: {
       title: "Da — Since / For (time)",
@@ -635,7 +635,7 @@ const LESSONS = [
       ],
       note: "In Italian, \"da\" + present tense describes something that started in the past and is still happening. English uses \"for\" or \"since\" + past tense. This is one of the most common mistakes learners make.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a doctor in Italy. The student is at a medical appointment. Use lesson 19 vocabulary: appuntamento, da quanto tempo, nausea, pressione, visita, diagnosi, da + time. Be calm and professional, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a doctor in Italy. The student is at a medical appointment. Use lesson 19 vocabulary: appuntamento, da quanto tempo, nausea, pressione, visita, diagnosi, da + time. Be calm and professional, correct gently.",
   },
   {
     id: 20,
@@ -651,13 +651,13 @@ const LESSONS = [
       { italian: "Che serata!", english: "What a night!" },
     ],
     dialogue: [
-      { speaker: "A", line: "Allora, andiamo a ballare stasera?" },
-      { speaker: "B", line: "Sì! Conosco un bel locale in centro." },
-      { speaker: "A", line: "C'è la fila di solito?" },
-      { speaker: "B", line: "A volte sì, ma entriamo con la lista." },
-      { speaker: "A", line: "Perfetto. Prendiamo qualcosa prima?" },
-      { speaker: "B", line: "Certo! Un aperitivo — offro io!" },
-      { speaker: "A", line: "Grazie! Che serata!" },
+      { speaker: "A", line: "Allora, andiamo a ballare stasera?", translation: "So, shall we go dancing tonight?" },
+      { speaker: "B", line: "Sì! Conosco un bel locale in centro.", translation: "Yes! I know a nice venue in the centre." },
+      { speaker: "A", line: "C'è la fila di solito?", translation: "Is there usually a queue?" },
+      { speaker: "B", line: "A volte sì, ma entriamo con la lista.", translation: "Sometimes yes, but we're on the guest list." },
+      { speaker: "A", line: "Perfetto. Prendiamo qualcosa prima?", translation: "Perfect. Shall we get something first?" },
+      { speaker: "B", line: "Certo! Un aperitivo — offro io!", translation: "Of course! An aperitif — my treat!" },
+      { speaker: "A", line: "Grazie! Che serata!", translation: "Thank you! What a night!" },
     ],
     grammar: {
       title: "Andare — To Go (+ places)",
@@ -669,7 +669,7 @@ const LESSONS = [
       ],
       note: "\"Andiamo\" (let's go) is one of the most useful words in Italian social life. \"Va bene\" is used constantly — you'll hear it dozens of times a day in Italy.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a friend planning a night out in Italy. Use lesson 20 vocabulary: ballare, locale, fila, offro io, fare tardi, che serata, andare. Be energetic and fun, correct gently, keep it lively.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a friend planning a night out in Italy. Use lesson 20 vocabulary: ballare, locale, fila, offro io, fare tardi, che serata, andare. Be energetic and fun, correct gently, keep it lively.",
   },
   {
     id: 21,
@@ -685,13 +685,13 @@ const LESSONS = [
       { italian: "È pronto!", english: "It's ready!" },
     ],
     dialogue: [
-      { speaker: "A", line: "Stai cucinando? Che profumo!" },
-      { speaker: "B", line: "Sto facendo la pasta al pomodoro. Vuoi la ricetta?" },
-      { speaker: "A", line: "Sì! Quali ingredienti usi?" },
-      { speaker: "B", line: "Pomodori freschi, aglio, basilico e olio d'oliva." },
-      { speaker: "A", line: "Semplice! Quanto ci vuole?" },
-      { speaker: "B", line: "Venti minuti. Aggiungi il sale, mescola e aspetta." },
-      { speaker: "A", line: "È pronto? Ho fame!" },
+      { speaker: "A", line: "Stai cucinando? Che profumo!", translation: "Are you cooking? What a lovely smell!" },
+      { speaker: "B", line: "Sto facendo la pasta al pomodoro. Vuoi la ricetta?", translation: "I'm making tomato pasta. Do you want the recipe?" },
+      { speaker: "A", line: "Sì! Quali ingredienti usi?", translation: "Yes! What ingredients do you use?" },
+      { speaker: "B", line: "Pomodori freschi, aglio, basilico e olio d'oliva.", translation: "Fresh tomatoes, garlic, basil and olive oil." },
+      { speaker: "A", line: "Semplice! Quanto ci vuole?", translation: "Simple! How long does it take?" },
+      { speaker: "B", line: "Venti minuti. Aggiungi il sale, mescola e aspetta.", translation: "Twenty minutes. Add the salt, stir and wait." },
+      { speaker: "A", line: "È pronto? Ho fame!", translation: "Is it ready? I'm hungry!" },
     ],
     grammar: {
       title: "Stare + Gerundio — Present Continuous",
@@ -703,7 +703,7 @@ const LESSONS = [
       ],
       note: "Italian has a present continuous formed with \"stare\" + gerund (-ando/-endo). Use it for things happening right now. For general habits, just use the present tense.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a friend cooking an Italian meal and sharing the recipe. Use lesson 21 vocabulary: ricetta, ingredienti, cucinare, aggiungere, mescolare, pronto, stare + gerund. Be enthusiastic about food, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a friend cooking an Italian meal and sharing the recipe. Use lesson 21 vocabulary: ricetta, ingredienti, cucinare, aggiungere, mescolare, pronto, stare + gerund. Be enthusiastic about food, correct gently.",
   },
   {
     id: 22,
@@ -719,13 +719,13 @@ const LESSONS = [
       { italian: "Lo sportello", english: "The counter / window" },
     ],
     dialogue: [
-      { speaker: "Cliente", line: "Buongiorno. Vorrei prelevare dei contanti." },
-      { speaker: "Impiegato", line: "Si accomodi allo sportello tre." },
-      { speaker: "Cliente", line: "Grazie. Qual è il tasso di cambio oggi?" },
-      { speaker: "Impiegato", line: "Per la sterlina, è uno virgola diciassette." },
-      { speaker: "Cliente", line: "Bene. Posso anche fare un bonifico?" },
-      { speaker: "Impiegato", line: "Certo. Ha il codice IBAN del destinatario?" },
-      { speaker: "Cliente", line: "Sì, eccolo." },
+      { speaker: "Cliente", line: "Buongiorno. Vorrei prelevare dei contanti.", translation: "Good morning. I'd like to withdraw some cash." },
+      { speaker: "Impiegato", line: "Si accomodi allo sportello tre.", translation: "Please go to counter three." },
+      { speaker: "Cliente", line: "Grazie. Qual è il tasso di cambio oggi?", translation: "Thank you. What is today's exchange rate?" },
+      { speaker: "Impiegato", line: "Per la sterlina, è uno virgola diciassette.", translation: "For the pound, it's one point seventeen." },
+      { speaker: "Cliente", line: "Bene. Posso anche fare un bonifico?", translation: "Good. Can I also make a bank transfer?" },
+      { speaker: "Impiegato", line: "Certo. Ha il codice IBAN del destinatario?", translation: "Of course. Do you have the recipient's IBAN code?" },
+      { speaker: "Cliente", line: "Sì, eccolo.", translation: "Yes, here it is." },
     ],
     grammar: {
       title: "Numbers: Hundreds & Thousands",
@@ -737,7 +737,7 @@ const LESSONS = [
       ],
       note: "In Italian, decimals use a comma, not a point: \"1,17\" is read as \"uno virgola diciassette\". Thousands use a period: \"1.000\" = one thousand. The opposite of English!",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a bank teller in Italy. The student needs to handle banking tasks. Use lesson 22 vocabulary: conto, bancomat, prelevare, tasso di cambio, bonifico, sportello, numbers. Be precise and professional, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a bank teller in Italy. The student needs to handle banking tasks. Use lesson 22 vocabulary: conto, bancomat, prelevare, tasso di cambio, bonifico, sportello, numbers. Be precise and professional, correct gently.",
   },
   {
     id: 23,
@@ -753,13 +753,13 @@ const LESSONS = [
       { italian: "Non vedo l'ora!", english: "I can't wait!" },
     ],
     dialogue: [
-      { speaker: "A", line: "Sei libera sabato?" },
-      { speaker: "B", line: "Sì! Che ne dici di andare al museo?" },
-      { speaker: "A", line: "Mi va! A che ora ci vediamo?" },
-      { speaker: "B", line: "Alle dieci davanti all'ingresso?" },
-      { speaker: "A", line: "Perfetto. Non vedo l'ora!" },
-      { speaker: "B", line: "Anch'io! Ah, e dopo pranziamo insieme?" },
-      { speaker: "A", line: "Certo! Conosco un ottimo posto." },
+      { speaker: "A", line: "Sei libera sabato?", translation: "Are you free on Saturday?" },
+      { speaker: "B", line: "Sì! Che ne dici di andare al museo?", translation: "Yes! What do you think about going to the museum?" },
+      { speaker: "A", line: "Mi va! A che ora ci vediamo?", translation: "Sounds good! What time shall we meet?" },
+      { speaker: "B", line: "Alle dieci davanti all'ingresso?", translation: "At ten in front of the entrance?" },
+      { speaker: "A", line: "Perfetto. Non vedo l'ora!", translation: "Perfect. I can't wait!" },
+      { speaker: "B", line: "Anch'io! Ah, e dopo pranziamo insieme?", translation: "Me neither! Oh, and shall we have lunch together after?" },
+      { speaker: "A", line: "Certo! Conosco un ottimo posto.", translation: "Of course! I know a great place." },
     ],
     grammar: {
       title: "Future Tense — Quick & Easy",
@@ -771,7 +771,7 @@ const LESSONS = [
       ],
       note: "Italians often use the present tense for near-future plans — just like English. \"Domani vado al cinema\" (Tomorrow I'm going to the cinema) is more natural than the actual future tense in everyday speech.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a friend making weekend plans with the student. Use lesson 23 vocabulary: libero, che ne dici, mi va, ci vediamo, rimandare, non vedo l'ora, future tense. Be friendly and spontaneous, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor playing a friend making weekend plans with the student. Use lesson 23 vocabulary: libero, che ne dici, mi va, ci vediamo, rimandare, non vedo l'ora, future tense. Be friendly and spontaneous, correct gently.",
   },
   {
     id: 24,
@@ -787,13 +787,13 @@ const LESSONS = [
       { italian: "Portare un ombrello", english: "To bring an umbrella" },
     ],
     dialogue: [
-      { speaker: "A", line: "Che tempo fa oggi?" },
-      { speaker: "B", line: "È nuvoloso stamattina, ma nel pomeriggio c'è il sole." },
-      { speaker: "A", line: "E domani? Hai visto le previsioni?" },
-      { speaker: "B", line: "Sì, piove di mattina. Porta l'ombrello!" },
-      { speaker: "A", line: "Che peccato. Volevo andare al mare." },
-      { speaker: "B", line: "Va meglio il weekend. Fa caldo e c'è il sole." },
-      { speaker: "A", line: "Ottimo! Andiamo sabato allora." },
+      { speaker: "A", line: "Che tempo fa oggi?", translation: "What's the weather like today?" },
+      { speaker: "B", line: "È nuvoloso stamattina, ma nel pomeriggio c'è il sole.", translation: "It's cloudy this morning, but sunny in the afternoon." },
+      { speaker: "A", line: "E domani? Hai visto le previsioni?", translation: "And tomorrow? Have you seen the forecast?" },
+      { speaker: "B", line: "Sì, piove di mattina. Porta l'ombrello!", translation: "Yes, it rains in the morning. Bring an umbrella!" },
+      { speaker: "A", line: "Che peccato. Volevo andare al mare.", translation: "What a shame. I wanted to go to the beach." },
+      { speaker: "B", line: "Va meglio il weekend. Fa caldo e c'è il sole.", translation: "It gets better at the weekend. It's warm and sunny." },
+      { speaker: "A", line: "Ottimo! Andiamo sabato allora.", translation: "Excellent! Let's go on Saturday then." },
     ],
     grammar: {
       title: "Imperfetto — The Past (habits & descriptions)",
@@ -805,7 +805,7 @@ const LESSONS = [
       ],
       note: "The imperfetto is used for past habits, descriptions, and ongoing states. Think of it as the \"used to\" or \"was doing\" tense — softer and more descriptive than the passato prossimo.",
     },
-    aiPrompt: "Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor having a conversation about the weather and making plans based on it. Use lesson 24 vocabulary: che tempo fa, piove, nevica, sole, afoso, previsioni, ombrello, imperfetto. Be conversational and natural, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor having a conversation about the weather and making plans based on it. Use lesson 24 vocabulary: che tempo fa, piove, nevica, sole, afoso, previsioni, ombrello, imperfetto. Be conversational and natural, correct gently.",
   },
 ];
 
@@ -839,11 +839,14 @@ const LockIcon = () => (
 
 // ── AI Chat Component ─────────────────────────────────────────────────────────
 function AiChat({ lesson }) {
+  const DAILY_LIMIT = 20;
+  const storageKey = `msgCount_${lesson.id}_${new Date().toDateString()}`;
   const [messages, setMessages] = useState([
-    { role: "assistant", content: `Ciao! Pronto a praticare la lezione "${lesson.title}"? Iniziamo! 😊` }
+    { role: "assistant", content: `Ciao! Ready to practise "${lesson.title}"? Let's go! 😊 (${DAILY_LIMIT} messages available today)` }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [msgCount, setMsgCount] = useState(() => parseInt(localStorage.getItem(storageKey) || "0"));
   const bottomRef = useRef(null);
 
   useEffect(() => {
@@ -852,10 +855,17 @@ function AiChat({ lesson }) {
 
   async function sendMessage() {
     if (!input.trim() || loading) return;
+    if (msgCount >= DAILY_LIMIT) {
+      setMessages(prev => [...prev, { role: "assistant", content: "You have reached your 20 message daily limit for this lesson. Come back tomorrow to keep practising! 🇮🇹" }]);
+      return;
+    }
     const userMsg = { role: "user", content: input.trim() };
     setMessages(prev => [...prev, userMsg]);
     setInput("");
     setLoading(true);
+    const newCount = msgCount + 1;
+    setMsgCount(newCount);
+    localStorage.setItem(storageKey, newCount.toString());
     if (lesson.free) {
       await new Promise(r => setTimeout(r, 600));
       setMessages(prev => [...prev, { role: "assistant", content: "AI conversation practice is unlocked with a subscription. Subscribe from $3/month to practise live with your AI Italian tutor! 🇮🇹" }]);
@@ -979,7 +989,10 @@ function LessonView({ lesson, onBack }) {
             {lesson.dialogue.map((line, i) => (
               <div key={i} style={styles.dialogueLine}>
                 <span style={styles.dialogueSpeaker}>{line.speaker}</span>
-                <span style={styles.dialogueText}>{line.line}</span>
+                <div style={{flex: 1}}>
+                  <div style={styles.dialogueText}>{line.line}</div>
+                  {line.translation && <div style={styles.dialogueTranslation}>{line.translation}</div>}
+                </div>
                 <button style={styles.speakSmall} onClick={() => speak(line.line)} title="Listen">
                   <PlayIcon />
                 </button>
@@ -1358,7 +1371,8 @@ const styles = {
     minWidth: 52, fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase",
     color: C.terracotta, fontFamily: "sans-serif",
   },
-  dialogueText: { flex: 1, fontSize: 15, color: C.brown, lineHeight: 1.5 },
+  dialogueText: { fontSize: 15, color: C.brown, lineHeight: 1.5, marginBottom: 2 },
+  dialogueTranslation: { fontSize: 12, color: C.textMuted, fontStyle: "italic" },
   speakSmall: {
     background: "none", border: "none", color: C.textMuted, cursor: "pointer",
     padding: 4, display: "flex", alignItems: "center",
