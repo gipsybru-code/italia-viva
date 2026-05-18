@@ -18,8 +18,8 @@ export default async function handler(req, res) {
     const session = await stripe.checkout.sessions.create({
       mode: isLifetime ? 'payment' : 'subscription',
       line_items: [{ price: PRICES[plan], quantity: 1 }],
-      success_url: 'https://italia-viva.vercel.app?success=true',
-      cancel_url: 'https://italia-viva.vercel.app?cancelled=true',
+     success_url: 'https://parlissimo.vercel.app?success=true',
+cancel_url: 'https://parlissimo.vercel.app?cancelled=true',
     });
     res.status(200).json({ url: session.url });
   } catch (error) {
