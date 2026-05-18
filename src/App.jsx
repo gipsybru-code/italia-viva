@@ -1,4 +1,10 @@
 import { useState, useEffect, useRef } from "react";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 // ── Lesson Data ──────────────────────────────────────────────────────────────
 const LESSONS = [
@@ -1045,10 +1051,12 @@ function LessonView({ lesson, onBack }) {
 // ── Checkout ─────────────────────────────────────────────────────────────────
 async function handleCheckout(plan) {
   try {
+    const { data: { session } } = await supabase.auth.getSession();
+    const userId = session?.user?.id;
     const response = await fetch("/api/create-checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ plan }),
+      body: JSON.stringify({ plan, userId }),
     });
     const data = await response.json();
     if (data.url) window.location.href = data.url;
@@ -1058,7 +1066,7 @@ async function handleCheckout(plan) {
 }
 
 // ── Home / Lesson List ────────────────────────────────────────────────────────
-function Home({ onSelect }) {
+function Home({ onSelect, user, isSubscribed, onAuthClick }) {
   return (
     <div style={styles.home}>
       {/* Hero */}
@@ -1084,8 +1092,10 @@ function Home({ onSelect }) {
             </div>
             <div style={styles.lessonCardRight}>
               {lesson.free
-                ? <span style={styles.freeBadge}>Gratis</span>
-                : <span style={styles.lockBadge}><LockIcon /> €3/mo</span>}
+                ? <span style={styles.freeBadge}>Free</span>
+                : isSubscribed
+                  ? <span style={styles.freeBadge}>✓</span>
+                  : <span style={styles.lockBadge}><LockIcon /> Subscribe</span>}
               <ChevronRight />
             </div>
           </div>
@@ -1127,16 +1137,138 @@ function Home({ onSelect }) {
   );
 }
 
+// ── Auth Modal ────────────────────────────────────────────────────────────────
+function AuthModal({ onClose, onAuth }) {
+  const [mode, setMode] = useState("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  async function handleSubmit() {
+    setLoading(true);
+    setMessage("");
+    if (mode === "login") {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) setMessage(error.message);
+      else onAuth();
+    } else {
+      const { error } = await supabase.auth.signUp({ email, password });
+      if (error) setMessage(error.message);
+      else setMessage("Check your email to confirm your account!");
+    }
+    setLoading(false);
+  }
+
+  return (
+    <div style={styles.modalOverlay}>
+      <div style={styles.modal}>
+        <button style={styles.modalClose} onClick={onClose}>×</button>
+        <h2 style={styles.modalTitle}>{mode === "login" ? "Welcome back" : "Create account"}</h2>
+        <input
+          style={styles.authInput}
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+        <input
+          style={styles.authInput}
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && handleSubmit()}
+        />
+        {message && <div style={styles.authMessage}>{message}</div>}
+        <button style={styles.ctaBtn} onClick={handleSubmit} disabled={loading}>
+          {loading ? "..." : mode === "login" ? "Log in" : "Sign up"}
+        </button>
+        <div style={styles.authSwitch}>
+          {mode === "login" ? (
+            <span>No account? <span style={styles.authLink} onClick={() => setMode("signup")}>Sign up free</span></span>
+          ) : (
+            <span>Have an account? <span style={styles.authLink} onClick={() => setMode("login")}>Log in</span></span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── App Shell ─────────────────────────────────────────────────────────────────
 export default function App() {
   const [activeLesson, setActiveLesson] = useState(null);
+  const [user, setUser] = useState(null);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
+  const [loadingAuth, setLoadingAuth] = useState(true);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      if (session?.user) checkSubscription(session.user.id);
+      else setLoadingAuth(false);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      if (session?.user) checkSubscription(session.user.id);
+      else { setIsSubscribed(false); setLoadingAuth(false); }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  async function checkSubscription(userId) {
+    const { data } = await supabase
+      .from("subscriptions")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("status", "active")
+      .single();
+    setIsSubscribed(!!data);
+    setLoadingAuth(false);
+  }
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    setUser(null);
+    setIsSubscribed(false);
+    setActiveLesson(null);
+  }
+
+  function handleLessonSelect(lesson) {
+    if (!lesson.free && !isSubscribed) {
+      setShowAuth(true);
+      return;
+    }
+    setActiveLesson(lesson);
+  }
+
+  if (loadingAuth) return (
+    <div style={{...styles.shell, display:"flex", alignItems:"center", justifyContent:"center"}}>
+      <div style={{color: "#C4622D", fontSize: 14, fontFamily: "sans-serif"}}>Loading...</div>
+    </div>
+  );
 
   return (
     <div style={styles.shell}>
       <div style={styles.container}>
+        <div style={styles.topBar}>
+          <span style={styles.topBarLogo}>Parlissimo</span>
+          {user ? (
+            <div style={styles.topBarRight}>
+              <span style={styles.topBarEmail}>{user.email}</span>
+              {isSubscribed && <span style={styles.topBarBadge}>✓ Active</span>}
+              <button style={styles.topBarBtn} onClick={handleLogout}>Log out</button>
+            </div>
+          ) : (
+            <button style={styles.topBarBtn} onClick={() => setShowAuth(true)}>Log in</button>
+          )}
+        </div>
+        {showAuth && <AuthModal onClose={() => setShowAuth(false)} onAuth={() => setShowAuth(false)} />}
         {activeLesson
-          ? <LessonView lesson={activeLesson} onBack={() => setActiveLesson(null)} />
-          : <Home onSelect={setActiveLesson} />}
+          ? <LessonView lesson={activeLesson} onBack={() => setActiveLesson(null)} isSubscribed={isSubscribed} />
+          : <Home onSelect={handleLessonSelect} user={user} isSubscribed={isSubscribed} onAuthClick={() => setShowAuth(true)} />}
       </div>
     </div>
   );
@@ -1433,6 +1565,45 @@ const styles = {
     fontSize: 14, color: C.brown, background: "transparent",
     fontFamily: "'Palatino Linotype', Georgia, serif",
   },
+  topBar: {
+    display: "flex", justifyContent: "space-between", alignItems: "center",
+    padding: "14px 0", borderBottom: `1px solid ${C.border}`, marginBottom: 24,
+  },
+  topBarLogo: { fontSize: 18, fontWeight: 700, color: C.terracotta, letterSpacing: "-0.01em" },
+  topBarRight: { display: "flex", alignItems: "center", gap: 10 },
+  topBarEmail: { fontSize: 11, color: C.textMuted, fontFamily: "sans-serif" },
+  topBarBadge: {
+    fontSize: 10, background: "#E8F5E9", color: "#2E7D32", padding: "2px 8px",
+    borderRadius: 20, fontFamily: "sans-serif",
+  },
+  topBarBtn: {
+    background: "none", border: `1px solid ${C.border}`, borderRadius: 3,
+    padding: "6px 14px", fontSize: 11, cursor: "pointer", color: C.brownMid,
+    fontFamily: "sans-serif", letterSpacing: "0.06em",
+  },
+  modalOverlay: {
+    position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+    background: "rgba(0,0,0,0.5)", display: "flex",
+    alignItems: "center", justifyContent: "center", zIndex: 100,
+  },
+  modal: {
+    background: C.white, borderRadius: 8, padding: 32, width: "90%", maxWidth: 380,
+    position: "relative",
+  },
+  modalClose: {
+    position: "absolute", top: 12, right: 16, background: "none", border: "none",
+    fontSize: 22, cursor: "pointer", color: C.textMuted,
+  },
+  modalTitle: { fontSize: 22, fontWeight: 700, color: C.brown, marginBottom: 20 },
+  authInput: {
+    width: "100%", padding: "11px 14px", border: `1px solid ${C.border}`,
+    borderRadius: 3, fontSize: 14, marginBottom: 12, boxSizing: "border-box",
+    fontFamily: "'Palatino Linotype', Georgia, serif", color: C.brown,
+    background: C.cream, outline: "none",
+  },
+  authMessage: { fontSize: 12, color: C.terracotta, marginBottom: 12, fontFamily: "sans-serif" },
+  authSwitch: { marginTop: 16, fontSize: 12, color: C.textMuted, textAlign: "center", fontFamily: "sans-serif" },
+  authLink: { color: C.terracotta, cursor: "pointer", textDecoration: "underline" },
   chatSend: {
     border: "none", background: C.terracotta, color: C.white,
     width: 52, fontSize: 20, cursor: "pointer",
