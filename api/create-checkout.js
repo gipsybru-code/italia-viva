@@ -5,7 +5,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const PRICES = {
   monthly: 'price_1TXnlu0jyHReTPSJEiDxNVXI',
   yearly: 'price_1TXnly0jyHReTPSJF917CeMc',
-  lifetime: 'price_1TXnlt0jyHReTPSJZCVTw9Lx',
+  lifetime: 'price_1TYPTa0jyHReTPSJJnAkrycr',
+  //lifetime: 'price_1TXnlt0jyHReTPSJZCVTw9Lx',
  };
 
 export default async function handler(req, res) {
