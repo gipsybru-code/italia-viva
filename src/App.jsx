@@ -1064,7 +1064,7 @@ function Home({ onSelect }) {
       {/* Hero */}
       <div style={styles.hero}>
         <div style={styles.heroTag}>Crash Course · Learn Fast · Only What You Need</div>
-        <h1 style={styles.heroTitle}>Italia<span style={styles.heroAccent}>Viva</span></h1>
+        <h1 style={styles.heroTitle}>Parli<span style={styles.heroAccent}>ssimo</span></h1>
         <p style={styles.heroSub}>
           Situational Italian in minutes — real conversations, essential grammar, nothing extra.
         </p>
