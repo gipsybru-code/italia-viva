@@ -1103,7 +1103,7 @@ function Home({ onSelect, user, isSubscribed, onAuthClick }) {
       </div>
 
       {/* Pricing nudge */}
-      <div style={styles.pricingBox}>
+      <div id="pricing-section" style={styles.pricingBox}>
         <div style={styles.pricingTitle}>Unlock the Full Course</div>
         <p style={styles.pricingText}>
           All 24 lessons, AI conversation practice, and grammar flashcards.
@@ -1238,7 +1238,8 @@ export default function App() {
 
   function handleLessonSelect(lesson) {
     if (!lesson.free && !isSubscribed) {
-      setShowAuth(true);
+      // Scroll to pricing section
+      document.getElementById("pricing-section")?.scrollIntoView({ behavior: "smooth" });
       return;
     }
     setActiveLesson(lesson);
