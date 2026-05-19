@@ -1131,7 +1131,7 @@ function Home({ onSelect, user, isSubscribed, onAuthClick }) {
           <button style={styles.ctaBtn} onClick={() => handleCheckout("yearly")}>Yearly — $30</button>
           <button style={{...styles.ctaBtn, background: "#B8860B"}} onClick={() => handleCheckout("lifetime")}>Lifetime — $49</button>
         </div>
-        <div style={styles.giftLink}>🎁 Give as a gift — <span style={styles.giftLinkText}>Buy a gift card</span></div>
+
       </div>
     </div>
   );
@@ -1229,6 +1229,21 @@ export default function App() {
     setLoadingAuth(false);
   }
 
+  async function handleManageSubscription() {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const response = await fetch("/api/customer-portal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: session?.user?.id }),
+      });
+      const data = await response.json();
+      if (data.url) window.location.href = data.url;
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+    }
+  }
+
   async function handleLogout() {
     await supabase.auth.signOut();
     setUser(null);
@@ -1260,6 +1275,7 @@ export default function App() {
             <div style={styles.topBarRight}>
               <span style={styles.topBarEmail}>{user.email}</span>
               {isSubscribed && <span style={styles.topBarBadge}>✓ Active</span>}
+              {isSubscribed && <button style={styles.topBarBtn} onClick={handleManageSubscription}>Manage</button>}
               <button style={styles.topBarBtn} onClick={handleLogout}>Log out</button>
             </div>
           ) : (
@@ -1403,12 +1419,7 @@ const styles = {
     fontSize: 10, background: C.gold, color: C.white, padding: "2px 7px",
     borderRadius: 10, letterSpacing: "0.06em", fontFamily: "sans-serif",
   },
-  giftLink: {
-    marginTop: 16, fontSize: 12, color: C.sand, fontFamily: "sans-serif",
-  },
-  giftLinkText: {
-    color: C.terracottaLight, textDecoration: "underline", cursor: "pointer",
-  },
+
   pricingDivider: { color: C.textMuted, fontSize: 12, fontStyle: "italic" },
   pricingButtons: {
     display: "flex", flexDirection: "column", gap: 10, marginBottom: 16,
