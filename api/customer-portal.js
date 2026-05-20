@@ -33,6 +33,7 @@ export default async function handler(req, res) {
 
     res.status(200).json({ url: session.url });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Portal error:', JSON.stringify(error));
+    res.status(500).json({ error: error.message, raw: error.raw });
   }
 }
