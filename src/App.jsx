@@ -1144,6 +1144,7 @@ function AuthModal({ onClose, onAuth }) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [resetSent, setResetSent] = useState(false);
 
   async function handleSubmit() {
     setLoading(true);
@@ -1157,6 +1158,17 @@ function AuthModal({ onClose, onAuth }) {
       if (error) setMessage(error.message);
       else setMessage("Check your email to confirm your account!");
     }
+    setLoading(false);
+  }
+
+  async function handleReset() {
+    if (!email.trim()) { setMessage("Enter your email above first."); return; }
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: "https://parlissimo.live",
+    });
+    if (error) setMessage(error.message);
+    else setResetSent(true);
     setLoading(false);
   }
 
@@ -1186,7 +1198,12 @@ function AuthModal({ onClose, onAuth }) {
         </button>
         <div style={styles.authSwitch}>
           {mode === "login" ? (
-            <span>No account? <span style={styles.authLink} onClick={() => setMode("signup")}>Sign up free</span></span>
+            <div>
+              <div style={{marginBottom: 8}}>No account? <span style={styles.authLink} onClick={() => setMode("signup")}>Sign up free</span></div>
+              {resetSent
+                ? <div style={{color: "#2E7D32", fontSize: 12}}>✓ Check your email for a reset link!</div>
+                : <div>Forgot password? <span style={styles.authLink} onClick={handleReset}>Send reset link</span></div>}
+            </div>
           ) : (
             <span>Have an account? <span style={styles.authLink} onClick={() => setMode("login")}>Log in</span></span>
           )}
