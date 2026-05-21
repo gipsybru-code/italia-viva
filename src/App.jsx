@@ -1201,11 +1201,69 @@ function AuthModal({ onClose, onAuth }) {
             <div>
               <div style={{marginBottom: 8}}>No account? <span style={styles.authLink} onClick={() => setMode("signup")}>Sign up free</span></div>
               {resetSent
-                ? <div style={{color: "#2E7D32", fontSize: 12}}>✓ Check your email for a reset link!</div>
+                ? <div style={{color: "#2E7D32", fontSize: 12}}>✓ Reset link sent — check your email if it is associated with a Parlissimo account.</div>
                 : <div>Forgot password? <span style={styles.authLink} onClick={handleReset}>Send reset link</span></div>}
             </div>
           ) : (
             <span>Have an account? <span style={styles.authLink} onClick={() => setMode("login")}>Log in</span></span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Reset Password Page ───────────────────────────────────────────────────────
+function ResetPasswordPage() {
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [done, setDone] = useState(false);
+
+  async function handleReset() {
+    if (password.length < 6) { setMessage("Password must be at least 6 characters."); return; }
+    if (password !== confirm) { setMessage("Passwords do not match."); return; }
+    setLoading(true);
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) setMessage(error.message);
+    else setDone(true);
+    setLoading(false);
+  }
+
+  return (
+    <div style={styles.shell}>
+      <div style={styles.container}>
+        <div style={{paddingTop: 60, maxWidth: 380, margin: "0 auto"}}>
+          <h2 style={styles.modalTitle}>Create new password</h2>
+          {done ? (
+            <div>
+              <div style={{color: "#2E7D32", marginBottom: 20, fontFamily: "sans-serif", fontSize: 14}}>
+                ✓ Password updated! <a href="https://parlissimo.live" style={{color: "#C4622D"}}>Go to Parlissimo</a>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <input
+                style={styles.authInput}
+                type="password"
+                placeholder="New password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+              />
+              <input
+                style={styles.authInput}
+                type="password"
+                placeholder="Confirm new password"
+                value={confirm}
+                onChange={e => setConfirm(e.target.value)}
+                onKeyDown={e => e.key === "Enter" && handleReset()}
+              />
+              {message && <div style={styles.authMessage}>{message}</div>}
+              <button style={styles.ctaBtn} onClick={handleReset} disabled={loading}>
+                {loading ? "..." : "Update password"}
+              </button>
+            </div>
           )}
         </div>
       </div>
@@ -1295,6 +1353,12 @@ export default function App() {
     }
     setActiveLesson(lesson);
   }
+
+  // Detect password reset flow from URL hash
+  const hashParams = new URLSearchParams(window.location.hash.replace("#", "?"));
+  const isResetFlow = hashParams.get("type") === "recovery";
+
+  if (isResetFlow) return <ResetPasswordPage />;
 
   if (loadingAuth) return (
     <div style={{...styles.shell, display:"flex", alignItems:"center", justifyContent:"center"}}>
