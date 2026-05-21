@@ -1214,7 +1214,7 @@ function AuthModal({ onClose, onAuth }) {
 }
 
 // ── Reset Password Page ───────────────────────────────────────────────────────
-function ResetPasswordPage() {
+function ResetPasswordPage({ onDone }) {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
@@ -1227,7 +1227,7 @@ function ResetPasswordPage() {
     setLoading(true);
     const { error } = await supabase.auth.updateUser({ password });
     if (error) setMessage(error.message);
-    else setDone(true);
+    else { setDone(true); setTimeout(() => { if (onDone) onDone(); }, 2000); }
     setLoading(false);
   }
 
@@ -1280,6 +1280,10 @@ export default function App() {
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [installPrompt, setInstallPrompt] = useState(null);
   const [showInstallBanner, setShowInstallBanner] = useState(false);
+  const [isResetMode, setIsResetMode] = useState(() => {
+    const hash = new URLSearchParams(window.location.hash.replace("#", "?"));
+    return hash.get("type") === "recovery";
+  });
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -1287,7 +1291,12 @@ export default function App() {
       if (session?.user) checkSubscription(session.user.id);
       else setLoadingAuth(false);
     });
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY") {
+        setIsResetMode(true);
+        setLoadingAuth(false);
+        return;
+      }
       setUser(session?.user ?? null);
       if (session?.user) checkSubscription(session.user.id);
       else { setIsSubscribed(false); setLoadingAuth(false); }
