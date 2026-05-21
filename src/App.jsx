@@ -1220,6 +1220,8 @@ export default function App() {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [loadingAuth, setLoadingAuth] = useState(true);
+  const [installPrompt, setInstallPrompt] = useState(null);
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -1234,6 +1236,23 @@ export default function App() {
     });
     return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    const handler = (e) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+      setShowInstallBanner(true);
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
+  async function handleInstall() {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === "accepted") setShowInstallBanner(false);
+  }
 
   async function checkSubscription(userId) {
     const { data } = await supabase
@@ -1286,6 +1305,20 @@ export default function App() {
   return (
     <div style={styles.shell}>
       <div style={styles.container}>
+        {showInstallBanner && (
+          <div style={styles.installBanner}>
+            <span style={styles.installBannerText}>📲 Add Parlissimo to your home screen for the best experience!</span>
+            <div style={styles.installBannerButtons}>
+              <button style={styles.installBtn} onClick={handleInstall}>Install App</button>
+              <button style={styles.installDismiss} onClick={() => setShowInstallBanner(false)}>✕</button>
+            </div>
+          </div>
+        )}
+        {!installPrompt && (
+          <div style={{...styles.iosHint, display: /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.navigator.standalone ? "block" : "none"}}>
+            📲 On iPhone: tap <strong>Share ↑</strong> then <strong>Add to Home Screen</strong> to install Parlissimo as an app!
+          </div>
+        )}
         <div style={styles.topBar}>
           <span style={styles.topBarLogo}>Parlissimo</span>
           {user ? (
@@ -1593,6 +1626,27 @@ const styles = {
     flex: 1, border: "none", outline: "none", padding: "14px 18px",
     fontSize: 14, color: C.brown, background: "transparent",
     fontFamily: "'Palatino Linotype', Georgia, serif",
+  },
+  installBanner: {
+    background: C.brown, color: C.cream, padding: "12px 16px",
+    borderRadius: 6, marginBottom: 12,
+    display: "flex", flexDirection: "column", gap: 8,
+  },
+  installBannerText: { fontSize: 13, lineHeight: 1.4, fontFamily: "sans-serif" },
+  installBannerButtons: { display: "flex", gap: 8, alignItems: "center" },
+  installBtn: {
+    background: C.terracotta, color: C.white, border: "none",
+    borderRadius: 3, padding: "7px 16px", fontSize: 12, cursor: "pointer",
+    fontFamily: "sans-serif", fontWeight: 600,
+  },
+  installDismiss: {
+    background: "none", border: "none", color: C.sand,
+    fontSize: 16, cursor: "pointer", padding: "4px 8px",
+  },
+  iosHint: {
+    background: C.sand, color: C.brownMid, padding: "10px 14px",
+    borderRadius: 6, marginBottom: 12, fontSize: 12,
+    fontFamily: "sans-serif", lineHeight: 1.5, display: "none",
   },
   topBar: {
     display: "flex", justifyContent: "space-between", alignItems: "center",
