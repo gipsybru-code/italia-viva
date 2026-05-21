@@ -1163,6 +1163,7 @@ function AuthModal({ onClose, onAuth }) {
 
   async function handleReset() {
     if (!email.trim()) { setMessage("Enter your email above first."); return; }
+    if (resetSent) return;
     setLoading(true);
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: "https://parlissimo.live",
@@ -1284,6 +1285,8 @@ export default function App() {
     const hash = new URLSearchParams(window.location.hash.replace("#", "?"));
     return hash.get("type") === "recovery";
   });
+  const isResetModeRef = useRef(false);
+  useEffect(() => { isResetModeRef.current = isResetMode; }, [isResetMode]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -1297,6 +1300,13 @@ export default function App() {
         setLoadingAuth(false);
         return;
       }
+      if (event === "USER_UPDATED") {
+        setIsResetMode(false);
+        window.location.hash = "";
+        return;
+      }
+      // Don't process SIGNED_IN during reset flow
+      if (event === "SIGNED_IN" && isResetModeRef.current) return;
       setUser(session?.user ?? null);
       if (session?.user) checkSubscription(session.user.id);
       else { setIsSubscribed(false); setLoadingAuth(false); }
