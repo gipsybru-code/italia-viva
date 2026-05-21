@@ -1289,6 +1289,11 @@ export default function App() {
   useEffect(() => { isResetModeRef.current = isResetMode; }, [isResetMode]);
 
   useEffect(() => {
+    // If we are in reset mode, don't set up normal auth flow
+    if (isResetModeRef.current) {
+      setLoadingAuth(false);
+      return;
+    }
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       if (session?.user) checkSubscription(session.user.id);
@@ -1303,10 +1308,10 @@ export default function App() {
       if (event === "USER_UPDATED") {
         setIsResetMode(false);
         window.location.hash = "";
+        setLoadingAuth(false);
         return;
       }
-      // Don't process SIGNED_IN during reset flow
-      if (event === "SIGNED_IN" && isResetModeRef.current) return;
+      if (isResetModeRef.current) return;
       setUser(session?.user ?? null);
       if (session?.user) checkSubscription(session.user.id);
       else { setIsSubscribed(false); setLoadingAuth(false); }
