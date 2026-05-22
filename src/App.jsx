@@ -33,7 +33,7 @@ const LESSONS = [
         { italian: "Come stai?", english: "How are you? (informal)" },
         { italian: "Come sta?", english: "How are you? (formal)" },
         { italian: "Come va?", english: "How is it going?" },
-        { italian: "Come?", english: "What? / Pardon?" },
+        { italian: "Come?", english: "What? / Pardon? (also means 'excuse me')" },
       ],
       note: "\"Come\" literally means \"how\" or \"as\" — it's your go-to word for asking about states and situations.",
     },
@@ -88,11 +88,11 @@ const LESSONS = [
       { italian: "Grazie mille", english: "Thank you very much" },
     ],
     dialogue: [
-      { speaker: "Cliente", line: "Buongiorno! Un caffè e un cornetto, per favore.", translation: "Good morning! A coffee and a croissant, please." },
-      { speaker: "Barista", line: "Subito, ecco", translation: "Right away, here you go" },
-      { speaker: "Cliente", line: "Grazie. Quanto pago?", translation: "Thank you. How much is it (lit. how much do I pay?" },
-      { speaker: "Barista", line: "Tre euro e cinquanta, prego.", translation: "Three euro fifty, please." },
-      { speaker: "Cliente", line: "Ecco. Grazie mille, arrivederci!", translation: "Here you go. Thank you very much, good bye!" },
+      { speaker: "Cliente", line: "Buongiorno! Un caffè, per favore.", translation: "Good morning! A coffee, please." },
+      { speaker: "Barista", line: "Subito! Vuole anche un cornetto?", translation: "Right away! Would you like a croissant too?" },
+      { speaker: "Cliente", line: "Sì, grazie. Quanto costa?", translation: "Yes, thank you. How much is it?" },
+      { speaker: "Barista", line: "Un euro e cinquanta, prego.", translation: "One euro fifty, please." },
+      { speaker: "Cliente", line: "Ecco. Grazie mille!", translation: "Here you go. Thank you very much!" },
     ],
     grammar: {
       title: "Vorrei — Polite Requests",
@@ -160,7 +160,7 @@ const LESSONS = [
       { speaker: "Turista", line: "È lontano?", translation: "Is it far?" },
       { speaker: "Passante", line: "No, è vicino. Cinque minuti a piedi.", translation: "No, it's nearby. Five minutes on foot." },
       { speaker: "Turista", line: "Grazie mille!", translation: "Thank you very much!" },
-      { speaker: "Passante", line: "Prego! Buona giornata!", translation: "You're welcome! Enjoy your day!" },
+      { speaker: "Passante", line: "Prego! Buona visita!", translation: "You're welcome! Enjoy your visit!" },
     ],
     grammar: {
       title: "C'è / Ci sono — There is / There are",
@@ -182,14 +182,14 @@ const LESSONS = [
     keywords: [
       { italian: "Il volo", english: "The flight" },
       { italian: "Il passaporto", english: "The passport" },
-      { italian: "Il bagaglio/ la valigia", english: "The luggage / baggage" },
+      { italian: "Il bagaglio", english: "The luggage / baggage" },
       { italian: "Quanti bagagli hai?", english: "How many bags do you have?" },
       { italian: "Il gate", english: "The gate" },
       { italian: "In ritardo / in orario", english: "Delayed / on time" },
     ],
     dialogue: [
       { speaker: "Agente", line: "Buongiorno! Il passaporto, per favore.", translation: "Good morning! Your passport, please." },
-      { speaker: "Passeggero", line: "Ecco. Ho anche un bagaglio da imbarcare.", translation: "Here it is. I also have a bag to check in." },
+      { speaker: "Passeggero", line: "Eccolo. Ho anche un bagaglio da imbarcare.", translation: "Here it is. I also have a bag to check in." },
       { speaker: "Agente", line: "Quanti bagagli ha?", translation: "How many bags do you have?" },
       { speaker: "Passeggero", line: "Solo uno. Il volo è in orario?", translation: "Just one. Is the flight on time?" },
       { speaker: "Agente", line: "Sì, parte alle undici. Gate B7.", translation: "Yes, it departs at eleven. Gate B7." },
@@ -262,7 +262,7 @@ const LESSONS = [
       { speaker: "Cliente", line: "La media, grazie.", translation: "Medium, thank you." },
       { speaker: "Cliente", line: "Hmm… quanto costa?", translation: "Hmm… how much does it cost?" },
       { speaker: "Commessa", line: "Centoventi euro. C'è il 20% di sconto oggi!", translation: "One hundred and twenty euros. There's 20% off today!" },
-      { speaker: "Cliente", line: "Perfetto, la prendo! Accettate carte di credito?", translation: "Perfect, I'll take it! Do you accept redit cards?" },
+      { speaker: "Cliente", line: "Perfetto, lo prendo! Accettate carte?", translation: "Perfect, I'll take it! Do you accept cards?" },
       { speaker: "Commessa", line: "Sì, certo.", translation: "Yes, of course." },
     ],
     grammar: {
@@ -270,8 +270,8 @@ const LESSONS = [
       points: [
         { italian: "Posso provarlo?", english: "Can I try it on?" },
         { italian: "Puoi aiutarmi?", english: "Can you help me?" },
-        { italian: "Maria non puo' rispondere", english: "Maria cannot reply/get the phone" },
-        { italian: "Non potete fumare", english: "You (plural) cannot smoke - (you are not allowed to smoke) " },
+        { italian: "Maria non può rispondere", english: "Maria cannot reply / get the phone" },
+        { italian: "Non potete fumare", english: "You (plural) cannot smoke" },
         { italian: "Possiamo pagare con la carta?", english: "Can we pay by card?" },
         { italian: "Possono giocare qui i bambini?", english: "Can kids play here?" },
       ],
@@ -298,17 +298,17 @@ const LESSONS = [
       { speaker: "Ospite", line: "Perfetto. La colazione è inclusa?", translation: "Perfect. Is breakfast included?" },
       { speaker: "Receptionist", line: "Sì, dalle sette alle dieci. C'è anche il wifi gratuito.", translation: "Yes, from seven to ten. There's also free wifi." },
       { speaker: "Ospite", line: "Ottimo. A che ora è il check-out?", translation: "Excellent. What time is check-out?" },
-      { speaker: "Receptionist", line: "Alle undici. Ecco la chiave. Buona permanenza!", translation: "At eleven. Here is the key. Enjoy your stay!" },
+      { speaker: "Receptionist", line: "Alle undici. Ecco la sua chiave. Buona permanenza!", translation: "At eleven. Here is your key. Enjoy your stay!" },
     ],
     grammar: {
-      title: "Prepositions: a, di, da, in, con, tra",
+      title: "Prepositions: a, di, da, in",
       points: [
         { italian: "Sono a Roma", english: "I am in Rome (location)" },
         { italian: "Vengo da Londra", english: "I come from London (origin)" },
         { italian: "Vado in Italia", english: "I'm going to Italy (countries)" },
         { italian: "La chiave di Maria", english: "Maria's key (possession)" },
-        { italian: "Sei con Luca?", english: "Are you with Luca (company)" },
-        { italian: "Roma è tra Firenze e Napoli", english: "Rome is between Florence and Napoli (position)" },
+        { italian: "Sei con Luca?", english: "Are you with Luca? (company)" },
+        { italian: "Roma è tra Firenze e Napoli", english: "Rome is between Florence and Naples (position)" },
       ],
       note: "Italian prepositions don't always match English ones. \"In\" is used with countries, \"a\" with cities — this small rule saves a lot of confusion.",
     },
@@ -397,10 +397,10 @@ const LESSONS = [
     dialogue: [
       { speaker: "Turista", line: "Scusi! Ho bisogno di aiuto.", translation: "Excuse me! I need help." },
       { speaker: "Passante", line: "Cosa succede?", translation: "What's happening?" },
-      { speaker: "Turista", line: "Mi fa male la testa. Ho la febbre.", translation: "My head hurts. I have a fever." },
+      { speaker: "Turista", line: "Mi fa molto male la testa. Ho la febbre.", translation: "My head hurts a lot. I have a fever." },
       { speaker: "Passante", line: "C'è una farmacia qui vicino.", translation: "There's a pharmacy nearby." },
-      { speaker: "Turista", line: "Dov'è?", translation: "Where is it?" },
-      { speaker: "Passante", line: "Venga, l'accompagno.", translation: "Come, I'll take you there." },
+      { speaker: "Turista", line: "Sono allergico alla penicillina.", translation: "I'm allergic to penicillin." },
+      { speaker: "Passante", line: "Lo dica al farmacista. Venga, l'accompagno.", translation: "Tell the pharmacist. Come, I'll take you there." },
     ],
     grammar: {
       title: "Mi fa male — Expressing Pain",
@@ -409,7 +409,6 @@ const LESSONS = [
         { italian: "Mi fa male lo stomaco", english: "My stomach hurts" },
         { italian: "Mi fanno male i piedi", english: "My feet hurt (plural)" },
         { italian: "Ho la febbre", english: "I have a fever" },
-        { italian: "Sono allergico a...", english: "I am allergic to..." },
       ],
       note: "\"Mi fa male\" literally means \"it makes pain to me\". Use \"fa male\" for one thing hurting and \"fanno male\" for multiple body parts.",
     },
@@ -499,9 +498,9 @@ const LESSONS = [
     dialogue: [
       { speaker: "Cliente", line: "Buongiorno! Vorrei spedire questo pacco in Inghilterra.", translation: "Good morning! I'd like to send this parcel to England." },
       { speaker: "Impiegato", line: "Per via aerea o normale?", translation: "By airmail or standard?" },
-      { speaker: "Cliente", line: "Aerea. Quanto tempo ci vuole?", translation: "Airmail. How long does it take?" },
+      { speaker: "Cliente", line: "Aerea. Quanto ci vuole?", translation: "Airmail. How long does it take?" },
       { speaker: "Impiegato", line: "Circa cinque giorni lavorativi.", translation: "About five working days." },
-      { speaker: "Cliente", line: "Va bene.", translation: "That's fine." },
+      { speaker: "Cliente", line: "Va bene. E vorrei anche tre francobolli.", translation: "That's fine. And I'd also like three stamps." },
       { speaker: "Impiegato", line: "Vuole la raccomandata per il pacco?", translation: "Would you like registered mail for the parcel?" },
       { speaker: "Cliente", line: "Sì, meglio. Quanto costa in tutto?", translation: "Yes, better. How much is it in total?" },
     ],
@@ -544,11 +543,11 @@ const LESSONS = [
       title: "Dovere — Must / To have to",
       points: [
         { italian: "Devo riconsegnare l'auto", english: "I must return the car" },
-        { italian: "Devi pagare un deposito", english: "You  must pay a deposit" },
-        { italian: "Deve avere la patente", english: "He/She/You polite must have a licence (formal)" },
+        { italian: "Devi pagare un deposito", english: "You must pay a deposit" },
+        { italian: "Deve avere la patente", english: "He/She/You (polite) must have a licence" },
         { italian: "Dobbiamo fare il pieno", english: "We must fill the tank" },
-        { italian: "Non devete dimenticare la cintura!", english: "You guys must not forget the seat belt" },
-        { italian: "I bambini devono usare il seggiolino!", english: "Kids must use a child seat" },
+        { italian: "Non dovete dimenticare la cintura!", english: "You guys must not forget the seatbelt!" },
+        { italian: "I bambini devono usare il seggiolino!", english: "Kids must use a child seat!" },
       ],
       note: "\"Dovere\" expresses obligation — pair it with an infinitive. It's one of the three key modal verbs in Italian: potere (can), volere (want), dovere (must).",
     },
@@ -578,11 +577,11 @@ const LESSONS = [
     grammar: {
       title: "Fare — The Verb \"To Do / To Make\"",
       points: [
-        { italian: "Faccio una passeggiata", english: "I  go for a walk" },
+        { italian: "Faccio una passeggiata", english: "I go for a walk" },
         { italian: "Fai il bagno?", english: "Are you having a swim?" },
         { italian: "Fa caldo / fa freddo", english: "It's hot / it's cold (weather)" },
         { italian: "Facciamo una passeggiata", english: "We go for a walk" },
-        { italian: "Cosa fate?", english: "What are you (guys) doing?" },
+        { italian: "Cosa fate?", english: "What are you guys doing?" },
         { italian: "Fanno un castello di sabbia", english: "They make a sand castle" },
       ],
       note: "\"Fare\" is one of the most versatile Italian verbs. It appears in dozens of fixed expressions — weather, activities, actions. Learn these phrases as blocks.",
@@ -615,12 +614,12 @@ const LESSONS = [
       points: [
         { italian: "Il mio gatto", english: "My cat" },
         { italian: "Il tuo gelato", english: "Your ice-cream" },
-        { italian: "La sua mamma e il suo papa'", english: "His/her mum and his/her dad" },
+        { italian: "La sua mamma e il suo papà", english: "His/her mum and his/her dad" },
         { italian: "I nostri vicini", english: "Our neighbours" },
         { italian: "Il vostro computer", english: "Your guys' computer" },
         { italian: "Le loro sorelle", english: "Their sisters" },
       ],
-      note: "Italian possessives agree in gender and number with the noun, not the owner. \"Mio fratello\" and \"mia sorella\" — the word changes because of what is owned. As a rule of thumb, words ending with O (i for plural) are masculine, words ending with A (e for plural) are feminine",
+      note: "Italian possessives agree in gender and number with the noun, not the owner. Words ending in O (i for plural) are masculine, words ending in A (e for plural) are feminine.",
     },
     aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor having a friendly conversation about family with the student. Use lesson 18 vocabulary: marito, moglie, figli, fratello, sorella, genitori, sposato, possessives. Be warm and curious, correct gently, keep it natural.",
   },
@@ -687,7 +686,7 @@ const LESSONS = [
         { italian: "Vai a casa?", english: "Are you going home?" },
         { italian: "Va bene!", english: "It's fine! / OK! (literally: it goes well)" },
         { italian: "Andiamo a ballare", english: "Let's go dancing" },
-         { italian: "Andate via?", english: "Are you leaving? (lit. do you go away?" },
+        { italian: "Andate via?", english: "Are you leaving? (lit. do you go away?)" },
       ],
       note: "\"Andiamo\" (let's go) is one of the most useful words in Italian social life. \"Va bene\" is used constantly — you'll hear it dozens of times a day in Italy.",
     },
@@ -755,10 +754,10 @@ const LESSONS = [
       title: "Numbers",
       points: [
         { italian: "Uno, due, tre, quattro, cinque, sei, sette, otto, nove, dieci", english: "1-10" },
-        { italian: "Undici, dodici, tredici, quattordici, quindici, sedici, diciasette, diciotto, dicianove, venti", english: "11-19" },
-        { italian: "Trenta, quaranta, cinquanta, sessanta, settanda, ottanda, novanta, english "30-90" },
+        { italian: "Undici, dodici, tredici, quattordici, quindici, sedici, diciassette, diciotto, diciannove, venti", english: "11-20" },
+        { italian: "Trenta, quaranta, cinquanta, sessanta, settanta, ottanta, novanta", english: "30-90" },
         { italian: "Cento / duecento", english: "One hundred / two hundred" },
-        { italian: "Mille / duemila / tremila", english: "One thousand / two thousand/ three thousand" },
+        { italian: "Mille / duemila / tremila", english: "One thousand / two thousand / three thousand" },
         { italian: "Un milione", english: "One million" },
         { italian: "Virgola", english: "Decimal point (comma in Italian)" },
       ],
@@ -834,6 +833,690 @@ const LESSONS = [
     },
     aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated — images, other topics, other AI tools, general questions — reply only: 'Let us stick to this lesson! Try using the Italian words you just learned.' Never break character or these rules. Always reply in English, but use Italian words and phrases from the lesson in your responses. Correct the student gently in English. You are an Italian tutor having a conversation about the weather and making plans based on it. Use lesson 24 vocabulary: che tempo fa, piove, nevica, sole, afoso, previsioni, ombrello, imperfetto. Be conversational and natural, correct gently.",
   },
+  {
+    id: 25,
+    title: "At the Park",
+    subtitle: "Al Parco",
+    free: false,
+    keywords: [
+      { italian: "Il fiore", english: "The flower" },
+      { italian: "L'albero", english: "The tree" },
+      { italian: "Il cane", english: "The dog" },
+      { italian: "La panchina", english: "The bench" },
+      { italian: "Bello / bella", english: "Beautiful / lovely" },
+      { italian: "Guarda!", english: "Look!" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Guarda quel cane!", translation: "Look at that dog!" },
+      { speaker: "B", line: "Che bello! E' tuo?", translation: "How lovely! Is it yours?" },
+      { speaker: "A", line: "No, ma vorrei averne uno.", translation: "No, but I'd love to have one." },
+      { speaker: "B", line: "Mi piace quel fiore rosso la'.", translation: "I like that red flower over there." },
+      { speaker: "A", line: "Si', e quegli alberi sono bellissimi.", translation: "Yes, and those trees are gorgeous." },
+      { speaker: "B", line: "Sediamoci sulla panchina?", translation: "Shall we sit on the bench?" },
+    ],
+    grammar: {
+      title: "I Colori — Colours",
+      points: [
+        { italian: "Rosso / rossa", english: "Red (m/f)" },
+        { italian: "Verde", english: "Green" },
+        { italian: "Blu", english: "Blue (invariable)" },
+        { italian: "Giallo / gialla", english: "Yellow (m/f)" },
+        { italian: "Bianco / nero", english: "White / black" },
+        { italian: "Un fiore rosso", english: "A red flower (adjective follows noun)" },
+      ],
+      note: "In Italian, colours are adjectives and must agree with the noun: una rosa rossa (a red rose), un cielo blu (a blue sky). Blu and rosa are exceptions — they never change.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor taking a walk in an Italian park with the student. Practice colours and park vocabulary: fiore, albero, cane, panchina, bello, guarda, colours. Be warm and observational, correct gently.",
+  },
+  {
+    id: 26,
+    title: "Talking About People",
+    subtitle: "Parlare delle Persone",
+    free: false,
+    keywords: [
+      { italian: "Alto / basso", english: "Tall / short" },
+      { italian: "Magro / robusto", english: "Thin / sturdy" },
+      { italian: "Simpatico / antipatico", english: "Friendly / unfriendly" },
+      { italian: "Timido / estroverso", english: "Shy / outgoing" },
+      { italian: "I capelli", english: "The hair" },
+      { italian: "Gli occhi", english: "The eyes" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Conosci Marco?", translation: "Do you know Marco?" },
+      { speaker: "B", line: "Si'! E' alto e molto simpatico.", translation: "Yes! He's tall and very friendly." },
+      { speaker: "A", line: "Ha i capelli scuri, vero?", translation: "He has dark hair, right?" },
+      { speaker: "B", line: "Si', e gli occhi verdi. E' bello.", translation: "Yes, and green eyes. He's handsome." },
+      { speaker: "A", line: "E sua sorella?", translation: "And his sister?" },
+      { speaker: "B", line: "Lei e' timida ma molto simpatica.", translation: "She's shy but very friendly." },
+    ],
+    grammar: {
+      title: "Essere + Adjectives for Descriptions",
+      points: [
+        { italian: "E' alto e magro", english: "He is tall and slim" },
+        { italian: "E' simpatica", english: "She is friendly" },
+        { italian: "Sono timidi", english: "They are shy (plural)" },
+        { italian: "Ha i capelli biondi", english: "She/he has blonde hair" },
+        { italian: "Ha gli occhi azzurri", english: "She/he has blue eyes" },
+      ],
+      note: "Physical descriptions use essere (to be) for qualities and avere (to have) for features like hair and eyes. Adjectives agree in gender and number with the noun they describe.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor helping the student describe people in Italian. Use: alto, basso, magro, robusto, simpatico, timido, capelli, occhi, essere plus adjectives. Be conversational, correct gently.",
+  },
+  {
+    id: 27,
+    title: "Talking with the Neighbours",
+    subtitle: "Con i Vicini",
+    free: false,
+    keywords: [
+      { italian: "Come va?", english: "How's it going?" },
+      { italian: "Stanco / stanca", english: "Tired (m/f)" },
+      { italian: "Come mai?", english: "How come? / Why?" },
+      { italian: "Ho dormito poco", english: "I slept little" },
+      { italian: "Tutto bene?", english: "Everything OK?" },
+      { italian: "La settimana", english: "The week" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Buongiorno! Come va?", translation: "Good morning! How's it going?" },
+      { speaker: "B", line: "Un po' stanca oggi.", translation: "A bit tired today." },
+      { speaker: "A", line: "Come mai?", translation: "How come?" },
+      { speaker: "B", line: "Ho dormito poco stanotte.", translation: "I slept little last night." },
+      { speaker: "A", line: "Mi dispiace. E' stata una settimana difficile?", translation: "I'm sorry. Has it been a tough week?" },
+      { speaker: "B", line: "Abbastanza. Ma domani e' venerdi'!", translation: "Quite. But tomorrow is Friday!" },
+      { speaker: "A", line: "Meno male! Buona giornata!", translation: "Thank goodness! Have a good day!" },
+    ],
+    grammar: {
+      title: "Everyday Conversational Expressions",
+      points: [
+        { italian: "Come va?", english: "How's it going? (set phrase)" },
+        { italian: "Come mai?", english: "How come? / Why is that?" },
+        { italian: "Meno male!", english: "Thank goodness! / What a relief!" },
+        { italian: "Abbastanza", english: "Quite / fairly / enough" },
+        { italian: "Mi dispiace", english: "I'm sorry / I'm sad about it" },
+      ],
+      note: "Come mai is softer than perche' — it expresses mild surprise rather than a direct question. Meno male literally means less bad and is one of the most satisfying Italian expressions to use.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor playing a friendly neighbour in Italy. Practice polite small talk: come va, stanco, come mai, ho dormito poco, tutto bene, settimana. Be warm and casual, correct gently.",
+  },
+  {
+    id: 28,
+    title: "Talking About Your Day",
+    subtitle: "Parlare della Giornata",
+    free: false,
+    keywords: [
+      { italian: "Ieri / oggi / domani", english: "Yesterday / today / tomorrow" },
+      { italian: "Stamattina / stasera", english: "This morning / this evening" },
+      { italian: "Ho lavorato", english: "I worked (past)" },
+      { italian: "Sono partito/a", english: "I left / departed (past)" },
+      { italian: "Cosa hai fatto?", english: "What did you do?" },
+      { italian: "Tutto il giorno", english: "All day long" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Cosa hai fatto ieri?", translation: "What did you do yesterday?" },
+      { speaker: "B", line: "Ho lavorato tutto il giorno.", translation: "I worked all day." },
+      { speaker: "A", line: "E la sera?", translation: "And in the evening?" },
+      { speaker: "B", line: "Sono andato al cinema con Marco.", translation: "I went to the cinema with Marco." },
+      { speaker: "A", line: "Bello! E domani?", translation: "Nice! And tomorrow?" },
+      { speaker: "B", line: "Domani partiamo per Roma.", translation: "Tomorrow we leave for Rome." },
+      { speaker: "A", line: "Che bello! Buon viaggio!", translation: "How lovely! Have a good trip!" },
+    ],
+    grammar: {
+      title: "Passato Prossimo — The Recent Past",
+      points: [
+        { italian: "Ho lavorato", english: "I worked (avere + past participle)" },
+        { italian: "Ho mangiato", english: "I ate" },
+        { italian: "Sono andato/a", english: "I went (essere + past participle)" },
+        { italian: "Sei partito/a?", english: "Did you leave?" },
+        { italian: "Abbiamo fatto", english: "We did" },
+      ],
+      note: "The passato prossimo is formed with avere or essere plus the past participle. Motion verbs take essere, and the participle must agree with the subject. Most other verbs take avere.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a conversation about what the student did yesterday and plans for tomorrow. Practice: ieri, oggi, domani, stamattina, stasera, passato prossimo. Be curious and encouraging, correct gently.",
+  },
+  {
+    id: 29,
+    title: "Asking for Explanations",
+    subtitle: "Chiedere Spiegazioni",
+    free: false,
+    keywords: [
+      { italian: "Perche'?", english: "Why?" },
+      { italian: "Come mai?", english: "How come?" },
+      { italian: "Allora", english: "So / then / well" },
+      { italian: "Quindi", english: "Therefore / so" },
+      { italian: "Non capisco", english: "I don't understand" },
+      { italian: "Uno sciopero", english: "A strike" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Perche' il treno e' in ritardo?", translation: "Why is the train delayed?" },
+      { speaker: "B", line: "Perche' c'e' uno sciopero.", translation: "Because there's a strike." },
+      { speaker: "A", line: "Ah, capisco. E quindi quando parte?", translation: "Ah, I understand. So when does it depart?" },
+      { speaker: "B", line: "Non lo so. Forse tra un'ora.", translation: "I don't know. Maybe in an hour." },
+      { speaker: "A", line: "Non capisco — c'e' un altro treno?", translation: "I don't understand — is there another train?" },
+      { speaker: "B", line: "Allora, provi l'autobus.", translation: "Well then, try the bus." },
+    ],
+    grammar: {
+      title: "Perche' — Why and Because",
+      points: [
+        { italian: "Perche' sei in ritardo?", english: "Why are you late? (question)" },
+        { italian: "Perche' c'e' traffico", english: "Because there's traffic (answer)" },
+        { italian: "Quindi / allora", english: "So / therefore (consequence)" },
+        { italian: "Non lo so", english: "I don't know" },
+        { italian: "Forse", english: "Maybe / perhaps" },
+      ],
+      note: "Perche' is both why and because in Italian — the same word does both jobs. Allora is one of the most heard words in Italian conversation — it fills pauses and signals a conclusion.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor role-playing situations where things go wrong and explanations are needed. Use: perche', come mai, allora, quindi, non capisco. Be patient and clear, correct gently.",
+  },
+  {
+    id: 30,
+    title: "Dreams & Wishes",
+    subtitle: "Sogni e Desideri",
+    free: false,
+    keywords: [
+      { italian: "Vorrei...", english: "I would like... / I wish..." },
+      { italian: "Mi piacerebbe", english: "I would like (lit. it would please me)" },
+      { italian: "Magari", english: "Maybe / if only / I wish" },
+      { italian: "Forse", english: "Perhaps / maybe" },
+      { italian: "Un giorno", english: "One day / someday" },
+      { italian: "Davvero?", english: "Really?" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Vorrei vivere in Italia.", translation: "I would like to live in Italy." },
+      { speaker: "B", line: "Davvero? In quale citta'?", translation: "Really? In which city?" },
+      { speaker: "A", line: "Firenze. Mi piacerebbe molto.", translation: "Florence. I would really like that." },
+      { speaker: "B", line: "Magari vengo anch'io!", translation: "Maybe I'll come too!" },
+      { speaker: "A", line: "Forse un giorno si puo'.", translation: "Perhaps one day it's possible." },
+      { speaker: "B", line: "Si'! Magari!", translation: "Yes! If only!" },
+    ],
+    grammar: {
+      title: "Conditional — Vorrei and Mi piacerebbe",
+      points: [
+        { italian: "Vorrei andare a Roma", english: "I would like to go to Rome" },
+        { italian: "Vorresti venire?", english: "Would you like to come?" },
+        { italian: "Mi piacerebbe molto", english: "I would like that very much" },
+        { italian: "Magari!", english: "If only! / I wish! (expresses longing)" },
+        { italian: "Sarebbe bello", english: "It would be lovely" },
+      ],
+      note: "Magari is one of the most Italian words in existence. It can mean maybe, if only, or I wish — all depending on tone. Magari! alone as a reply expresses wistful longing. Learn it and use it — Italians love it.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a dreamy conversation about wishes and plans. Use: vorrei, mi piacerebbe, magari, forse, un giorno. Be warm and imaginative, correct gently.",
+  },
+  {
+    id: 31,
+    title: "At Home",
+    subtitle: "A Casa",
+    free: false,
+    keywords: [
+      { italian: "Il soggiorno", english: "The living room" },
+      { italian: "La cucina", english: "The kitchen" },
+      { italian: "Il divano", english: "The sofa" },
+      { italian: "Cucinare", english: "To cook" },
+      { italian: "Pulire", english: "To clean" },
+      { italian: "Rilassarsi", english: "To relax" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Sei a casa?", translation: "Are you at home?" },
+      { speaker: "B", line: "Si', sto cucinando in cucina.", translation: "Yes, I'm cooking in the kitchen." },
+      { speaker: "A", line: "Che profumo! Cosa fai?", translation: "What a lovely smell! What are you making?" },
+      { speaker: "B", line: "Una pasta al forno. Poi devo pulire il soggiorno.", translation: "A baked pasta. Then I need to clean the living room." },
+      { speaker: "A", line: "Dopo ti rilassi un po'?", translation: "Will you relax a bit afterwards?" },
+      { speaker: "B", line: "Spero! Mi butto sul divano.", translation: "I hope so! I'm going to throw myself on the sofa." },
+    ],
+    grammar: {
+      title: "Reflexive Verbs — Verbi Riflessivi",
+      points: [
+        { italian: "Mi rilasso", english: "I relax (myself)" },
+        { italian: "Ti svegli?", english: "Do you wake up?" },
+        { italian: "Si chiama", english: "He/she is called" },
+        { italian: "Ci divertiamo", english: "We enjoy ourselves" },
+        { italian: "Mi butto sul divano", english: "I throw myself on the sofa" },
+      ],
+      note: "Reflexive verbs use a pronoun (mi, ti, si, ci, vi, si) referring back to the subject. They are used for actions done to oneself: getting dressed, waking up, relaxing. Very common in Italian daily life.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a cosy conversation about being at home. Use: soggiorno, cucina, divano, cucinare, pulire, rilassarsi, reflexive verbs. Be warm and homely, correct gently.",
+  },
+  {
+    id: 32,
+    title: "Daily Routine",
+    subtitle: "La Routine Quotidiana",
+    free: false,
+    keywords: [
+      { italian: "Mi sveglio", english: "I wake up" },
+      { italian: "Faccio colazione", english: "I have breakfast" },
+      { italian: "Mi vesto", english: "I get dressed" },
+      { italian: "Torno a casa", english: "I come back home" },
+      { italian: "Di solito", english: "Usually" },
+      { italian: "Mi addormento", english: "I fall asleep" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "A che ora ti svegli di solito?", translation: "What time do you usually wake up?" },
+      { speaker: "B", line: "Mi sveglio alle sette. Faccio colazione e poi mi vesto.", translation: "I wake up at seven. I have breakfast and then get dressed." },
+      { speaker: "A", line: "E a che ora torni a casa?", translation: "And what time do you get home?" },
+      { speaker: "B", line: "Verso le sei. Poi cucino e mi rilasso.", translation: "Around six. Then I cook and relax." },
+      { speaker: "A", line: "E vai a letto tardi?", translation: "And do you go to bed late?" },
+      { speaker: "B", line: "No, mi addormento verso le undici.", translation: "No, I fall asleep around eleven." },
+    ],
+    grammar: {
+      title: "Reflexive Verbs — Daily Life",
+      points: [
+        { italian: "Mi sveglio alle 7", english: "I wake up at 7" },
+        { italian: "Mi lavo", english: "I wash myself" },
+        { italian: "Mi vesto", english: "I get dressed" },
+        { italian: "Mi trucco", english: "I put on makeup" },
+        { italian: "Mi addormento", english: "I fall asleep" },
+      ],
+      note: "Daily routine in Italian is full of reflexive verbs. Notice the pattern: mi (me), ti (you), si (he/she), ci (we), vi (you all), si (they). Always place the pronoun before the conjugated verb.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor asking the student about their daily routine. Use reflexive verbs: svegliarsi, vestirsi, lavarsi, addormentarsi, fare colazione. Be friendly and curious, correct gently.",
+  },
+  {
+    id: 33,
+    title: "At the Supermarket",
+    subtitle: "Al Supermercato",
+    free: false,
+    keywords: [
+      { italian: "Il carrello", english: "The trolley / cart" },
+      { italian: "Il reparto", english: "The aisle / department" },
+      { italian: "La cassa", english: "The checkout" },
+      { italian: "Mezzo chilo", english: "Half a kilo" },
+      { italian: "In offerta", english: "On offer / on sale" },
+      { italian: "Dov'e' il reparto...?", english: "Where is the... aisle?" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Scusi, dov'e' il reparto latticini?", translation: "Excuse me, where is the dairy aisle?" },
+      { speaker: "B", line: "E' in fondo a destra.", translation: "It's at the back on the right." },
+      { speaker: "A", line: "Grazie. E il pane?", translation: "Thank you. And the bread?" },
+      { speaker: "B", line: "Al reparto panetteria, vicino all'entrata.", translation: "At the bakery section, near the entrance." },
+      { speaker: "A", line: "Questo formaggio e' in offerta?", translation: "Is this cheese on offer?" },
+      { speaker: "B", line: "Si', prenda due e risparmia il 20%.", translation: "Yes, take two and save 20%." },
+    ],
+    grammar: {
+      title: "Partitives — Expressing Some",
+      points: [
+        { italian: "Un chilo di pasta", english: "A kilo of pasta" },
+        { italian: "Mezzo litro di latte", english: "Half a litre of milk" },
+        { italian: "Una confezione di biscotti", english: "A packet of biscuits" },
+        { italian: "Del pane", english: "Some bread (partitive)" },
+        { italian: "Delle mele", english: "Some apples (partitive)" },
+      ],
+      note: "Italian uses del/della/dei/delle (partitives) to mean some. Vorrei del pane = I'd like some bread. This is different from English but very natural once you get used to it.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor playing a supermarket assistant. Help the student find products and understand quantities. Use: carrello, reparto, cassa, offerta, partitives. Be helpful and practical, correct gently.",
+  },
+  {
+    id: 34,
+    title: "On the Bus",
+    subtitle: "Sull'Autobus",
+    free: false,
+    keywords: [
+      { italian: "Il biglietto", english: "The ticket" },
+      { italian: "La fermata", english: "The stop" },
+      { italian: "Scendere", english: "To get off" },
+      { italian: "Salire", english: "To get on" },
+      { italian: "Quante fermate?", english: "How many stops?" },
+      { italian: "Devo cambiare?", english: "Do I need to change?" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Scusi, questo autobus va al centro?", translation: "Excuse me, does this bus go to the centre?" },
+      { speaker: "B", line: "Si', ma deve cambiare alla fermata San Marco.", translation: "Yes, but you need to change at San Marco stop." },
+      { speaker: "A", line: "Quante fermate sono?", translation: "How many stops is it?" },
+      { speaker: "B", line: "Quattro fermate. Poi scende e aspetta il 14.", translation: "Four stops. Then get off and wait for the 14." },
+      { speaker: "A", line: "Grazie! Dove compro il biglietto?", translation: "Thank you! Where do I buy the ticket?" },
+      { speaker: "B", line: "Deve comprarlo alla tabaccheria.", translation: "You need to buy it at the tobacconist." },
+    ],
+    grammar: {
+      title: "Dovere + Infinitive on Public Transport",
+      points: [
+        { italian: "Devo scendere qui", english: "I need to get off here" },
+        { italian: "Deve cambiare", english: "You need to change (formal)" },
+        { italian: "Posso salire?", english: "Can I get on?" },
+        { italian: "Non posso aspettare", english: "I can't wait" },
+        { italian: "Devi comprare il biglietto", english: "You need to buy a ticket" },
+      ],
+      note: "On public transport, dovere (must) and potere (can) are essential. They always pair with an infinitive verb. Remember: devo for I must, deve for he/she/you (formal) must.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor playing a fellow passenger on an Italian bus. Help the student navigate public transport. Use: biglietto, fermata, scendere, salire, dovere, potere. Be helpful and clear, correct gently.",
+  },
+  {
+    id: 35,
+    title: "Free Time",
+    subtitle: "Il Tempo Libero",
+    free: false,
+    keywords: [
+      { italian: "Leggere", english: "To read" },
+      { italian: "Guardare un film", english: "To watch a film" },
+      { italian: "Passeggiare", english: "To go for a walk" },
+      { italian: "Ascoltare musica", english: "To listen to music" },
+      { italian: "Nel tempo libero", english: "In my free time" },
+      { italian: "Mi annoio", english: "I'm bored" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Cosa fai nel tempo libero?", translation: "What do you do in your free time?" },
+      { speaker: "B", line: "Mi piace leggere e ascoltare musica.", translation: "I like reading and listening to music." },
+      { speaker: "A", line: "Guardi film italiani?", translation: "Do you watch Italian films?" },
+      { speaker: "B", line: "Si'! E' il modo migliore per imparare.", translation: "Yes! It's the best way to learn." },
+      { speaker: "A", line: "E quando ti annoi?", translation: "And when you're bored?" },
+      { speaker: "B", line: "Vado a passeggiare. Mi rilassa molto.", translation: "I go for a walk. It really relaxes me." },
+    ],
+    grammar: {
+      title: "Infinitive Verbs as Nouns",
+      points: [
+        { italian: "Mi piace leggere", english: "I like reading" },
+        { italian: "Preferisco guardare film", english: "I prefer watching films" },
+        { italian: "Adoro cucinare", english: "I love cooking" },
+        { italian: "Odio aspettare", english: "I hate waiting" },
+        { italian: "Ho voglia di uscire", english: "I feel like going out" },
+      ],
+      note: "In Italian, when talking about activities you like or dislike, use the infinitive directly after mi piace, preferisco, adoro etc. No need for -ing forms — the infinitive does that job.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a relaxed chat about hobbies and free time. Use: leggere, guardare film, passeggiare, ascoltare musica, mi piace plus infinitive. Be casual and curious, correct gently.",
+  },
+  {
+    id: 36,
+    title: "Making and Refusing Invitations",
+    subtitle: "Inviti e Rifiuti",
+    free: false,
+    keywords: [
+      { italian: "Ti va di...?", english: "Do you fancy...? / Feel like...?" },
+      { italian: "Volentieri!", english: "With pleasure! / Love to!" },
+      { italian: "Non posso", english: "I can't" },
+      { italian: "Peccato", english: "What a shame" },
+      { italian: "Un'altra volta", english: "Another time" },
+      { italian: "Magari la prossima", english: "Maybe next time" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Ti va di venire a cena stasera?", translation: "Do you fancy coming to dinner tonight?" },
+      { speaker: "B", line: "Volentieri! A che ora?", translation: "Love to! What time?" },
+      { speaker: "A", line: "Alle otto. E Marco, viene?", translation: "At eight. And Marco, is he coming?" },
+      { speaker: "B", line: "Gli chiedo. Lui di solito non puo' il venerdi'.", translation: "I'll ask him. He usually can't on Fridays." },
+      { speaker: "A", line: "Se non puo', peccato — un'altra volta.", translation: "If he can't, what a shame — another time." },
+      { speaker: "B", line: "Si', magari la prossima settimana.", translation: "Yes, maybe next week." },
+    ],
+    grammar: {
+      title: "Modal Verbs — Invitations and Refusals",
+      points: [
+        { italian: "Non posso venire", english: "I can't come" },
+        { italian: "Vuoi uscire?", english: "Do you want to go out?" },
+        { italian: "Dovrei restare", english: "I should stay" },
+        { italian: "Potremmo andare", english: "We could go" },
+        { italian: "Ti va di...?", english: "Do you feel like...? (set phrase)" },
+      ],
+      note: "Ti va di...? is one of the most useful Italian invitation phrases — casual and warm. Volentieri is the perfect positive response. For refusals, peccato softens the disappointment beautifully.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor role-playing invitations — sometimes accepting, sometimes politely refusing. Use: ti va, volentieri, non posso, peccato, un'altra volta. Be warm and social, correct gently.",
+  },
+  {
+    id: 37,
+    title: "Talking About the Past",
+    subtitle: "Parlare del Passato",
+    free: false,
+    keywords: [
+      { italian: "Ho fatto", english: "I did / I have done" },
+      { italian: "Ho mangiato", english: "I ate / I have eaten" },
+      { italian: "Sono andato/a", english: "I went" },
+      { italian: "Siamo arrivati", english: "We arrived" },
+      { italian: "L'anno scorso", english: "Last year" },
+      { italian: "La settimana scorsa", english: "Last week" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Come hai passato il weekend?", translation: "How did you spend the weekend?" },
+      { speaker: "B", line: "Sono andato a Venezia con mia moglie.", translation: "I went to Venice with my wife." },
+      { speaker: "A", line: "Che bello! Avete mangiato bene?", translation: "How lovely! Did you eat well?" },
+      { speaker: "B", line: "Benissimo! Ho mangiato il miglior risotto della mia vita.", translation: "Wonderfully! I ate the best risotto of my life." },
+      { speaker: "A", line: "E siete arrivati senza problemi?", translation: "And did you arrive without problems?" },
+      { speaker: "B", line: "Si', il treno era in orario per una volta!", translation: "Yes, the train was on time for once!" },
+    ],
+    grammar: {
+      title: "Passato Prossimo — Avere vs Essere",
+      points: [
+        { italian: "Ho mangiato (avere)", english: "I ate — most verbs use avere" },
+        { italian: "Sono andato/a (essere)", english: "I went — motion verbs use essere" },
+        { italian: "Siamo arrivati (essere)", english: "We arrived — participle agrees with subject" },
+        { italian: "Hai fatto?", english: "Did you do? / Have you done?" },
+        { italian: "Non ho capito", english: "I didn't understand" },
+      ],
+      note: "Verbs of motion (andare, venire, arrivare, partire) and reflexive verbs use essere. Everything else uses avere. With essere, the past participle changes: andato (m), andata (f), andati (m pl), andate (f pl).",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor asking the student about things they did recently. Practice passato prossimo with avere and essere. Be conversational and encouraging, correct gently.",
+  },
+  {
+    id: 38,
+    title: "Childhood Memories",
+    subtitle: "Ricordi d'Infanzia",
+    free: false,
+    keywords: [
+      { italian: "Quando ero piccolo/a", english: "When I was young" },
+      { italian: "Giocavo", english: "I used to play" },
+      { italian: "La scuola", english: "School" },
+      { italian: "D'estate", english: "In the summer" },
+      { italian: "Ogni giorno", english: "Every day" },
+      { italian: "Mi piaceva", english: "I used to like" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Com'era la tua infanzia?", translation: "What was your childhood like?" },
+      { speaker: "B", line: "Bellissima! D'estate giocavo sempre fuori.", translation: "Wonderful! In summer I always played outside." },
+      { speaker: "A", line: "E la scuola? Ti piaceva?", translation: "And school? Did you like it?" },
+      { speaker: "B", line: "Abbastanza. Mi piaceva la matematica.", translation: "Quite. I liked maths." },
+      { speaker: "A", line: "Quando ero piccola, volevo fare la ballerina.", translation: "When I was young, I wanted to be a dancer." },
+      { speaker: "B", line: "Davvero? Anch'io avevo grandi sogni!", translation: "Really? I had big dreams too!" },
+    ],
+    grammar: {
+      title: "Imperfetto — Habits and States in the Past",
+      points: [
+        { italian: "Giocavo ogni giorno", english: "I used to play every day" },
+        { italian: "Quando ero piccolo...", english: "When I was young..." },
+        { italian: "Mi piaceva la scuola", english: "I used to like school" },
+        { italian: "Volevo fare...", english: "I wanted to be / do..." },
+        { italian: "Era bellissimo", english: "It was wonderful" },
+      ],
+      note: "The imperfetto describes ongoing past states, habits, and emotions. Compare: Ho mangiato la pizza (I ate pizza once) vs Mangiavo la pizza ogni venerdi (I used to eat pizza every Friday).",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a nostalgic conversation about childhood memories. Practice the imperfetto: giocavo, ero, mi piaceva, volevo. Be warm and nostalgic, correct gently.",
+  },
+  {
+    id: 39,
+    title: "Expressing Opinions",
+    subtitle: "Esprimere Opinioni",
+    free: false,
+    keywords: [
+      { italian: "Secondo me", english: "In my opinion" },
+      { italian: "Penso che", english: "I think that" },
+      { italian: "Mi sembra", english: "It seems to me" },
+      { italian: "Mi pare", english: "It appears to me (same as mi sembra)" },
+      { italian: "Sono d'accordo", english: "I agree" },
+      { italian: "Hai ragione", english: "You're right" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Secondo te, qual e' la citta' piu' bella d'Italia?", translation: "In your opinion, which is the most beautiful city in Italy?" },
+      { speaker: "B", line: "Secondo me, Firenze. Mi sembra unica.", translation: "In my opinion, Florence. It seems unique to me." },
+      { speaker: "A", line: "Penso che Roma sia piu' interessante.", translation: "I think Rome is more interesting." },
+      { speaker: "B", line: "Hai ragione, Roma e' straordinaria.", translation: "You're right, Rome is extraordinary." },
+      { speaker: "A", line: "Sei d'accordo che il cibo e' meglio al sud?", translation: "Do you agree that the food is better in the south?" },
+      { speaker: "B", line: "Assolutamente! Non c'e' dubbio.", translation: "Absolutely! There's no doubt." },
+    ],
+    grammar: {
+      title: "Opinion Structures",
+      points: [
+        { italian: "Secondo me...", english: "In my opinion... (lit. according to me)" },
+        { italian: "Mi sembra che", english: "It seems to me that" },
+        { italian: "Mi pare che", english: "It appears to me that (same as mi sembra)" },
+        { italian: "Ti ricordi?", english: "Do you remember? (reflexive)" },
+        { italian: "Sono / non sono d'accordo", english: "I agree / I disagree" },
+      ],
+      note: "Secondo me is the easiest way to give an opinion. Mi sembra and mi pare are interchangeable and very common. Ti ricordi? is a useful reflexive — mi ricordo (I remember), ti ricordi (you remember), si ricorda (he/she remembers).",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a lively discussion about Italian cities, food, and culture. Practice: secondo me, mi sembra, mi pare, ti ricordi, sono d'accordo. Be engaging, correct gently.",
+  },
+  {
+    id: 40,
+    title: "Italian Expressions",
+    subtitle: "Espressioni Italiane",
+    free: false,
+    keywords: [
+      { italian: "Vabbe'", english: "Fine / whatever / OK then" },
+      { italian: "Boh!", english: "I dunno / no idea (shrug)" },
+      { italian: "Non mi dire!", english: "You don't say! / No way!" },
+      { italian: "Dai!", english: "Come on! / Go on! / Really?" },
+      { italian: "Figurati!", english: "Don't mention it / of course not" },
+      { italian: "Mamma mia!", english: "Oh my goodness!" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Ho perso il portafoglio!", translation: "I lost my wallet!" },
+      { speaker: "B", line: "Non mi dire! Dove?", translation: "You don't say! Where?" },
+      { speaker: "A", line: "Boh, non lo so. Forse al bar.", translation: "I dunno. Maybe at the bar." },
+      { speaker: "B", line: "Dai, torna a controllare!", translation: "Come on, go back and check!" },
+      { speaker: "A", line: "Grazie per l'aiuto, sei gentilissimo.", translation: "Thanks for the help, you're so kind." },
+      { speaker: "B", line: "Figurati! In bocca al lupo!", translation: "Don't mention it! Good luck!" },
+    ],
+    grammar: {
+      title: "Conversational Fillers and Reactions",
+      points: [
+        { italian: "Dai!", english: "Come on! (encouraging or disbelieving)" },
+        { italian: "Boh!", english: "I dunno (with a shrug — very Italian)" },
+        { italian: "Vabbe'", english: "Fine / alright then" },
+        { italian: "Figurati!", english: "Don't mention it (response to thanks)" },
+        { italian: "In bocca al lupo!", english: "Good luck! (reply: Crepi!)" },
+      ],
+      note: "In bocca al lupo (in the wolf's mouth) is the Italian way to say good luck — never say buona fortuna as it's considered bad luck! The correct reply is Crepi! (may it die). These expressions make you sound instantly more Italian.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor teaching authentic Italian conversational expressions. Practice: vabbe', boh, non mi dire, dai, figurati, mamma mia. Be lively and expressive, correct gently.",
+  },
+  {
+    id: 41,
+    title: "In a Hurry",
+    subtitle: "Di Fretta",
+    free: false,
+    keywords: [
+      { italian: "Siamo in ritardo!", english: "We're late!" },
+      { italian: "Aspettami!", english: "Wait for me!" },
+      { italian: "Forza!", english: "Come on! / Hurry up!" },
+      { italian: "Sbrigati!", english: "Hurry up!" },
+      { italian: "Prendo la valigia", english: "I'll grab the suitcase" },
+      { italian: "Corri!", english: "Run!" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Sbrigati! Siamo in ritardo!", translation: "Hurry up! We're late!" },
+      { speaker: "B", line: "Aspettami, prendo la valigia.", translation: "Wait for me, I'll grab the suitcase." },
+      { speaker: "A", line: "Prendila e vieni, forza!", translation: "Grab it and come, come on!" },
+      { speaker: "B", line: "Aiutami con questa borsa!", translation: "Help me with this bag!" },
+      { speaker: "A", line: "Dai, corri! Il treno parte tra cinque minuti.", translation: "Come on, run! The train leaves in five minutes." },
+      { speaker: "B", line: "Ok ok, vengo! Non perdere la calma!", translation: "OK OK, I'm coming! Don't lose your cool!" },
+    ],
+    grammar: {
+      title: "Informal Imperative — Commands with Pronouns",
+      points: [
+        { italian: "Aspetta! / Aspettami!", english: "Wait! / Wait for me!" },
+        { italian: "Sbrigati!", english: "Hurry up! (reflexive imperative)" },
+        { italian: "Corri!", english: "Run!" },
+        { italian: "Prendila!", english: "Take it! (pronoun attached to verb)" },
+        { italian: "Aiutami!", english: "Help me!" },
+      ],
+      note: "In informal commands, object pronouns attach to the end of the verb: prendila (take it), aspettami (wait for me), aiutami (help me). This is very common in fast-paced real conversation.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor role-playing a rushed situation — catching a train, running late. Practice urgent commands: sbrigati, aspettami, forza, corri, prendila. Be energetic, correct gently.",
+  },
+  {
+    id: 42,
+    title: "Sunday with Friends",
+    subtitle: "Domenica con gli Amici",
+    free: false,
+    keywords: [
+      { italian: "Vi va di...?", english: "Do you all fancy...?" },
+      { italian: "Preferirei", english: "I would prefer" },
+      { italian: "L'agriturismo", english: "Country restaurant / farm stay" },
+      { italian: "E' affollato", english: "It's crowded" },
+      { italian: "Non si trova parcheggio", english: "You can't find parking" },
+      { italian: "Che ne dite?", english: "What do you all think?" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Vi va di andare al mare domenica?", translation: "Do you fancy going to the sea on Sunday?" },
+      { speaker: "B", line: "Preferirei andare a mangiare in un agriturismo.", translation: "I'd prefer to go eat at a country restaurant." },
+      { speaker: "C", line: "Anch'io — la spiaggia e' sempre affollata.", translation: "Me too — the beach is always crowded." },
+      { speaker: "A", line: "E' vero, e non si trova mai parcheggio.", translation: "True, and you can never find parking." },
+      { speaker: "B", line: "Conosco un posto bellissimo in collina. Che ne dite?", translation: "I know a beautiful place in the hills. What do you think?" },
+      { speaker: "C", line: "Perfetto! Prenotiamo?", translation: "Perfect! Shall we book?" },
+    ],
+    grammar: {
+      title: "Si Impersonale — The Impersonal Si",
+      points: [
+        { italian: "Non si trova parcheggio", english: "You can't find parking (one can't find)" },
+        { italian: "Si mangia bene qui", english: "One eats well here / the food is good here" },
+        { italian: "Come si dice?", english: "How do you say? (lit. how does one say?)" },
+        { italian: "Si puo' prenotare?", english: "Can one book? / Is it possible to book?" },
+        { italian: "Non si sa mai", english: "You never know" },
+      ],
+      note: "The impersonal si is used when there's no specific subject — like one, you, or people in English. Come si dice? is one of the most useful phrases for language learners!",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor role-playing a group of friends planning a Sunday outing. Practice: vi va, preferirei, affollato, si impersonale, che ne dite. Be social and fun, correct gently.",
+  },
+  {
+    id: 43,
+    title: "It Seems and I Remember",
+    subtitle: "Mi Sembra e Mi Ricordo",
+    free: false,
+    keywords: [
+      { italian: "Mi sembra che", english: "It seems to me that" },
+      { italian: "Mi pare", english: "It appears / it seems" },
+      { italian: "Ti ricordi?", english: "Do you remember?" },
+      { italian: "Mi ricordo", english: "I remember" },
+      { italian: "Non mi ricordo", english: "I don't remember" },
+      { italian: "Mi sembra ieri", english: "It seems like yesterday" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Ti ricordi di quella vacanza a Capri?", translation: "Do you remember that holiday in Capri?" },
+      { speaker: "B", line: "Certo! Mi sembra ieri.", translation: "Of course! It seems like yesterday." },
+      { speaker: "A", line: "Ti ricordi quel ristorante sul mare?", translation: "Do you remember that restaurant by the sea?" },
+      { speaker: "B", line: "Mi pare di si', ma non mi ricordo il nome.", translation: "I think so, but I don't remember the name." },
+      { speaker: "A", line: "Mi sembrava cosi' romantico.", translation: "It seemed so romantic to me." },
+      { speaker: "B", line: "Si'! Dobbiamo tornarci un giorno.", translation: "Yes! We must go back there one day." },
+    ],
+    grammar: {
+      title: "Reflexive Verbs — Memory and Perception",
+      points: [
+        { italian: "Mi ricordo", english: "I remember (lit. I recall to myself)" },
+        { italian: "Ti ricordi?", english: "Do you remember?" },
+        { italian: "Si ricorda", english: "He/she remembers (also formal you)" },
+        { italian: "Mi sembra / mi pare", english: "It seems to me (interchangeable)" },
+        { italian: "Mi sembra ieri", english: "It seems like yesterday" },
+      ],
+      note: "Ricordarsi is reflexive: mi ricordo, ti ricordi, si ricorda, ci ricordiamo, vi ricordate, si ricordano. Mi sembra and mi pare are interchangeable — use them to soften statements and sound more natural.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a nostalgic conversation about shared memories. Practice: mi ricordo, ti ricordi, mi sembra, mi pare. Be warm and reflective, correct gently.",
+  },
+  {
+    id: 44,
+    title: "Giving Advice",
+    subtitle: "Dare Consigli",
+    free: false,
+    keywords: [
+      { italian: "Dovresti", english: "You should" },
+      { italian: "Ti consiglio di", english: "I advise you to" },
+      { italian: "E' meglio che", english: "It's better that" },
+      { italian: "Al posto tuo", english: "In your position / if I were you" },
+      { italian: "Perche' non...?", english: "Why don't you...?" },
+      { italian: "Prova a", english: "Try to" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Non riesco a dormire bene.", translation: "I can't sleep well." },
+      { speaker: "B", line: "Dovresti andare a letto prima.", translation: "You should go to bed earlier." },
+      { speaker: "A", line: "Ho provato, ma non funziona.", translation: "I've tried, but it doesn't work." },
+      { speaker: "B", line: "Ti consiglio di evitare il caffe' la sera.", translation: "I advise you to avoid coffee in the evening." },
+      { speaker: "A", line: "Al posto tuo, cosa faresti?", translation: "If you were me, what would you do?" },
+      { speaker: "B", line: "Perche' non provi una camomilla prima di dormire?", translation: "Why don't you try chamomile before sleeping?" },
+    ],
+    grammar: {
+      title: "Conditional for Advice",
+      points: [
+        { italian: "Dovresti riposare", english: "You should rest" },
+        { italian: "Potresti provare", english: "You could try" },
+        { italian: "Al posto tuo, andrei", english: "In your position, I would go" },
+        { italian: "Perche' non parli con lui?", english: "Why don't you talk to him?" },
+        { italian: "Ti consiglio di aspettare", english: "I advise you to wait" },
+      ],
+      note: "Dovresti (you should) and potresti (you could) are conditional forms — perfect for giving advice without being too forceful. Al posto tuo literally means in your place and is a very natural way to frame advice.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor playing a wise friend giving advice. Practice: dovresti, ti consiglio, e' meglio, al posto tuo, perche' non. Be warm and helpful, correct gently.",
+  },
+
 ];
 
 // ── Text-to-Speech ────────────────────────────────────────────────────────────
@@ -953,13 +1636,6 @@ function AiChat({ lesson }) {
         <button style={styles.chatSend} onClick={sendMessage} disabled={loading}>
           {loading ? "…" : "→"}
         </button>
-      </div>
-      <div style={styles.footer}>
-        <span style={styles.footerLink} onClick={() => onLegal("privacy")}>Privacy Policy</span>
-        <span style={styles.footerDot}>·</span>
-        <span style={styles.footerLink} onClick={() => onLegal("terms")}>Terms of Service</span>
-        <span style={styles.footerDot}>·</span>
-        <span style={styles.footerText}>© 2026 Parlissimo</span>
       </div>
     </div>
   );
@@ -1134,7 +1810,7 @@ function Home({ onSelect, user, isSubscribed, onAuthClick, onLegal }) {
       <div id="pricing-section" style={styles.pricingBox}>
         <div style={styles.pricingTitle}>Unlock the Full Course</div>
         <p style={styles.pricingText}>
-          All 24 lessons, AI conversation practice, and grammar flashcards.
+          All 44 lessons, AI conversation practice, and grammar flashcards.
         </p>
         <div style={styles.pricingOptions}>
           <div style={styles.pricingOpt}>
@@ -1160,6 +1836,13 @@ function Home({ onSelect, user, isSubscribed, onAuthClick, onLegal }) {
           <button style={{...styles.ctaBtn, background: "#B8860B"}} onClick={() => handleCheckout("lifetime")}>Lifetime — $49</button>
         </div>
 
+      </div>
+      <div style={styles.footer}>
+        <span style={styles.footerLink} onClick={() => onLegal("privacy")}>Privacy Policy</span>
+        <span style={styles.footerDot}>·</span>
+        <span style={styles.footerLink} onClick={() => onLegal("terms")}>Terms of Service</span>
+        <span style={styles.footerDot}>·</span>
+        <span style={styles.footerText}>© 2026 Parlissimo</span>
       </div>
     </div>
   );
@@ -1521,11 +2204,7 @@ export default function App() {
     setActiveLesson(lesson);
   }
 
-  // Detect password reset flow from URL hash
-  const hashParams = new URLSearchParams(window.location.hash.replace("#", "?"));
-  const isResetFlow = hashParams.get("type") === "recovery";
-
-  if (isResetFlow) return <ResetPasswordPage />;
+  if (isResetMode) return <ResetPasswordPage onDone={() => { setIsResetMode(false); window.location.hash = ""; }} />;
 
   if (loadingAuth) return (
     <div style={{...styles.shell, display:"flex", alignItems:"center", justifyContent:"center"}}>
