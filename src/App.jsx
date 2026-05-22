@@ -33,7 +33,7 @@ const LESSONS = [
         { italian: "Come stai?", english: "How are you? (informal)" },
         { italian: "Come sta?", english: "How are you? (formal)" },
         { italian: "Come va?", english: "How is it going?" },
-        { italian: "Come?", english: "What? / Pardon? (also means 'excuse me')" },
+        { italian: "Come?", english: "What? / Pardon?" },
       ],
       note: "\"Come\" literally means \"how\" or \"as\" — it's your go-to word for asking about states and situations.",
     },
