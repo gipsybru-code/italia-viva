@@ -849,7 +849,7 @@ const LESSONS = [
     dialogue: [
       { speaker: "A", line: "Guarda quel cane!", translation: "Look at that dog!" },
       { speaker: "B", line: "Che bello! E' tuo?", translation: "How lovely! Is it yours?" },
-      { speaker: "A", line: "No, ma vorrei avere un cane.", translation: "No, but I'd love to have a dog." },
+      { speaker: "A", line: "No, ma vorrei averne uno.", translation: "No, but I'd love to have one." },
       { speaker: "B", line: "Mi piace quel fiore rosso la'.", translation: "I like that red flower over there." },
       { speaker: "A", line: "Si', e quegli alberi sono bellissimi.", translation: "Yes, and those trees are gorgeous." },
       { speaker: "B", line: "Sediamoci sulla panchina?", translation: "Shall we sit on the bench?" },
@@ -864,7 +864,7 @@ const LESSONS = [
         { italian: "Bianco / nero", english: "White / black" },
         { italian: "Un fiore rosso", english: "A red flower (adjective follows noun)" },
       ],
-      note: "In Italian, colours used as adjectives  must agree with the noun: una rosa gialla (a yellow rose), un gatto giallo  (a yellow cat). Blu and rosa are exceptions — they never change.",
+      note: "In Italian, colours are adjectives and must agree with the noun: una rosa rossa (a red rose), un cielo blu (a blue sky). Blu and rosa are exceptions — they never change.",
     },
     aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor taking a walk in an Italian park with the student. Practice colours and park vocabulary: fiore, albero, cane, panchina, bello, guarda, colours. Be warm and observational, correct gently.",
   },
@@ -1246,142 +1246,42 @@ const LESSONS = [
   },
   {
     id: 37,
-    title: "Talking About the Past",
-    subtitle: "Parlare del Passato",
+    title: "My City",
+    subtitle: "La Mia Città",
     free: false,
     keywords: [
-      { italian: "Ho fatto", english: "I did / I have done" },
-      { italian: "Ho mangiato", english: "I ate / I have eaten" },
-      { italian: "Sono andato/a", english: "I went" },
-      { italian: "Siamo arrivati", english: "We arrived" },
-      { italian: "L'anno scorso", english: "Last year" },
-      { italian: "La settimana scorsa", english: "Last week" },
+      { italian: "Ciò che mi piace di più", english: "What I like most" },
+      { italian: "La cosa più interessante", english: "The most interesting thing" },
+      { italian: "Quello che non mi piace tanto", english: "What I don't like much" },
+      { italian: "Il quartiere", english: "The neighbourhood" },
+      { italian: "Vivace / tranquillo", english: "Lively / quiet" },
+      { italian: "Mi manca", english: "I miss it" },
     ],
     dialogue: [
-      { speaker: "A", line: "Come hai passato il weekend?", translation: "How did you spend the weekend?" },
-      { speaker: "B", line: "Sono andato a Venezia con mia moglie.", translation: "I went to Venice with my wife." },
-      { speaker: "A", line: "Che bello! Avete mangiato bene?", translation: "How lovely! Did you eat well?" },
-      { speaker: "B", line: "Benissimo! Ho mangiato il miglior risotto della mia vita.", translation: "Wonderfully! I ate the best risotto of my life." },
-      { speaker: "A", line: "E siete arrivati senza problemi?", translation: "And did you arrive without problems?" },
-      { speaker: "B", line: "Si', il treno era in orario per una volta!", translation: "Yes, the train was on time for once!" },
+      { speaker: "A", line: "Di dove sei?", translation: "Where are you from?" },
+      { speaker: "B", line: "Sono di Napoli. Tu conosci?", translation: "I'm from Naples. Do you know it?" },
+      { speaker: "A", line: "Un po'. Cosa ti piace di più?", translation: "A little. What do you like most about it?" },
+      { speaker: "B", line: "Ciò che mi piace di più è il mare e il cibo.", translation: "What I like most is the sea and the food." },
+      { speaker: "A", line: "E la cosa più interessante?", translation: "And the most interesting thing?" },
+      { speaker: "B", line: "La storia. È una città antichissima.", translation: "The history. It's a very ancient city." },
+      { speaker: "A", line: "C'è qualcosa che non ti piace tanto?", translation: "Is there anything you don't like much?" },
+      { speaker: "B", line: "Il traffico! Quello che non sopporto è il caos.", translation: "The traffic! What I can't stand is the chaos." },
     ],
     grammar: {
-      title: "Passato Prossimo — Avere vs Essere",
+      title: "Relative Clauses — Ciò che / Quello che",
       points: [
-        { italian: "Ho mangiato (avere)", english: "I ate — most verbs use avere" },
-        { italian: "Sono andato/a (essere)", english: "I went — motion verbs use essere" },
-        { italian: "Siamo arrivati (essere)", english: "We arrived — participle agrees with subject" },
-        { italian: "Hai fatto?", english: "Did you do? / Have you done?" },
-        { italian: "Non ho capito", english: "I didn't understand" },
+        { italian: "Ciò che mi piace", english: "What I like (that which pleases me)" },
+        { italian: "Quello che voglio", english: "What I want" },
+        { italian: "La cosa che preferisco", english: "The thing that I prefer" },
+        { italian: "Non è quello che pensavo", english: "It's not what I thought" },
+        { italian: "Tutto ciò che sai", english: "Everything you know" },
       ],
-      note: "Verbs of motion (andare, venire, arrivare, partire) and reflexive verbs use essere. Everything else uses avere. With essere, the past participle changes: andato (m), andata (f), andati (m pl), andate (f pl).",
+      note: "Ciò che and quello che both mean what in the sense of the thing that. They introduce relative clauses and are interchangeable. Use them to express preferences, opinions, and descriptions in a sophisticated way.",
     },
-    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor asking the student about things they did recently. Practice passato prossimo with avere and essere. Be conversational and encouraging, correct gently.",
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a conversation about Italian cities and what the student likes or dislikes about where they live. Use: cio' che mi piace, la cosa piu' interessante, quello che non mi piace, quartiere, vivace, tranquillo. Be curious and engaging, correct gently.",
   },
   {
     id: 38,
-    title: "Childhood Memories",
-    subtitle: "Ricordi d'Infanzia",
-    free: false,
-    keywords: [
-      { italian: "Quando ero piccolo/a", english: "When I was young" },
-      { italian: "Giocavo", english: "I used to play" },
-      { italian: "La scuola", english: "School" },
-      { italian: "D'estate", english: "In the summer" },
-      { italian: "Ogni giorno", english: "Every day" },
-      { italian: "Mi piaceva", english: "I used to like" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Com'era la tua infanzia?", translation: "What was your childhood like?" },
-      { speaker: "B", line: "Bellissima! D'estate giocavo sempre fuori.", translation: "Wonderful! In summer I always played outside." },
-      { speaker: "A", line: "E la scuola? Ti piaceva?", translation: "And school? Did you like it?" },
-      { speaker: "B", line: "Abbastanza. Mi piaceva la matematica.", translation: "Quite. I liked maths." },
-      { speaker: "A", line: "Quando ero piccola, volevo fare la ballerina.", translation: "When I was young, I wanted to be a dancer." },
-      { speaker: "B", line: "Davvero? Anch'io avevo grandi sogni!", translation: "Really? I had big dreams too!" },
-    ],
-    grammar: {
-      title: "Imperfetto — Habits and States in the Past",
-      points: [
-        { italian: "Giocavo ogni giorno", english: "I used to play every day" },
-        { italian: "Quando ero piccolo...", english: "When I was young..." },
-        { italian: "Mi piaceva la scuola", english: "I used to like school" },
-        { italian: "Volevo fare...", english: "I wanted to be / do..." },
-        { italian: "Era bellissimo", english: "It was wonderful" },
-      ],
-      note: "The imperfetto describes ongoing past states, habits, and emotions. Compare: Ho mangiato la pizza (I ate pizza once) vs Mangiavo la pizza ogni venerdi (I used to eat pizza every Friday).",
-    },
-    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a nostalgic conversation about childhood memories. Practice the imperfetto: giocavo, ero, mi piaceva, volevo. Be warm and nostalgic, correct gently.",
-  },
-  {
-    id: 39,
-    title: "Expressing Opinions",
-    subtitle: "Esprimere Opinioni",
-    free: false,
-    keywords: [
-      { italian: "Secondo me", english: "In my opinion" },
-      { italian: "Penso che", english: "I think that" },
-      { italian: "Mi sembra", english: "It seems to me" },
-      { italian: "Mi pare", english: "It appears to me (same as mi sembra)" },
-      { italian: "Sono d'accordo", english: "I agree" },
-      { italian: "Hai ragione", english: "You're right" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Secondo te, qual e' la citta' piu' bella d'Italia?", translation: "In your opinion, which is the most beautiful city in Italy?" },
-      { speaker: "B", line: "Secondo me, Firenze. Mi sembra unica.", translation: "In my opinion, Florence. It seems unique to me." },
-      { speaker: "A", line: "Penso che Roma sia piu' interessante.", translation: "I think Rome is more interesting." },
-      { speaker: "B", line: "Hai ragione, Roma e' straordinaria.", translation: "You're right, Rome is extraordinary." },
-      { speaker: "A", line: "Sei d'accordo che il cibo e' meglio al sud?", translation: "Do you agree that the food is better in the south?" },
-      { speaker: "B", line: "Assolutamente! Non c'e' dubbio.", translation: "Absolutely! There's no doubt." },
-    ],
-    grammar: {
-      title: "Opinion Structures",
-      points: [
-        { italian: "Secondo me...", english: "In my opinion... (lit. according to me)" },
-        { italian: "Mi sembra che", english: "It seems to me that" },
-        { italian: "Mi pare che", english: "It appears to me that (same as mi sembra)" },
-        { italian: "Ti ricordi?", english: "Do you remember? (reflexive)" },
-        { italian: "Sono / non sono d'accordo", english: "I agree / I disagree" },
-      ],
-      note: "Secondo me is the easiest way to give an opinion. Mi sembra and mi pare are interchangeable and very common. Ti ricordi? is a useful reflexive — mi ricordo (I remember), ti ricordi (you remember), si ricorda (he/she remembers).",
-    },
-    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a lively discussion about Italian cities, food, and culture. Practice: secondo me, mi sembra, mi pare, ti ricordi, sono d'accordo. Be engaging, correct gently.",
-  },
-  {
-    id: 40,
-    title: "Italian Expressions",
-    subtitle: "Espressioni Italiane",
-    free: false,
-    keywords: [
-      { italian: "Vabbe'", english: "Fine / whatever / OK then" },
-      { italian: "Boh!", english: "I dunno / no idea (shrug)" },
-      { italian: "Non mi dire!", english: "You don't say! / No way!" },
-      { italian: "Dai!", english: "Come on! / Go on! / Really?" },
-      { italian: "Figurati!", english: "Don't mention it / of course not" },
-      { italian: "Mamma mia!", english: "Oh my goodness!" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Ho perso il portafoglio!", translation: "I lost my wallet!" },
-      { speaker: "B", line: "Non mi dire! Dove?", translation: "You don't say! Where?" },
-      { speaker: "A", line: "Boh, non lo so. Forse al bar.", translation: "I dunno. Maybe at the bar." },
-      { speaker: "B", line: "Dai, torna a controllare!", translation: "Come on, go back and check!" },
-      { speaker: "A", line: "Grazie per l'aiuto, sei gentilissimo.", translation: "Thanks for the help, you're so kind." },
-      { speaker: "B", line: "Figurati! In bocca al lupo!", translation: "Don't mention it! Good luck!" },
-    ],
-    grammar: {
-      title: "Conversational Fillers and Reactions",
-      points: [
-        { italian: "Dai!", english: "Come on! (encouraging or disbelieving)" },
-        { italian: "Boh!", english: "I dunno (with a shrug — very Italian)" },
-        { italian: "Vabbe'", english: "Fine / alright then" },
-        { italian: "Figurati!", english: "Don't mention it (response to thanks)" },
-        { italian: "In bocca al lupo!", english: "Good luck! (reply: Crepi!)" },
-      ],
-      note: "In bocca al lupo (in the wolf's mouth) is the Italian way to say good luck — never say buona fortuna as it's considered bad luck! The correct reply is Crepi! (may it die). These expressions make you sound instantly more Italian.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor teaching authentic Italian conversational expressions. Practice: vabbe', boh, non mi dire, dai, figurati, mamma mia. Be lively and expressive, correct gently.",
-  },
-  {
-    id: 41,
     title: "In a Hurry",
     subtitle: "Di Fretta",
     free: false,
@@ -1415,7 +1315,7 @@ const LESSONS = [
     aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor role-playing a rushed situation — catching a train, running late. Practice urgent commands: sbrigati, aspettami, forza, corri, prendila. Be energetic, correct gently.",
   },
   {
-    id: 42,
+    id: 39,
     title: "Sunday with Friends",
     subtitle: "Domenica con gli Amici",
     free: false,
@@ -1449,7 +1349,7 @@ const LESSONS = [
     aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor role-playing a group of friends planning a Sunday outing. Practice: vi va, preferirei, affollato, si impersonale, che ne dite. Be social and fun, correct gently.",
   },
   {
-    id: 43,
+    id: 40,
     title: "It Seems and I Remember",
     subtitle: "Mi Sembra e Mi Ricordo",
     free: false,
@@ -1481,6 +1381,108 @@ const LESSONS = [
       note: "Ricordarsi is reflexive: mi ricordo, ti ricordi, si ricorda, ci ricordiamo, vi ricordate, si ricordano. Mi sembra and mi pare are interchangeable — use them to soften statements and sound more natural.",
     },
     aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a nostalgic conversation about shared memories. Practice: mi ricordo, ti ricordi, mi sembra, mi pare. Be warm and reflective, correct gently.",
+  },
+  {
+    id: 41,
+    title: "Talking About the Past",
+    subtitle: "Parlare del Passato",
+    free: false,
+    keywords: [
+      { italian: "Ho fatto", english: "I did / I have done" },
+      { italian: "Ho mangiato", english: "I ate / I have eaten" },
+      { italian: "Sono andato/a", english: "I went" },
+      { italian: "Siamo arrivati", english: "We arrived" },
+      { italian: "L'anno scorso", english: "Last year" },
+      { italian: "La settimana scorsa", english: "Last week" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Come hai passato il weekend?", translation: "How did you spend the weekend?" },
+      { speaker: "B", line: "Sono andato a Venezia con mia moglie.", translation: "I went to Venice with my wife." },
+      { speaker: "A", line: "Che bello! Avete mangiato bene?", translation: "How lovely! Did you eat well?" },
+      { speaker: "B", line: "Benissimo! Ho mangiato il miglior risotto della mia vita.", translation: "Wonderfully! I ate the best risotto of my life." },
+      { speaker: "A", line: "E siete arrivati senza problemi?", translation: "And did you arrive without problems?" },
+      { speaker: "B", line: "Si', il treno era in orario per una volta!", translation: "Yes, the train was on time for once!" },
+    ],
+    grammar: {
+      title: "Passato Prossimo — Avere vs Essere",
+      points: [
+        { italian: "Ho mangiato (avere)", english: "I ate — most verbs use avere" },
+        { italian: "Sono andato/a (essere)", english: "I went — motion verbs use essere" },
+        { italian: "Siamo arrivati (essere)", english: "We arrived — participle agrees with subject" },
+        { italian: "Hai fatto?", english: "Did you do? / Have you done?" },
+        { italian: "Non ho capito", english: "I didn't understand" },
+      ],
+      note: "Verbs of motion (andare, venire, arrivare, partire) and reflexive verbs use essere. Everything else uses avere. With essere, the past participle changes: andato (m), andata (f), andati (m pl), andate (f pl).",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor asking the student about things they did recently. Practice passato prossimo with avere and essere. Be conversational and encouraging, correct gently.",
+  },
+  {
+    id: 42,
+    title: "Childhood Memories",
+    subtitle: "Ricordi d'Infanzia",
+    free: false,
+    keywords: [
+      { italian: "Quando ero piccolo/a", english: "When I was young" },
+      { italian: "Giocavo", english: "I used to play" },
+      { italian: "La scuola", english: "School" },
+      { italian: "D'estate", english: "In the summer" },
+      { italian: "Ogni giorno", english: "Every day" },
+      { italian: "Mi piaceva", english: "I used to like" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Com'era la tua infanzia?", translation: "What was your childhood like?" },
+      { speaker: "B", line: "Bellissima! D'estate giocavo sempre fuori.", translation: "Wonderful! In summer I always played outside." },
+      { speaker: "A", line: "E la scuola? Ti piaceva?", translation: "And school? Did you like it?" },
+      { speaker: "B", line: "Abbastanza. Mi piaceva la matematica.", translation: "Quite. I liked maths." },
+      { speaker: "A", line: "Quando ero piccola, volevo fare la ballerina.", translation: "When I was young, I wanted to be a dancer." },
+      { speaker: "B", line: "Davvero? Anch'io avevo grandi sogni!", translation: "Really? I had big dreams too!" },
+    ],
+    grammar: {
+      title: "Imperfetto — Habits and States in the Past",
+      points: [
+        { italian: "Giocavo ogni giorno", english: "I used to play every day" },
+        { italian: "Quando ero piccolo...", english: "When I was young..." },
+        { italian: "Mi piaceva la scuola", english: "I used to like school" },
+        { italian: "Volevo fare...", english: "I wanted to be / do..." },
+        { italian: "Era bellissimo", english: "It was wonderful" },
+      ],
+      note: "The imperfetto describes ongoing past states, habits, and emotions. Compare: Ho mangiato la pizza (I ate pizza once) vs Mangiavo la pizza ogni venerdi (I used to eat pizza every Friday).",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a nostalgic conversation about childhood memories. Practice the imperfetto: giocavo, ero, mi piaceva, volevo. Be warm and nostalgic, correct gently.",
+  },
+  {
+    id: 43,
+    title: "Expressing Opinions",
+    subtitle: "Esprimere Opinioni",
+    free: false,
+    keywords: [
+      { italian: "Secondo me", english: "In my opinion" },
+      { italian: "Penso che", english: "I think that" },
+      { italian: "Mi sembra", english: "It seems to me" },
+      { italian: "Mi pare", english: "It appears to me (same as mi sembra)" },
+      { italian: "Sono d'accordo", english: "I agree" },
+      { italian: "Hai ragione", english: "You're right" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Secondo te, qual e' la citta' piu' bella d'Italia?", translation: "In your opinion, which is the most beautiful city in Italy?" },
+      { speaker: "B", line: "Secondo me, Firenze. Mi sembra unica.", translation: "In my opinion, Florence. It seems unique to me." },
+      { speaker: "A", line: "Penso che Roma sia piu' interessante.", translation: "I think Rome is more interesting." },
+      { speaker: "B", line: "Hai ragione, Roma e' straordinaria.", translation: "You're right, Rome is extraordinary." },
+      { speaker: "A", line: "Sei d'accordo che il cibo e' meglio al sud?", translation: "Do you agree that the food is better in the south?" },
+      { speaker: "B", line: "Assolutamente! Non c'e' dubbio.", translation: "Absolutely! There's no doubt." },
+    ],
+    grammar: {
+      title: "Opinion Structures",
+      points: [
+        { italian: "Secondo me...", english: "In my opinion... (lit. according to me)" },
+        { italian: "Mi sembra che", english: "It seems to me that" },
+        { italian: "Mi pare che", english: "It appears to me that (same as mi sembra)" },
+        { italian: "Ti ricordi?", english: "Do you remember? (reflexive)" },
+        { italian: "Sono / non sono d'accordo", english: "I agree / I disagree" },
+      ],
+      note: "Secondo me is the easiest way to give an opinion. Mi sembra and mi pare are interchangeable and very common. Ti ricordi? is a useful reflexive — mi ricordo (I remember), ti ricordi (you remember), si ricorda (he/she remembers).",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor having a lively discussion about Italian cities, food, and culture. Practice: secondo me, mi sembra, mi pare, ti ricordi, sono d'accordo. Be engaging, correct gently.",
   },
   {
     id: 44,
@@ -1516,7 +1518,41 @@ const LESSONS = [
     },
     aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor playing a wise friend giving advice. Practice: dovresti, ti consiglio, e' meglio, al posto tuo, perche' non. Be warm and helpful, correct gently.",
   },
-
+  {
+    id: 45,
+    title: "Real and Hypothetical",
+    subtitle: "Reale e Ipotetico",
+    free: false,
+    keywords: [
+      { italian: "Se ho i soldi, vado", english: "If I have the money, I'll go (real possibility)" },
+      { italian: "Se avessi i soldi, andrei", english: "If I had the money, I would go (hypothetical)" },
+      { italian: "Magari potessi!", english: "If only I could!" },
+      { italian: "Nel caso in cui", english: "In the event that" },
+      { italian: "Dipende da", english: "It depends on" },
+      { italian: "Chissà", english: "Who knows / maybe someday" },
+    ],
+    dialogue: [
+      { speaker: "A", line: "Cosa fai a luglio?", translation: "What are you doing in July?" },
+      { speaker: "B", line: "Se ho i soldi, vado in Sicilia.", translation: "If I have the money, I'll go to Sicily." },
+      { speaker: "A", line: "E se non li hai?", translation: "And if you don't have them?" },
+      { speaker: "B", line: "Resto a casa. Ma tu?", translation: "I'll stay home. But you?" },
+      { speaker: "A", line: "Io sogno in grande — se avessi i soldi, andrei in Giappone!", translation: "I dream big — if I had the money, I'd go to Japan!" },
+      { speaker: "B", line: "Magari potessi anch'io! Chissà, un giorno.", translation: "If only I could too! Who knows, one day." },
+      { speaker: "A", line: "Se vincessi alla lotteria, ci andremmo insieme!", translation: "If I won the lottery, we'd go together!" },
+    ],
+    grammar: {
+      title: "Conditionals — Real vs Hypothetical",
+      points: [
+        { italian: "Se ho tempo, vengo", english: "If I have time, I'll come (real — present + present/future)" },
+        { italian: "Se avessi tempo, verrei", english: "If I had time, I would come (hypothetical — imperfect subjunctive + conditional)" },
+        { italian: "Se fosse possibile", english: "If it were possible" },
+        { italian: "Se vincessi alla lotteria", english: "If I won the lottery" },
+        { italian: "Chissà", english: "Who knows (expresses uncertainty about the future)" },
+      ],
+      note: "Italian has two main conditional structures. Real: se + present tense = something that might actually happen. Hypothetical: se + imperfect subjunctive (avessi, fossi, potessi) + conditional (andrei, verrei) = something unlikely or imaginary. The second is very elegant and worth learning.",
+    },
+    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor exploring real and hypothetical situations with the student — travel plans, dreams, what-ifs. Practice: se ho... vado, se avessi... andrei, magari potessi, chissà. Be imaginative and warm, correct gently.",
+  },
 ];
 
 // ── Text-to-Speech ────────────────────────────────────────────────────────────
@@ -1785,7 +1821,47 @@ function Home({ onSelect, user, isSubscribed, onAuthClick, onLegal }) {
       {/* Lessons */}
       <div style={styles.lessonList}>
         <h3 style={styles.listHeading}>Module 1 — Travel · Viaggiare</h3>
-        {LESSONS.map(lesson => (
+        {LESSONS.filter(l => l.id <= 20).map(lesson => (
+          <div key={lesson.id} style={styles.lessonCard} onClick={() => onSelect(lesson)}>
+            <div style={styles.lessonCardLeft}>
+              <span style={styles.lessonCardNum}>{lesson.id < 10 ? `0${lesson.id}` : lesson.id}</span>
+              <div>
+                <div style={styles.lessonCardTitle}>{lesson.title}</div>
+                <div style={styles.lessonCardSub}>{lesson.subtitle}</div>
+              </div>
+            </div>
+            <div style={styles.lessonCardRight}>
+              {lesson.free
+                ? <span style={styles.freeBadge}>Free</span>
+                : isSubscribed
+                  ? <span style={styles.freeBadge}>✓</span>
+                  : <span style={styles.lockBadge}><LockIcon /> Subscribe</span>}
+              <ChevronRight />
+            </div>
+          </div>
+        ))}
+        <h3 style={{...styles.listHeading, marginTop: 28}}>Module 2 — Everyday Life · La Vita Quotidiana</h3>
+        {LESSONS.filter(l => l.id >= 21 && l.id <= 40).map(lesson => (
+          <div key={lesson.id} style={styles.lessonCard} onClick={() => onSelect(lesson)}>
+            <div style={styles.lessonCardLeft}>
+              <span style={styles.lessonCardNum}>{lesson.id < 10 ? `0${lesson.id}` : lesson.id}</span>
+              <div>
+                <div style={styles.lessonCardTitle}>{lesson.title}</div>
+                <div style={styles.lessonCardSub}>{lesson.subtitle}</div>
+              </div>
+            </div>
+            <div style={styles.lessonCardRight}>
+              {lesson.free
+                ? <span style={styles.freeBadge}>Free</span>
+                : isSubscribed
+                  ? <span style={styles.freeBadge}>✓</span>
+                  : <span style={styles.lockBadge}><LockIcon /> Subscribe</span>}
+              <ChevronRight />
+            </div>
+          </div>
+        ))}
+        <h3 style={{...styles.listHeading, marginTop: 28}}>Module 3 — Deeper Conversations · Conversazioni Più Profonde</h3>
+        {LESSONS.filter(l => l.id >= 41).map(lesson => (
           <div key={lesson.id} style={styles.lessonCard} onClick={() => onSelect(lesson)}>
             <div style={styles.lessonCardLeft}>
               <span style={styles.lessonCardNum}>{lesson.id < 10 ? `0${lesson.id}` : lesson.id}</span>
@@ -1810,7 +1886,7 @@ function Home({ onSelect, user, isSubscribed, onAuthClick, onLegal }) {
       <div id="pricing-section" style={styles.pricingBox}>
         <div style={styles.pricingTitle}>Unlock the Full Course</div>
         <p style={styles.pricingText}>
-          All 44 lessons, AI conversation practice, and grammar flashcards.
+          All 45 lessons, AI conversation practice, and grammar flashcards.
         </p>
         <div style={styles.pricingOptions}>
           <div style={styles.pricingOpt}>
