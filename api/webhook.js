@@ -12,10 +12,17 @@ export default async function handler(req, res) {
 
   const sig = req.headers['stripe-signature'];
   let event;
+  let rawBody = '';
+
+  await new Promise((resolve, reject) => {
+    req.on('data', chunk => { rawBody += chunk; });
+    req.on('end', resolve);
+    req.on('error', reject);
+  });
 
   try {
     event = stripe.webhooks.constructEvent(
-      req.body,
+      rawBody,
       sig,
       process.env.STRIPE_WEBHOOK_SECRET
     );
@@ -50,5 +57,3 @@ export default async function handler(req, res) {
 
   res.status(200).json({ received: true });
 }
-
-export const config = { api: { bodyParser: false } };
