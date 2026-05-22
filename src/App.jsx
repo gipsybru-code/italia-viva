@@ -849,7 +849,7 @@ const LESSONS = [
     dialogue: [
       { speaker: "A", line: "Guarda quel cane!", translation: "Look at that dog!" },
       { speaker: "B", line: "Che bello! E' tuo?", translation: "How lovely! Is it yours?" },
-      { speaker: "A", line: "No, ma vorrei averne uno.", translation: "No, but I'd love to have one." },
+      { speaker: "A", line: "No, ma vorrei avere un cane.", translation: "No, but I'd love to have a dog." },
       { speaker: "B", line: "Mi piace quel fiore rosso la'.", translation: "I like that red flower over there." },
       { speaker: "A", line: "Si', e quegli alberi sono bellissimi.", translation: "Yes, and those trees are gorgeous." },
       { speaker: "B", line: "Sediamoci sulla panchina?", translation: "Shall we sit on the bench?" },
@@ -864,7 +864,7 @@ const LESSONS = [
         { italian: "Bianco / nero", english: "White / black" },
         { italian: "Un fiore rosso", english: "A red flower (adjective follows noun)" },
       ],
-      note: "In Italian, colours are adjectives and must agree with the noun: una rosa rossa (a red rose), un cielo blu (a blue sky). Blu and rosa are exceptions — they never change.",
+      note: "In Italian, colours used as adjectives  must agree with the noun: una rosa gialla (a yellow rose), un gatto giallo  (a yellow cat). Blu and rosa are exceptions — they never change.",
     },
     aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: Let us stick to this lesson! Never break character. Always reply in English, using Italian words from the lesson. You are an Italian tutor taking a walk in an Italian park with the student. Practice colours and park vocabulary: fiore, albero, cane, panchina, bello, guarda, colours. Be warm and observational, correct gently.",
   },
