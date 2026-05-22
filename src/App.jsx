@@ -933,6 +933,13 @@ function AiChat({ lesson }) {
           {loading ? "…" : "→"}
         </button>
       </div>
+      <div style={styles.footer}>
+        <span style={styles.footerLink} onClick={() => onLegal("privacy")}>Privacy Policy</span>
+        <span style={styles.footerDot}>·</span>
+        <span style={styles.footerLink} onClick={() => onLegal("terms")}>Terms of Service</span>
+        <span style={styles.footerDot}>·</span>
+        <span style={styles.footerText}>© 2026 Parlissimo</span>
+      </div>
     </div>
   );
 }
@@ -1066,7 +1073,7 @@ async function handleCheckout(plan) {
 }
 
 // ── Home / Lesson List ────────────────────────────────────────────────────────
-function Home({ onSelect, user, isSubscribed, onAuthClick }) {
+function Home({ onSelect, user, isSubscribed, onAuthClick, onLegal }) {
   return (
     <div style={styles.home}>
       {/* Hero */}
@@ -1272,9 +1279,124 @@ function ResetPasswordPage({ onDone }) {
   );
 }
 
+// ── Legal Pages ───────────────────────────────────────────────────────────────
+function LegalPage({ type, onClose }) {
+  const isPrivacy = type === "privacy";
+  return (
+    <div style={styles.shell}>
+      <div style={styles.container}>
+        <button style={styles.backBtn} onClick={onClose}>← Back to Parlissimo</button>
+        <div style={styles.legalWrap}>
+          {isPrivacy ? <PrivacyPolicy /> : <TermsOfService />}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PrivacyPolicy() {
+  return (
+    <div>
+      <h1 style={styles.legalTitle}>Privacy Policy</h1>
+      <p style={styles.legalDate}>Last updated: May 2026</p>
+
+      <p style={styles.legalText}>Parlissimo ("we", "us", "our") operates the website parlissimo.live. This Privacy Policy explains how we collect, use, and protect your personal information when you use our service.</p>
+
+      <h2 style={styles.legalH2}>1. Information We Collect</h2>
+      <p style={styles.legalText}><strong>Account information:</strong> When you register, we collect your email address and encrypted password.</p>
+      <p style={styles.legalText}><strong>Payment information:</strong> Payments are processed by Stripe. We do not store your credit card details. Stripe may collect and store payment data in accordance with their own Privacy Policy.</p>
+      <p style={styles.legalText}><strong>Usage data:</strong> We may collect anonymous data about how you interact with the app (lessons viewed, session duration) to improve our service.</p>
+      <p style={styles.legalText}><strong>AI conversations:</strong> Messages you send to the AI practice chat are processed by Anthropic's API. We do not permanently store your conversation history.</p>
+
+      <h2 style={styles.legalH2}>2. How We Use Your Information</h2>
+      <p style={styles.legalText}>We use your information to: provide and maintain the service; process payments and manage your subscription; send transactional emails (account confirmation, password reset); respond to support requests; improve our content and service.</p>
+      <p style={styles.legalText}>We do not sell, rent, or share your personal data with third parties for marketing purposes.</p>
+
+      <h2 style={styles.legalH2}>3. Data Storage and Security</h2>
+      <p style={styles.legalText}>Your account data is stored securely using Supabase, which uses industry-standard encryption. Payment data is handled exclusively by Stripe, a PCI-DSS compliant payment processor. We implement appropriate technical and organisational measures to protect your personal data against unauthorised access, alteration, or destruction.</p>
+
+      <h2 style={styles.legalH2}>4. Cookies</h2>
+      <p style={styles.legalText}>Parlissimo uses minimal cookies and local browser storage strictly necessary for authentication and session management. We do not use tracking cookies or third-party advertising cookies.</p>
+
+      <h2 style={styles.legalH2}>5. Third-Party Services</h2>
+      <p style={styles.legalText}>We use the following third-party services: Supabase (authentication and database), Stripe (payment processing), Anthropic (AI conversation practice), Vercel (hosting). Each of these services has their own Privacy Policy governing the data they process.</p>
+
+      <h2 style={styles.legalH2}>6. Your Rights</h2>
+      <p style={styles.legalText}>You have the right to: access the personal data we hold about you; request correction of inaccurate data; request deletion of your account and associated data; withdraw consent at any time; lodge a complaint with your local data protection authority.</p>
+      <p style={styles.legalText}>To exercise any of these rights, contact us at: hello@parlissimo.live</p>
+
+      <h2 style={styles.legalH2}>7. Data Retention</h2>
+      <p style={styles.legalText}>We retain your account data for as long as your account is active. If you delete your account, we will delete your personal data within 30 days, except where we are required to retain it for legal or financial compliance purposes.</p>
+
+      <h2 style={styles.legalH2}>8. Children's Privacy</h2>
+      <p style={styles.legalText}>Parlissimo is not directed at children under the age of 13. We do not knowingly collect personal data from children under 13. If you believe a child has provided us with personal data, please contact us immediately.</p>
+
+      <h2 style={styles.legalH2}>9. Changes to This Policy</h2>
+      <p style={styles.legalText}>We may update this Privacy Policy from time to time. We will notify you of significant changes by email or via a notice on the app. Continued use of the service after changes constitutes acceptance of the updated policy.</p>
+
+      <h2 style={styles.legalH2}>10. Contact</h2>
+      <p style={styles.legalText}>For any privacy-related questions, contact us at: <strong>hello@parlissimo.live</strong></p>
+    </div>
+  );
+}
+
+function TermsOfService() {
+  return (
+    <div>
+      <h1 style={styles.legalTitle}>Terms of Service</h1>
+      <p style={styles.legalDate}>Last updated: May 2026</p>
+
+      <p style={styles.legalText}>Please read these Terms of Service carefully before using Parlissimo. By accessing or using our service, you agree to be bound by these terms.</p>
+
+      <h2 style={styles.legalH2}>1. Service Description</h2>
+      <p style={styles.legalText}>Parlissimo is an online Italian language learning platform offering structured lessons, grammar guides, audio pronunciation, and AI-powered conversation practice. The first lesson is available free of charge. Access to all lessons and AI practice requires a paid subscription.</p>
+
+      <h2 style={styles.legalH2}>2. Account Registration</h2>
+      <p style={styles.legalText}>To access paid features, you must create an account with a valid email address. You are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account. You must not share your account with others.</p>
+
+      <h2 style={styles.legalH2}>3. Subscriptions and Payments</h2>
+      <p style={styles.legalText}><strong>Monthly subscription:</strong> $3.00 USD per month, billed monthly and automatically renewed until cancelled.</p>
+      <p style={styles.legalText}><strong>Annual subscription:</strong> $30.00 USD per year, billed annually and automatically renewed until cancelled.</p>
+      <p style={styles.legalText}><strong>Lifetime access:</strong> $49.00 USD, one-time payment, permanent access with no recurring charges.</p>
+      <p style={styles.legalText}>All payments are processed securely by Stripe. By subscribing, you authorise us to charge your payment method on a recurring basis until you cancel. Prices may be subject to local taxes.</p>
+
+      <h2 style={styles.legalH2}>4. Cancellation and Refunds</h2>
+      <p style={styles.legalText}>You may cancel your subscription at any time through the "Manage" option in the app. Upon cancellation, you will retain access until the end of your current billing period. No refunds are provided for partial billing periods.</p>
+      <p style={styles.legalText}>Lifetime access purchases are non-refundable once made, except where required by applicable consumer protection law.</p>
+      <p style={styles.legalText}>If you experience a technical issue that prevents access to the service, please contact us at hello@parlissimo.live and we will resolve it or offer a fair remedy at our discretion.</p>
+
+      <h2 style={styles.legalH2}>5. AI Practice — Acceptable Use</h2>
+      <p style={styles.legalText}>The AI conversation feature is provided solely for Italian language practice related to the lesson content. You agree not to use the AI chat to: request content unrelated to the lesson; attempt to circumvent content restrictions; generate harmful, offensive, or illegal content; probe for vulnerabilities or attempt prompt injection attacks.</p>
+      <p style={styles.legalText}>Misuse of the AI feature may result in immediate suspension of your account without refund.</p>
+
+      <h2 style={styles.legalH2}>6. Daily Usage Limits</h2>
+      <p style={styles.legalText}>AI conversation practice is limited to 20 messages per lesson per day. This limit resets daily and is designed to ensure fair access and sustainable service operation.</p>
+
+      <h2 style={styles.legalH2}>7. Intellectual Property</h2>
+      <p style={styles.legalText}>All content on Parlissimo — including lesson texts, dialogues, grammar explanations, audio, and design — is the intellectual property of Parlissimo and is protected by copyright law. You may not reproduce, distribute, or create derivative works from our content without prior written permission.</p>
+
+      <h2 style={styles.legalH2}>8. Disclaimer of Warranties</h2>
+      <p style={styles.legalText}>Parlissimo is provided "as is" without warranty of any kind. We do not guarantee that the service will be uninterrupted, error-free, or that it will meet your specific language learning goals. Language learning outcomes depend on individual effort and practice.</p>
+
+      <h2 style={styles.legalH2}>9. Limitation of Liability</h2>
+      <p style={styles.legalText}>To the fullest extent permitted by law, Parlissimo and its operators shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the service. Our total liability to you shall not exceed the amount you paid us in the 12 months preceding the claim.</p>
+
+      <h2 style={styles.legalH2}>10. Modifications to the Service</h2>
+      <p style={styles.legalText}>We reserve the right to modify, suspend, or discontinue any part of the service at any time. We will provide reasonable notice of significant changes. Continued use of the service after changes constitutes acceptance of the modified terms.</p>
+
+      <h2 style={styles.legalH2}>11. Governing Law</h2>
+      <p style={styles.legalText}>These Terms shall be governed by and construed in accordance with applicable law. Any disputes shall be resolved through good-faith negotiation. If unresolved, disputes shall be subject to the jurisdiction of the courts of the country in which the operator is based.</p>
+
+      <h2 style={styles.legalH2}>12. Contact</h2>
+      <p style={styles.legalText}>For any questions regarding these Terms, contact us at: <strong>hello@parlissimo.live</strong></p>
+    </div>
+  );
+}
+
 // ── App Shell ─────────────────────────────────────────────────────────────────
 export default function App() {
   const [activeLesson, setActiveLesson] = useState(null);
+  const [legalPage, setLegalPage] = useState(null);
   const [user, setUser] = useState(null);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
@@ -1423,7 +1545,7 @@ export default function App() {
         {showAuth && <AuthModal onClose={() => setShowAuth(false)} onAuth={() => setShowAuth(false)} />}
         {activeLesson
           ? <LessonView lesson={activeLesson} onBack={() => setActiveLesson(null)} isSubscribed={isSubscribed} />
-          : <Home onSelect={handleLessonSelect} user={user} isSubscribed={isSubscribed} onAuthClick={() => setShowAuth(true)} />}
+          : <Home onSelect={handleLessonSelect} user={user} isSubscribed={isSubscribed} onAuthClick={() => setShowAuth(true)} onLegal={setLegalPage} />}
       </div>
     </div>
   );
@@ -1775,6 +1897,23 @@ const styles = {
   authMessage: { fontSize: 12, color: C.terracotta, marginBottom: 12, fontFamily: "sans-serif" },
   authSwitch: { marginTop: 16, fontSize: 12, color: C.textMuted, textAlign: "center", fontFamily: "sans-serif" },
   authLink: { color: C.terracotta, cursor: "pointer", textDecoration: "underline" },
+  legalWrap: { padding: "24px 0 60px" },
+  legalTitle: { fontSize: 28, fontWeight: 700, color: C.brown, marginBottom: 4 },
+  legalDate: { fontSize: 12, color: C.textMuted, fontFamily: "sans-serif", marginBottom: 28, fontStyle: "italic" },
+  legalH2: { fontSize: 16, fontWeight: 600, color: C.brown, marginTop: 28, marginBottom: 8 },
+  legalText: { fontSize: 13, color: C.brownMid, lineHeight: 1.7, marginBottom: 10, fontFamily: "sans-serif" },
+  footer: {
+    textAlign: "center", padding: "32px 0 16px",
+    borderTop: `1px solid ${C.border}`, marginTop: 32,
+    display: "flex", justifyContent: "center", alignItems: "center", gap: 8,
+    flexWrap: "wrap",
+  },
+  footerLink: {
+    fontSize: 11, color: C.textMuted, cursor: "pointer", fontFamily: "sans-serif",
+    textDecoration: "underline", letterSpacing: "0.04em",
+  },
+  footerDot: { fontSize: 11, color: C.border },
+  footerText: { fontSize: 11, color: C.textMuted, fontFamily: "sans-serif" },
   chatSend: {
     border: "none", background: C.terracotta, color: C.white,
     width: 52, fontSize: 20, cursor: "pointer",
