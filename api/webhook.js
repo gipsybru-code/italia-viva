@@ -57,12 +57,9 @@ export default async function handler(req, res) {
 */
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.VITE_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
-
 export default async function handler(req, res) {
+  console.log('Webhook received:', req.method);
+  
   if (req.method !== 'POST') return res.status(405).end();
 
   try {
@@ -73,14 +70,30 @@ export default async function handler(req, res) {
       req.on('error', reject);
     });
 
+    console.log('Raw body length:', rawBody.length);
+    
     const event = JSON.parse(rawBody);
+    console.log('Event type:', event.type);
+    console.log('User ID:', event.data?.object?.client_reference_id);
+
+    if (!process.env.VITE_SUPABASE_URL) {
+      console.error('Missing VITE_SUPABASE_URL');
+      return res.status(500).json({ error: 'Missing env vars' });
+    }
+
+    const supabase = createClient(
+      process.env.VITE_SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_ROLE_KEY
+    );
 
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
       const userId = session.client_reference_id;
       const isLifetime = session.mode === 'payment';
 
-      const { error } = await supabase.from('subscriptions').upsert({
+      console.log('Upserting subscription for user:', userId);
+
+      const { data, error } = await supabase.from('subscriptions').upsert({
         user_id: userId,
         stripe_customer_id: session.customer,
         stripe_subscription_id: session.subscription || 'lifetime',
@@ -91,22 +104,17 @@ export default async function handler(req, res) {
           : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
       }, { onConflict: 'user_id' });
 
-      if (error) console.error('Supabase error:', error);
-    }
-
-    if (event.type === 'customer.subscription.deleted') {
-      const subscription = event.data.object;
-      await supabase
-        .from('subscriptions')
-        .update({ status: 'cancelled' })
-        .eq('stripe_subscription_id', subscription.id);
+      if (error) {
+        console.error('Supabase error:', JSON.stringify(error));
+        return res.status(500).json({ error: error.message });
+      }
+      
+      console.log('Subscription saved successfully:', data);
     }
 
     res.status(200).json({ received: true });
   } catch (err) {
-    console.error('Webhook error:', err.message);
-    res.status(400).json({ error: err.message });
+    console.error('Fatal error:', err.message, err.stack);
+    res.status(500).json({ error: err.message });
   }
-}
-  res.status(200).json({ received: true });
 }
