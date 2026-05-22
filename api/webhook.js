@@ -1,4 +1,3 @@
-// api/webhook.js
 const { createClient } = require('@supabase/supabase-js');
 const Stripe = require('stripe');
 
@@ -10,11 +9,11 @@ module.exports.default = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   try {
-    // Read raw body
-    let rawBody = '';
-    await new Promise((resolve, reject) => {
-      req.on('data', chunk => { rawBody += chunk; });
-      req.on('end', resolve);
+    // Read raw body as Buffer (required for Stripe signature verification)
+    const rawBody = await new Promise((resolve, reject) => {
+      const chunks = [];
+      req.on('data', chunk => chunks.push(chunk));
+      req.on('end', () => resolve(Buffer.concat(chunks)));
       req.on('error', reject);
     });
 
