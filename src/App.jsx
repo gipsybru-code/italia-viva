@@ -1584,11 +1584,11 @@ const LockIcon = () => (
 );
 
 // ── AI Chat Component ─────────────────────────────────────────────────────────
-function AiChat({ lesson }) {
+function AiChat({ lesson, t }) {
   const DAILY_LIMIT = 20;
   const storageKey = `msgCount_${lesson.id}_${new Date().toDateString()}`;
   const [messages, setMessages] = useState([
-    { role: "assistant", content: `Ciao! Ready to practise "${lesson.title}"? Let's go! 😊 (${DAILY_LIMIT} messages available today)` }
+    { role: "assistant", content: `Ciao! ${t ? t.aiWelcome : "Ready to practise"} "${lesson.title}"? Let's go! 😊 (${DAILY_LIMIT} messages available today)` }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -1602,7 +1602,7 @@ function AiChat({ lesson }) {
   async function sendMessage() {
     if (!input.trim() || loading) return;
     if (msgCount >= DAILY_LIMIT) {
-      setMessages(prev => [...prev, { role: "assistant", content: "You have reached your 20 message daily limit for this lesson. Come back tomorrow to keep practising! 🇮🇹" }]);
+      setMessages(prev => [...prev, { role: "assistant", content: t ? t.aiLimitReached : "You have reached your 20 message daily limit. Come back tomorrow! 🇮🇹" }]);
       return;
     }
     const userMsg = { role: "user", content: input.trim() };
@@ -1614,7 +1614,7 @@ function AiChat({ lesson }) {
     localStorage.setItem(storageKey, newCount.toString());
     if (lesson.free) {
       await new Promise(r => setTimeout(r, 600));
-      setMessages(prev => [...prev, { role: "assistant", content: "AI conversation practice is unlocked with a subscription. Subscribe from $3/month to practise live with your AI Italian tutor! 🇮🇹" }]);
+      setMessages(prev => [...prev, { role: "assistant", content: t ? t.aiSubscribe : "AI conversation practice is unlocked with a subscription. Subscribe from $3/month! 🇮🇹" }]);
       setLoading(false);
       return;
     }
@@ -1625,7 +1625,7 @@ function AiChat({ lesson }) {
         body: JSON.stringify({
           model: "claude-sonnet-4-6",
           max_tokens: 1000,
-          system: lesson.aiPrompt,
+          system: lesson.aiPrompt.replace("Always reply in English", `Always reply in ${t ? UI[Object.keys(UI).find(k => UI[k] === t) || "en"].name : "English"}`),
           messages: [...messages, userMsg],
         }),
       });
@@ -1642,7 +1642,7 @@ function AiChat({ lesson }) {
     <div style={styles.chatWrap}>
       <div style={styles.chatHeader}>
         <span style={styles.chatHeaderDot} />
-        AI Practice — {lesson.title}
+        {t ? t.aiHeader : "AI Practice"} — {lesson.title}
       </div>
       <div style={styles.chatMessages}>
         {messages.map((m, i) => (
@@ -1667,7 +1667,7 @@ function AiChat({ lesson }) {
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === "Enter" && sendMessage()}
-          placeholder="Type in Italian…"
+          placeholder={t ? t.typeItalian : "Type in Italian…"}
         />
         <button style={styles.chatSend} onClick={sendMessage} disabled={loading}>
           {loading ? "…" : "→"}
@@ -1678,21 +1678,21 @@ function AiChat({ lesson }) {
 }
 
 // ── Lesson View ───────────────────────────────────────────────────────────────
-function LessonView({ lesson, onBack }) {
+function LessonView({ lesson, onBack, t }) {
   const [step, setStep] = useState(0); // 0=keywords, 1=dialogue, 2=grammar, 3=ai
   const [kwIndex, setKwIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
 
-  const steps = ["Words", "Dialogue", "Grammar", "AI Practice"];
+  const steps = [t.words, t.dialogue, t.grammar, t.aiPractice];
 
   return (
     <div style={styles.lessonWrap}>
       {/* Back */}
-      <button style={styles.backBtn} onClick={onBack}>← All Lessons</button>
+      <button style={styles.backBtn} onClick={onBack}>{t.allLessons}</button>
 
       {/* Lesson title */}
       <div style={styles.lessonHeader}>
-        <span style={styles.lessonNum}>Lesson {lesson.id}</span>
+        <span style={styles.lessonNum}>{t.lesson} {lesson.id}</span>
         <h2 style={styles.lessonTitle}>{lesson.title}</h2>
         <p style={styles.lessonSubtitle}>{lesson.subtitle}</p>
       </div>
@@ -1713,7 +1713,7 @@ function LessonView({ lesson, onBack }) {
           <div style={styles.kwItalian}>{lesson.keywords[kwIndex].italian}</div>
           <div style={styles.kwEnglish}>{lesson.keywords[kwIndex].english}</div>
           <button style={styles.speakBtn} onClick={() => speak(lesson.keywords[kwIndex].italian)}>
-            <PlayIcon /> Listen
+            <PlayIcon /> {t.listen}
           </button>
           <div style={styles.kwNav}>
             <button style={styles.navBtn} onClick={() => setKwIndex(i => Math.max(0, i - 1))} disabled={kwIndex === 0}>‹</button>
@@ -1721,7 +1721,7 @@ function LessonView({ lesson, onBack }) {
           </div>
           {kwIndex === lesson.keywords.length - 1 && (
             <button style={styles.nextStepBtn} onClick={() => setStep(1)}>
-              Next: Dialogue <ChevronRight />
+              {t.nextDialogue} <ChevronRight />
             </button>
           )}
         </div>
@@ -1730,7 +1730,7 @@ function LessonView({ lesson, onBack }) {
       {/* ── DIALOGUE ── */}
       {step === 1 && (
         <div style={styles.card}>
-          <h3 style={styles.sectionLabel}>Dialogue</h3>
+          <h3 style={styles.sectionLabel}>{t.dialogue}</h3>
           <div style={styles.dialogueWrap}>
             {lesson.dialogue.map((line, i) => (
               <div key={i} style={styles.dialogueLine}>
@@ -1746,10 +1746,10 @@ function LessonView({ lesson, onBack }) {
             ))}
           </div>
           <button style={styles.speakBtn} onClick={() => lesson.dialogue.forEach((l, i) => setTimeout(() => speak(l.line), i * 2200))}>
-            <PlayIcon /> Listen All
+            <PlayIcon /> {t.listenAll}
           </button>
           <button style={styles.nextStepBtn} onClick={() => setStep(2)}>
-            Next: Grammar <ChevronRight />
+            {t.nextGrammar} <ChevronRight />
           </button>
         </div>
       )}
@@ -1757,12 +1757,12 @@ function LessonView({ lesson, onBack }) {
       {/* ── GRAMMAR FLASHCARD ── */}
       {step === 2 && (
         <div style={styles.card}>
-          <h3 style={styles.sectionLabel}>Grammar</h3>
+          <h3 style={styles.sectionLabel}>{t.grammar}</h3>
           <div style={{ ...styles.flashcard, ...(flipped ? styles.flashcardFlipped : {}) }} onClick={() => setFlipped(f => !f)}>
             {!flipped ? (
               <div>
                 <div style={styles.flashFront}>{lesson.grammar.title}</div>
-                <div style={styles.flashHint}>Tap to see examples</div>
+                <div style={styles.flashHint}>{t.tapToSee}</div>
               </div>
             ) : (
               <div>
@@ -1777,13 +1777,13 @@ function LessonView({ lesson, onBack }) {
             )}
           </div>
           <button style={styles.nextStepBtn} onClick={() => setStep(3)}>
-            Next: AI Practice <ChevronRight />
+            {t.nextAI} <ChevronRight />
           </button>
         </div>
       )}
 
       {/* ── AI CHAT ── */}
-      {step === 3 && <AiChat lesson={lesson} />}
+      {step === 3 && <AiChat lesson={lesson} t={t} />}
     </div>
   );
 }
@@ -1925,7 +1925,7 @@ function Home({ onSelect, user, isSubscribed, onAuthClick, onLegal }) {
 }
 
 // ── Auth Modal ────────────────────────────────────────────────────────────────
-function AuthModal({ onClose, onAuth }) {
+function AuthModal({ onClose, onAuth, t }) {
   const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -1964,36 +1964,36 @@ function AuthModal({ onClose, onAuth }) {
     <div style={styles.modalOverlay}>
       <div style={styles.modal}>
         <button style={styles.modalClose} onClick={onClose}>×</button>
-        <h2 style={styles.modalTitle}>{mode === "login" ? "Welcome back" : "Create account"}</h2>
+        <h2 style={styles.modalTitle}>{mode === "login" ? (t ? t.welcomeBack : "Welcome back") : (t ? t.createAccount : "Create account")}</h2>
         <input
           style={styles.authInput}
           type="email"
-          placeholder="Email"
+          placeholder={t ? t.emailPlaceholder : "Email"}
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
         <input
           style={styles.authInput}
           type="password"
-          placeholder="Password"
+          placeholder={t ? t.passwordPlaceholder : "Password"}
           value={password}
           onChange={e => setPassword(e.target.value)}
           onKeyDown={e => e.key === "Enter" && handleSubmit()}
         />
         {message && <div style={styles.authMessage}>{message}</div>}
         <button style={styles.ctaBtn} onClick={handleSubmit} disabled={loading}>
-          {loading ? "..." : mode === "login" ? "Log in" : "Sign up"}
+          {loading ? "..." : mode === "login" ? (t ? t.login : "Log in") : (t ? t.createAccount : "Sign up")}
         </button>
         <div style={styles.authSwitch}>
           {mode === "login" ? (
             <div>
               <div style={{marginBottom: 8}}>No account? <span style={styles.authLink} onClick={() => setMode("signup")}>Sign up free</span></div>
               {resetSent
-                ? <div style={{color: "#2E7D32", fontSize: 12}}>✓ Reset link sent — check your email if it is associated with a Parlissimo account.</div>
-                : <div>Forgot password? <span style={styles.authLink} onClick={handleReset}>Send reset link</span></div>}
+                ? <div style={{color: "#2E7D32", fontSize: 12}}>{t ? t.resetSent : "Reset link sent — check your email."}</div>
+                : <div>{t ? t.forgotPassword : "Forgot password?"} <span style={styles.authLink} onClick={handleReset}>{t ? t.sendReset : "Send reset link"}</span></div>}
             </div>
           ) : (
-            <span>Have an account? <span style={styles.authLink} onClick={() => setMode("login")}>Log in</span></span>
+            <span>{t ? t.haveAccount : "Have an account?"} <span style={styles.authLink} onClick={() => setMode("login")}>{t ? t.login : "Log in"}</span></span>
           )}
         </div>
       </div>
@@ -2065,7 +2065,7 @@ function LegalPage({ type, onClose }) {
   return (
     <div style={styles.shell}>
       <div style={styles.container}>
-        <button style={styles.backBtn} onClick={onClose}>← Back to Parlissimo</button>
+        <button style={styles.backBtn} onClick={onClose}>{t ? t.back : "← Back to Parlissimo"}</button>
         <div style={styles.legalWrap}>
           {isPrivacy ? <PrivacyPolicy /> : <TermsOfService />}
         </div>
@@ -2284,7 +2284,7 @@ export default function App() {
 
   if (loadingAuth) return (
     <div style={{...styles.shell, display:"flex", alignItems:"center", justifyContent:"center"}}>
-      <div style={{color: "#C4622D", fontSize: 14, fontFamily: "sans-serif"}}>Loading...</div>
+      <div style={{color: "#C4622D", fontSize: 14, fontFamily: "sans-serif"}}>{t.loading}</div>
     </div>
   );
 
@@ -2293,35 +2293,44 @@ export default function App() {
       <div style={styles.container}>
         {showInstallBanner && (
           <div style={styles.installBanner}>
-            <span style={styles.installBannerText}>📲 Add Parlissimo to your home screen for the best experience!</span>
+            <span style={styles.installBannerText}>{t.installBanner}</span>
             <div style={styles.installBannerButtons}>
-              <button style={styles.installBtn} onClick={handleInstall}>Install App</button>
+              <button style={styles.installBtn} onClick={handleInstall}>{t.installBtn}</button>
               <button style={styles.installDismiss} onClick={() => setShowInstallBanner(false)}>✕</button>
             </div>
           </div>
         )}
         {!installPrompt && (
           <div style={{...styles.iosHint, display: /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.navigator.standalone ? "block" : "none"}}>
-            📲 On iPhone: tap <strong>Share ↑</strong> then <strong>Add to Home Screen</strong> to install Parlissimo as an app!
+            {t.iosHint}
           </div>
         )}
         <div style={styles.topBar}>
-          <span style={styles.topBarLogo}>Parlissimo</span>
+          <div style={styles.topBarRow1}>
+            <span style={styles.topBarLogo}>Parlissimo</span>
+            <div style={styles.langSelector}>
+              {LANGUAGES.map(code => (
+                <button key={code} style={{...styles.langBtn, ...(lang === code ? styles.langBtnActive : {})}} onClick={() => changeLang(code)}>
+                  {UI[code].flag}
+                </button>
+              ))}
+            </div>
+          </div>
           {user ? (
             <div style={styles.topBarRight}>
               <span style={styles.topBarEmail}>{user.email}</span>
               {isSubscribed && <span style={styles.topBarBadge}>✓ Active</span>}
-              {isSubscribed && <button style={styles.topBarBtn} onClick={handleManageSubscription}>Manage</button>}
-              <button style={styles.topBarBtn} onClick={handleLogout}>Log out</button>
+              {isSubscribed && <button style={styles.topBarBtn} onClick={handleManageSubscription}>{t.manage}</button>}
+              <button style={styles.topBarBtn} onClick={handleLogout}>{t.logout}</button>
             </div>
           ) : (
-            <button style={styles.topBarBtn} onClick={() => setShowAuth(true)}>Log in</button>
+            <button style={styles.topBarBtn} onClick={() => setShowAuth(true)}>{t.login}</button>
           )}
         </div>
-        {showAuth && <AuthModal onClose={() => setShowAuth(false)} onAuth={() => setShowAuth(false)} />}
+        {showAuth && <AuthModal onClose={() => setShowAuth(false)} onAuth={() => setShowAuth(false)} t={t} />}
         {activeLesson
-          ? <LessonView lesson={activeLesson} onBack={() => setActiveLesson(null)} isSubscribed={isSubscribed} />
-          : <Home onSelect={handleLessonSelect} user={user} isSubscribed={isSubscribed} onAuthClick={() => setShowAuth(true)} onLegal={setLegalPage} />}
+          ? <LessonView lesson={activeLesson} onBack={() => setActiveLesson(null)} isSubscribed={isSubscribed} t={t} />
+          : <Home onSelect={handleLessonSelect} user={user} isSubscribed={isSubscribed} onAuthClick={() => setShowAuth(true)} onLegal={setLegalPage} t={t} lang={lang} changeLang={changeLang} />}
       </div>
     </div>
   );
@@ -2634,13 +2643,27 @@ const styles = {
     borderRadius: 6, marginBottom: 12, fontSize: 12,
     fontFamily: "sans-serif", lineHeight: 1.5, display: "none",
   },
-  topBar: {
-    display: "flex", justifyContent: "space-between", alignItems: "center",
-    padding: "14px 0", borderBottom: `1px solid ${C.border}`, marginBottom: 24,
+  langSelector: {
+    display: "flex", gap: 4, alignItems: "center",
   },
+  langBtn: {
+    background: "none", border: "none", fontSize: 18, cursor: "pointer",
+    padding: "2px 4px", borderRadius: 4, opacity: 0.45,
+    transition: "opacity 0.2s",
+  },
+  langBtnActive: {
+    opacity: 1,
+    background: C.sand,
+  },
+  topBar: {
+    display: "flex", flexDirection: "column", alignItems: "center",
+    padding: "14px 0", borderBottom: `1px solid ${C.border}`, marginBottom: 24,
+    gap: 8,
+  },
+  topBarRow1: { display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" },
   topBarLogo: { fontSize: 18, fontWeight: 700, color: C.terracotta, letterSpacing: "-0.01em" },
-  topBarRight: { display: "flex", alignItems: "center", gap: 10 },
-  topBarEmail: { fontSize: 11, color: C.textMuted, fontFamily: "sans-serif" },
+  topBarRight: { display: "flex", alignItems: "center", justifyContent: "center", gap: 8, flexWrap: "wrap" },
+  topBarEmail: { fontSize: 11, color: C.textMuted, fontFamily: "sans-serif", textAlign: "center" },
   topBarBadge: {
     fontSize: 10, background: "#E8F5E9", color: "#2E7D32", padding: "2px 8px",
     borderRadius: 20, fontFamily: "sans-serif",
