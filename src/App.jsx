@@ -8,12 +8,74 @@ const supabase = createClient(
 
 // ── i18n ──────────────────────────────────────────────────────────────────────
 const LANGUAGES = [
-  { code: "en", flag: "🇬🇧", label: "EN" },
-  { code: "fr", flag: "🇫🇷", label: "FR" },
-  { code: "es", flag: "🇪🇸", label: "ES" },
-  { code: "pt", flag: "🇧🇷", label: "PT" },
-  { code: "de", flag: "🇩🇪", label: "DE" },
+  { code: "en", flag: "🇬🇧", name: "English" },
+  { code: "fr", flag: "🇫🇷", name: "Français" },
+  { code: "es", flag: "🇪🇸", name: "Español" },
+  { code: "pt", flag: "🇧🇷", name: "Português" },
+  { code: "de", flag: "🇩🇪", name: "Deutsch" },
 ];
+
+const LANG_NAMES = { en: "English", fr: "French", es: "Spanish", pt: "Portuguese", de: "German" };
+
+// ── Translation cache (session-scoped, key: `${lessonId}_${lang}`) ────────────
+const translationCache = {};
+
+async function translateLesson(lesson, targetLang) {
+  if (targetLang === "en") return lesson;
+  const cacheKey = `${lesson.id}_${targetLang}`;
+  if (translationCache[cacheKey]) return translationCache[cacheKey];
+
+  const langName = LANG_NAMES[targetLang];
+  const payload = {
+    keywords: lesson.keywords.map(k => k.english),
+    dialogueTranslations: lesson.dialogue.map(d => d.translation),
+    grammarTitle: lesson.grammar.title,
+    grammarPoints: lesson.grammar.points.map(p => p.english),
+    grammarNote: lesson.grammar.note,
+  };
+
+  const prompt = `You are a professional translator. Translate the following JSON from English to ${langName}.
+Rules:
+- Keep ALL Italian words/phrases exactly as they are (anything Italian stays untouched).
+- Only translate the English explanations, descriptions, and translations.
+- Return ONLY valid JSON with exactly the same structure as the input. No markdown, no extra text.
+- Keep translations natural and fluent.
+
+Input JSON:
+${JSON.stringify(payload)}`;
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: prompt }],
+      }),
+    });
+    const data = await response.json();
+    const raw = data.content?.find(b => b.type === "text")?.text || "";
+    const clean = raw.replace(/```json|```/g, "").trim();
+    const translated = JSON.parse(clean);
+
+    const result = {
+      ...lesson,
+      keywords: lesson.keywords.map((k, i) => ({ ...k, english: translated.keywords[i] ?? k.english })),
+      dialogue: lesson.dialogue.map((d, i) => ({ ...d, translation: translated.dialogueTranslations[i] ?? d.translation })),
+      grammar: {
+        ...lesson.grammar,
+        title: translated.grammarTitle ?? lesson.grammar.title,
+        points: lesson.grammar.points.map((p, i) => ({ ...p, english: translated.grammarPoints[i] ?? p.english })),
+        note: translated.grammarNote ?? lesson.grammar.note,
+      },
+    };
+    translationCache[cacheKey] = result;
+    return result;
+  } catch {
+    return lesson;
+  }
+}
 
 const T = {
   en: {
@@ -85,6 +147,7 @@ const T = {
     or: "or",
     checkoutError: "Something went wrong. Please try again.",
     copyright: "© 2026 Parlissimo",
+    translating: "Translating lesson…",
   },
   fr: {
     heroTag: "Cours Intensif · Apprenez Vite · L'Essentiel Seulement",
@@ -155,6 +218,7 @@ const T = {
     or: "ou",
     checkoutError: "Une erreur s'est produite. Veuillez réessayer.",
     copyright: "© 2026 Parlissimo",
+    translating: "Traduction de la leçon en cours…",
   },
   es: {
     heroTag: "Curso Intensivo · Aprende Rápido · Solo lo Esencial",
@@ -225,6 +289,7 @@ const T = {
     or: "o",
     checkoutError: "Algo salió mal. Inténtalo de nuevo.",
     copyright: "© 2026 Parlissimo",
+    translating: "Traduciendo la lección…",
   },
   pt: {
     heroTag: "Curso Intensivo · Aprenda Rápido · Só o Essencial",
@@ -295,6 +360,7 @@ const T = {
     or: "ou",
     checkoutError: "Algo deu errado. Tente novamente.",
     copyright: "© 2026 Parlissimo",
+    translating: "Traduzindo a lição…",
   },
   de: {
     heroTag: "Intensivkurs · Schnell Lernen · Nur das Wesentliche",
@@ -365,6 +431,7 @@ const T = {
     or: "oder",
     checkoutError: "Etwas ist schiefgelaufen. Bitte erneut versuchen.",
     copyright: "© 2026 Parlissimo",
+    translating: "Lektion wird übersetzt…",
   },
 };
 
@@ -700,8 +767,8 @@ function LangSelector({ lang, setLang }) {
         onClick={() => setOpen(o => !o)}
         title="Change language"
       >
-        <span style={{ fontSize: 16 }}>{current.flag}</span>
-        <span style={{ fontSize: 11, fontFamily: "sans-serif", letterSpacing: "0.06em" }}>{current.label}</span>
+        <span style={{ fontSize: 18, lineHeight: 1 }}>{current.flag}</span>
+        <span style={{ fontSize: 11, fontFamily: "sans-serif", letterSpacing: "0.04em", color: C.brownMid }}>{current.name}</span>
         <span style={{ fontSize: 9, color: C.textMuted }}>▾</span>
       </button>
       {open && (
@@ -712,12 +779,12 @@ function LangSelector({ lang, setLang }) {
               style={{
                 ...styles.langOption,
                 background: l.code === lang ? C.sand : "transparent",
-                fontWeight: l.code === lang ? 600 : 400,
+                fontWeight: l.code === lang ? 700 : 400,
               }}
               onClick={() => { setLang(l.code); setOpen(false); }}
             >
-              <span style={{ fontSize: 16 }}>{l.flag}</span>
-              <span style={{ fontSize: 12, fontFamily: "sans-serif" }}>{l.label}</span>
+              <span style={{ fontSize: 18 }}>{l.flag}</span>
+              <span style={{ fontSize: 12, fontFamily: "sans-serif" }}>{l.name}</span>
             </button>
           ))}
         </div>
@@ -818,11 +885,24 @@ function AiChat({ lesson }) {
 }
 
 // ── Lesson View ───────────────────────────────────────────────────────────────
-function LessonView({ lesson, onBack }) {
-  const { t } = useLang();
+function LessonView({ lesson: rawLesson, onBack }) {
+  const { lang, t } = useLang();
   const [step, setStep] = useState(0);
   const [kwIndex, setKwIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
+  const [lesson, setLesson] = useState(rawLesson);
+  const [translating, setTranslating] = useState(false);
+
+  useEffect(() => {
+    if (lang === "en") { setLesson(rawLesson); return; }
+    const cacheKey = `${rawLesson.id}_${lang}`;
+    if (translationCache[cacheKey]) { setLesson(translationCache[cacheKey]); return; }
+    setTranslating(true);
+    translateLesson(rawLesson, lang).then(result => {
+      setLesson(result);
+      setTranslating(false);
+    });
+  }, [lang, rawLesson]);
 
   const steps = [t.words, t.dialogue, t.grammar, t.aiPractice];
 
@@ -842,6 +922,12 @@ function LessonView({ lesson, onBack }) {
           </button>
         ))}
       </div>
+
+      {translating && (
+        <div style={styles.translatingBanner}>
+          <span style={{ fontSize: 14 }}>⟳</span> {t.translating}
+        </div>
+      )}
 
       {/* KEYWORDS */}
       {step === 0 && (
@@ -1168,9 +1254,48 @@ function TermsOfService() {
       <h1 style={styles.legalTitle}>Terms of Service</h1>
       <p style={styles.legalDate}>Last updated: May 2026</p>
       <p style={styles.legalText}>Please read these Terms of Service carefully before using Parlissimo. By accessing or using our service, you agree to be bound by these terms.</p>
-      <h2 style={styles.legalH2}>1. Subscriptions and Payments</h2>
-      <p style={styles.legalText}><strong>Monthly:</strong> $3.00 USD/month. <strong>Annual:</strong> $30.00 USD/year. <strong>Lifetime:</strong> $49.00 USD one-time.</p>
-      <h2 style={styles.legalH2}>2. Contact</h2>
+
+      <h2 style={styles.legalH2}>1. Service Description</h2>
+      <p style={styles.legalText}>Parlissimo is an online Italian language learning platform offering structured lessons, grammar guides, audio pronunciation, and AI-powered conversation practice. The first lesson is available free of charge. Access to all lessons and AI practice requires a paid subscription.</p>
+
+      <h2 style={styles.legalH2}>2. Account Registration</h2>
+      <p style={styles.legalText}>To access paid features, you must create an account with a valid email address. You are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account. You must not share your account with others.</p>
+
+      <h2 style={styles.legalH2}>3. Subscriptions and Payments</h2>
+      <p style={styles.legalText}><strong>Monthly subscription:</strong> $3.00 USD per month, billed monthly and automatically renewed until cancelled.</p>
+      <p style={styles.legalText}><strong>Annual subscription:</strong> $30.00 USD per year, billed annually and automatically renewed until cancelled.</p>
+      <p style={styles.legalText}><strong>Lifetime access:</strong> $49.00 USD, one-time payment, permanent access with no recurring charges.</p>
+      <p style={styles.legalText}>All payments are processed securely by Stripe. By subscribing, you authorise us to charge your payment method on a recurring basis until you cancel. Prices may be subject to local taxes.</p>
+
+      <h2 style={styles.legalH2}>4. Cancellation and Refunds</h2>
+      <p style={styles.legalText}>You may cancel your subscription at any time through the "Manage" option in the app. Upon cancellation, you will retain access until the end of your current billing period. No refunds are provided for partial billing periods.</p>
+      <p style={styles.legalText}>Lifetime access purchases are non-refundable once made, except where required by applicable consumer protection law.</p>
+      <p style={styles.legalText}>If you experience a technical issue that prevents access to the service, please contact us at hello@parlissimo.live and we will resolve it or offer a fair remedy at our discretion.</p>
+
+      <h2 style={styles.legalH2}>5. AI Practice — Acceptable Use</h2>
+      <p style={styles.legalText}>The AI conversation feature is provided solely for Italian language practice related to the lesson content. You agree not to use the AI chat to request content unrelated to the lesson, attempt to circumvent content restrictions, generate harmful or offensive content, or probe for vulnerabilities. Misuse may result in immediate suspension of your account without refund.</p>
+
+      <h2 style={styles.legalH2}>6. Daily Usage Limits</h2>
+      <p style={styles.legalText}>AI conversation practice is limited to 20 messages per lesson per day. This limit resets daily and is designed to ensure fair access and sustainable service operation.</p>
+
+      <h2 style={styles.legalH2}>7. Intellectual Property</h2>
+      <p style={styles.legalText}>All content on Parlissimo — including lesson texts, dialogues, grammar explanations, audio, and design — is the intellectual property of Parlissimo and is protected by copyright law. You may not reproduce, distribute, or create derivative works from our content without prior written permission.</p>
+
+      <h2 style={styles.legalH2}>8. Disclaimer of Warranties</h2>
+      <p style={styles.legalText}>Parlissimo is provided "as is" without warranty of any kind. We do not guarantee that the service will be uninterrupted or error-free, or that it will meet your specific language learning goals. Language learning outcomes depend on individual effort and practice.</p>
+
+      <h2 style={styles.legalH2}>9. Limitation of Liability</h2>
+      <p style={styles.legalText}>To the fullest extent permitted by law, Parlissimo and its operators shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the service. Our total liability to you shall not exceed the amount you paid us in the 12 months preceding the claim.</p>
+
+      <h2 style={styles.legalH2}>10. Modifications and Discontinuation of Service</h2>
+      <p style={styles.legalText}>We reserve the right to modify, suspend, or discontinue any part of the service at any time, including discontinuing the service entirely.</p>
+      <p style={styles.legalText}>In the event of a full discontinuation of Parlissimo: monthly or annual subscribers will receive at least 30 days notice and will not be charged beyond their current billing period — unused portions of annual subscriptions will be refunded pro-rata. Lifetime access holders will receive at least 30 days notice; as a courtesy we will endeavour to offer a partial refund at our discretion, but by purchasing lifetime access you acknowledge that "lifetime" refers to the lifetime of the service, not the lifetime of the user. All user data will be deleted within 60 days of discontinuation.</p>
+      <p style={styles.legalText}>Notice will be sent to your registered email address and posted on the app.</p>
+
+      <h2 style={styles.legalH2}>11. Governing Law</h2>
+      <p style={styles.legalText}>These Terms shall be governed by and construed in accordance with applicable law. Any disputes shall be resolved through good-faith negotiation. If unresolved, disputes shall be subject to the jurisdiction of the courts of the country in which the operator is based.</p>
+
+      <h2 style={styles.legalH2}>12. Contact</h2>
       <p style={styles.legalText}>For any questions regarding these Terms, contact us at: <strong>hello@parlissimo.live</strong></p>
     </div>
   );
@@ -1421,9 +1546,10 @@ const styles = {
   topBarBadge: { fontSize: 10, background: "#E8F5E9", color: "#2E7D32", padding: "2px 8px", borderRadius: 20, fontFamily: "sans-serif" },
   topBarBtn: { background: "none", border: `1px solid ${C.border}`, borderRadius: 3, padding: "6px 14px", fontSize: 11, cursor: "pointer", color: C.brownMid, fontFamily: "sans-serif", letterSpacing: "0.06em" },
   // Language selector
-  langBtn: { display: "flex", alignItems: "center", gap: 5, background: C.cream, border: `1px solid ${C.border}`, borderRadius: 3, padding: "5px 10px", cursor: "pointer", color: C.brownMid, fontFamily: "sans-serif" },
-  langDropdown: { position: "absolute", top: "calc(100% + 6px)", right: 0, background: C.white, border: `1px solid ${C.border}`, borderRadius: 4, boxShadow: "0 4px 16px rgba(0,0,0,0.1)", zIndex: 200, minWidth: 90, overflow: "hidden" },
-  langOption: { display: "flex", alignItems: "center", gap: 8, width: "100%", padding: "9px 14px", border: "none", cursor: "pointer", color: C.brown, textAlign: "left" },
+  langBtn: { display: "flex", alignItems: "center", gap: 6, background: C.cream, border: `1px solid ${C.border}`, borderRadius: 3, padding: "5px 10px", cursor: "pointer", color: C.brownMid, fontFamily: "sans-serif" },
+  langDropdown: { position: "absolute", top: "calc(100% + 6px)", right: 0, background: C.white, border: `1px solid ${C.border}`, borderRadius: 4, boxShadow: "0 4px 16px rgba(0,0,0,0.1)", zIndex: 200, minWidth: 140, overflow: "hidden" },
+  langOption: { display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "9px 14px", border: "none", cursor: "pointer", color: C.brown, textAlign: "left" },
+  translatingBanner: { display: "flex", alignItems: "center", gap: 8, padding: "10px 16px", background: C.sand, borderRadius: 4, marginBottom: 16, fontSize: 12, color: C.brownMid, fontFamily: "sans-serif", fontStyle: "italic" },
   modalOverlay: { position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 100 },
   modal: { background: C.white, borderRadius: 8, padding: 32, width: "90%", maxWidth: 380, position: "relative" },
   modalClose: { position: "absolute", top: 12, right: 16, background: "none", border: "none", fontSize: 22, cursor: "pointer", color: C.textMuted },
