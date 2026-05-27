@@ -555,12 +555,7 @@ function LessonView({ lessonId, onBack }) {
   const [kwIndex, setKwIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
 
-  // Derive lesson reactively — re-runs whenever lang or lessonId changes
-  const lesson = useMemo(
-    () => getLessons(lang).find(l => l.id === lessonId),
-    [lang, lessonId]
-  );
-
+  const lesson = getLessons(lang).find(l => l.id === lessonId);
   if (!lesson) return <div style={{ padding: 32 }}>Lesson not found</div>;
 
   const steps = [t.words, t.dialogue, t.grammar, t.aiPractice];
