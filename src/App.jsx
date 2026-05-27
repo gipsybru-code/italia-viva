@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, createContext, useContext } from "react";
+import { useState, useEffect, useRef, createContext, useContext, useMemo } from "react";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -547,15 +547,19 @@ function AiChat({ lesson }) {
 }
 
 // ── Lesson View ───────────────────────────────────────────────────────────────
-function LessonView({ lesson: rawLesson, onBack }) {
+function LessonView({ lessonId, onBack }) {
   const { lang, t } = useLang();
   const [step, setStep] = useState(0);
   const [kwIndex, setKwIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
 
-  // Pick the lesson from the correct language file — instant, no API call
-  const lessons = getLessons(lang);
-  const lesson = lessons.find(l => l.id === rawLesson.id) || rawLesson;
+  // Derive lesson reactively — re-runs whenever lang or lessonId changes
+  const lesson = useMemo(
+    () => getLessons(lang).find(l => l.id === lessonId),
+    [lang, lessonId]
+  );
+
+  if (!lesson) return <div style={{ padding: 32 }}>Lesson not found</div>;
 
   const steps = [t.words, t.dialogue, t.grammar, t.aiPractice];
 
@@ -1092,7 +1096,7 @@ export default function App() {
           {legalPage
             ? <LegalPage type={legalPage} onClose={() => setLegalPage(null)} />
             : activeLesson
-              ? <LessonView lesson={activeLesson} onBack={() => setActiveLesson(null)} isSubscribed={isSubscribed} />
+              ? <LessonView lessonId={activeLesson.id} onBack={() => setActiveLesson(null)} isSubscribed={isSubscribed} />
               : <Home onSelect={handleLessonSelect} user={user} isSubscribed={isSubscribed} onAuthClick={() => setShowAuth(true)} onLegal={setLegalPage} />
           }
         </div>
