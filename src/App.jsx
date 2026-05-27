@@ -19,17 +19,19 @@ const LANGUAGES = [
 // Each file exports a LESSONS array with the same structure.
 // To add a new language: create src/lessons/xx.js and add a case below.
 import { LESSONS as LESSONS_EN } from "./lessons/en.js";
-import { LESSONS as LESSONS_FR } from "./lessons/fr.js";
 import { LESSONS as LESSONS_ES } from "./lessons/es.js";
-import { LESSONS as LESSONS_PT } from "./lessons/pt.js";
-import { LESSONS as LESSONS_DE } from "./lessons/de.js";
+// FR, PT, DE files not yet created — they fall back to English until added.
+// Once you create lessons/fr.js, lessons/pt.js, lessons/de.js, uncomment these:
+// import { LESSONS as LESSONS_FR } from "./lessons/fr.js";
+// import { LESSONS as LESSONS_PT } from "./lessons/pt.js";
+// import { LESSONS as LESSONS_DE } from "./lessons/de.js";
 
 function getLessons(lang) {
   switch (lang) {
-    case "fr": return LESSONS_FR;
     case "es": return LESSONS_ES;
-    case "pt": return LESSONS_PT;
-    case "de": return LESSONS_DE;
+    // case "fr": return LESSONS_FR;
+    // case "pt": return LESSONS_PT;
+    // case "de": return LESSONS_DE;
     default:   return LESSONS_EN;
   }
 }
