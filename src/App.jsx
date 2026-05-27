@@ -423,7 +423,7 @@ const LockIcon = () => (
 // ── Language Selector ─────────────────────────────────────────────────────────
 function LangSelector({ lang, setLang }) {
   const [open, setOpen] = useState(false);
-  const current = LANGUAGES.find(l => l.code === lang);
+  const current = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
   return (
     <div style={{ position: "relative" }}>
       <button
