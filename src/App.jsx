@@ -549,8 +549,8 @@ function AiChat({ lesson }) {
 }
 
 // ── Lesson View ───────────────────────────────────────────────────────────────
-function LessonView({ lessonId, onBack }) {
-  const { lang, t } = useLang();
+function LessonView({ lessonId, lang, onBack }) {
+  const { t } = useLang();
   const [step, setStep] = useState(0);
   const [kwIndex, setKwIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
@@ -1093,7 +1093,7 @@ export default function App() {
           {legalPage
             ? <LegalPage type={legalPage} onClose={() => setLegalPage(null)} />
             : activeLesson
-              ? <LessonView lessonId={activeLesson.id} onBack={() => setActiveLesson(null)} isSubscribed={isSubscribed} />
+              ? <LessonView lessonId={activeLesson.id} lang={lang} onBack={() => setActiveLesson(null)} isSubscribed={isSubscribed} />
               : <Home onSelect={handleLessonSelect} user={user} isSubscribed={isSubscribed} onAuthClick={() => setShowAuth(true)} onLegal={setLegalPage} />
           }
         </div>
