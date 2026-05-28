@@ -18,10 +18,16 @@ const LANGUAGES = [
 // ── Lesson imports ───────────────────────────────────────────────────────────
 import { LESSONS as LESSONS_EN } from "./lessons/en.js";
 import { LESSONS as LESSONS_ES } from "./lessons/es.js";
+import { LESSONS as LESSONS_FR } from "./lessons/fr.js";
+import { LESSONS as LESSONS_PT } from "./lessons/pt.js";
+import { LESSONS as LESSONS_DE } from "./lessons/de.js";
 
 function getLessons(lang) {
   switch (lang) {
     case "es": return LESSONS_ES;
+    case "fr": return LESSONS_FR;
+    case "pt": return LESSONS_PT;
+    case "de": return LESSONS_DE;
     default:   return LESSONS_EN;
   }
 }
