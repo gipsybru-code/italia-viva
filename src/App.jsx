@@ -8,7 +8,7 @@ const supabase = createClient(
 
 // ── i18n ──────────────────────────────────────────────────────────────────────
 const LANGUAGES = [
-  { code: "en", cc: "EN", flag: "us", name: "English" },
+  { code: "en", cc: "EN", flag: "🇬🇧", name: "English" },
   { code: "fr", cc: "FR", flag: "🇫🇷", name: "Français" },
   { code: "es", cc: "ES", flag: "🇪🇸", name: "Español" },
   { code: "pt", cc: "PT", flag: "🇧🇷", name: "Português" },
@@ -419,7 +419,7 @@ const LockIcon = () => (
 // ── Language Selector ─────────────────────────────────────────────────────────
 function LangSelector({ lang, setLang }) {
   const [open, setOpen] = useState(false);
-  const current = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
+  const current = LANGUAGES.find(l => l.code === lang);
   const ccStyle = {
     fontSize: 10, fontWeight: 700, fontFamily: "sans-serif",
     background: C.terracotta, color: C.white,
@@ -456,7 +456,9 @@ function LangSelector({ lang, setLang }) {
 }
 
 // ── AI Chat Component ─────────────────────────────────────────────────────────
-function AiChat({ lesson }) {
+const LANG_BCP47 = { en: "en-US", fr: "fr-FR", es: "es-ES", pt: "pt-BR", de: "de-DE" };
+
+function AiChat({ lesson, lang }) {
   const { t } = useLang();
   const DAILY_LIMIT = 20;
   const storageKey = `msgCount_${lesson.id}_${new Date().toDateString()}`;
@@ -466,11 +468,40 @@ function AiChat({ lesson }) {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [msgCount, setMsgCount] = useState(() => parseInt(localStorage.getItem(storageKey) || "0"));
+  const [micLang, setMicLang] = useState("it"); // "it" = Italian, "native" = student's language
+  const [listening, setListening] = useState(false);
+  const recognitionRef = useRef(null);
   const bottomRef = useRef(null);
+
+  const micSupported = typeof window !== "undefined" &&
+    ("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  function startMic() {
+    if (!micSupported || listening) return;
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SR();
+    recognition.lang = micLang === "it" ? "it-IT" : (LANG_BCP47[lang] || "en-US");
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.onstart = () => setListening(true);
+    recognition.onend = () => setListening(false);
+    recognition.onerror = () => setListening(false);
+    recognition.onresult = (e) => {
+      const transcript = e.results[0][0].transcript;
+      setInput(prev => prev ? prev + " " + transcript : transcript);
+    };
+    recognitionRef.current = recognition;
+    recognition.start();
+  }
+
+  function stopMic() {
+    recognitionRef.current?.stop();
+    setListening(false);
+  }
 
   async function sendMessage() {
     if (!input.trim() || loading) return;
@@ -530,6 +561,22 @@ function AiChat({ lesson }) {
         )}
         <div ref={bottomRef} />
       </div>
+
+      {/* Mic language toggle — only shown if speech recognition is available */}
+      {micSupported && (
+        <div style={styles.micToggleRow}>
+          <span style={styles.micToggleLabel}>🎤</span>
+          <button
+            style={{ ...styles.micToggleBtn, ...(micLang === "it" ? styles.micToggleBtnActive : {}) }}
+            onClick={() => setMicLang("it")}
+          >IT</button>
+          <button
+            style={{ ...styles.micToggleBtn, ...(micLang === "native" ? styles.micToggleBtnActive : {}) }}
+            onClick={() => setMicLang("native")}
+          >{(LANG_BCP47[lang] || "en-US").split("-")[0].toUpperCase()}</button>
+        </div>
+      )}
+
       <div style={styles.chatInput}>
         <input
           style={styles.chatInputField}
@@ -538,6 +585,18 @@ function AiChat({ lesson }) {
           onKeyDown={e => e.key === "Enter" && sendMessage()}
           placeholder={t.aiPlaceholder}
         />
+        {micSupported && (
+          <button
+            style={{ ...styles.micBtn, ...(listening ? styles.micBtnActive : {}) }}
+            onMouseDown={startMic}
+            onMouseUp={stopMic}
+            onTouchStart={e => { e.preventDefault(); startMic(); }}
+            onTouchEnd={e => { e.preventDefault(); stopMic(); }}
+            title={listening ? "Listening…" : "Hold to speak"}
+          >
+            {listening ? "●" : "🎤"}
+          </button>
+        )}
         <button style={styles.chatSend} onClick={sendMessage} disabled={loading}>
           {loading ? "…" : "→"}
         </button>
@@ -650,7 +709,7 @@ function LessonView({ lessonId, lang, onBack }) {
       )}
 
       {/* AI CHAT */}
-      {step === 3 && <AiChat lesson={lesson} />}
+      {step === 3 && <AiChat lesson={lesson} lang={lang} />}
     </div>
   );
 }
@@ -1184,6 +1243,12 @@ const styles = {
   chatInput: { display: "flex", borderTop: `1px solid ${C.border}`, background: C.white },
   chatInputField: { flex: 1, border: "none", outline: "none", padding: "14px 18px", fontSize: 14, color: C.brown, background: "transparent", fontFamily: "'Palatino Linotype', Georgia, serif" },
   chatSend: { border: "none", background: C.terracotta, color: C.white, width: 52, fontSize: 20, cursor: "pointer" },
+  micToggleRow: { display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", borderTop: `1px solid ${C.border}`, background: C.sand },
+  micToggleLabel: { fontSize: 13, marginRight: 2 },
+  micToggleBtn: { fontSize: 10, fontWeight: 700, fontFamily: "sans-serif", letterSpacing: "0.06em", padding: "3px 10px", borderRadius: 20, border: `1px solid ${C.border}`, background: C.white, color: C.brownMid, cursor: "pointer" },
+  micToggleBtnActive: { background: C.terracotta, color: C.white, border: `1px solid ${C.terracotta}` },
+  micBtn: { border: "none", background: C.sand, color: C.brownMid, width: 44, fontSize: 16, cursor: "pointer", borderLeft: `1px solid ${C.border}` },
+  micBtnActive: { background: "#fde8e8", color: C.terracotta },
   installBanner: { background: C.brown, color: C.cream, padding: "12px 16px", borderRadius: 6, marginBottom: 12, display: "flex", flexDirection: "column", gap: 8 },
   installBannerText: { fontSize: 13, lineHeight: 1.4, fontFamily: "sans-serif" },
   installBannerButtons: { display: "flex", gap: 8, alignItems: "center" },
