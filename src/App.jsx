@@ -32,6 +32,12 @@ function getLessons(lang) {
   }
 }
 
+// Defensive wrapper — never returns undefined even if a file failed to load
+function getLessonsSafe(lang) {
+  const lessons = getLessons(lang);
+  return (lessons && lessons.length > 0) ? lessons : LESSONS_EN;
+}
+
 const T = {
   en: {
     heroTag: "Crash Course · Learn Fast · Only What You Need",
@@ -612,7 +618,7 @@ function LessonView({ lessonId, lang, onBack }) {
   const [kwIndex, setKwIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
 
-  const lesson = getLessons(lang).find(l => l.id === lessonId);
+  const lesson = getLessonsSafe(lang).find(l => l.id === lessonId);
   if (!lesson) return <div style={{ padding: 32 }}>Lesson not found</div>;
 
   const steps = [t.words, t.dialogue, t.grammar, t.aiPractice];
@@ -734,7 +740,7 @@ async function handleCheckout(plan, errorMsg) {
 // ── Home ──────────────────────────────────────────────────────────────────────
 function Home({ onSelect, user, isSubscribed, onAuthClick, onLegal }) {
   const { lang, t } = useLang();
-  const lessons = getLessons(lang);
+  const lessons = getLessonsSafe(lang);
   return (
     <div style={styles.home}>
       <div style={styles.hero}>
