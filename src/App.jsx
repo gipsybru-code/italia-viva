@@ -419,7 +419,7 @@ const LockIcon = () => (
 // ── Language Selector ─────────────────────────────────────────────────────────
 function LangSelector({ lang, setLang }) {
   const [open, setOpen] = useState(false);
-  const current = LANGUAGES.find(l => l.code === lang);
+  const current = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
   const ccStyle = {
     fontSize: 10, fontWeight: 700, fontFamily: "sans-serif",
     background: C.terracotta, color: C.white,
