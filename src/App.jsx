@@ -8,30 +8,20 @@ const supabase = createClient(
 
 // ── i18n ──────────────────────────────────────────────────────────────────────
 const LANGUAGES = [
-  { code: "en", flag: "🇬🇧", name: "English" },
-  { code: "fr", flag: "🇫🇷", name: "Français" },
-  { code: "es", flag: "🇪🇸", name: "Español" },
-  { code: "pt", flag: "🇧🇷", name: "Português" },
-  { code: "de", flag: "🇩🇪", name: "Deutsch" },
+  { code: "en", cc: "EN", flag: "🇬🇧", name: "English" },
+  { code: "fr", cc: "FR", flag: "🇫🇷", name: "Français" },
+  { code: "es", cc: "ES", flag: "🇪🇸", name: "Español" },
+  { code: "pt", cc: "PT", flag: "🇧🇷", name: "Português" },
+  { code: "de", cc: "DE", flag: "🇩🇪", name: "Deutsch" },
 ];
 
-// ── Lesson imports — one file per language ───────────────────────────────────
-// Each file exports a LESSONS array with the same structure.
-// To add a new language: create src/lessons/xx.js and add a case below.
+// ── Lesson imports ───────────────────────────────────────────────────────────
 import { LESSONS as LESSONS_EN } from "./lessons/en.js";
 import { LESSONS as LESSONS_ES } from "./lessons/es.js";
-// FR, PT, DE files not yet created — they fall back to English until added.
-// Once you create lessons/fr.js, lessons/pt.js, lessons/de.js, uncomment these:
-// import { LESSONS as LESSONS_FR } from "./lessons/fr.js";
-// import { LESSONS as LESSONS_PT } from "./lessons/pt.js";
-// import { LESSONS as LESSONS_DE } from "./lessons/de.js";
 
 function getLessons(lang) {
   switch (lang) {
     case "es": return LESSONS_ES;
-    // case "fr": return LESSONS_FR;
-    // case "pt": return LESSONS_PT;
-    // case "de": return LESSONS_DE;
     default:   return LESSONS_EN;
   }
 }
@@ -423,15 +413,17 @@ const LockIcon = () => (
 // ── Language Selector ─────────────────────────────────────────────────────────
 function LangSelector({ lang, setLang }) {
   const [open, setOpen] = useState(false);
-  const current = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
+  const current = LANGUAGES.find(l => l.code === lang);
+  const ccStyle = {
+    fontSize: 10, fontWeight: 700, fontFamily: "sans-serif",
+    background: C.terracotta, color: C.white,
+    padding: "2px 5px", borderRadius: 3, letterSpacing: "0.04em",
+    lineHeight: 1.4,
+  };
   return (
     <div style={{ position: "relative" }}>
-      <button
-        style={styles.langBtn}
-        onClick={() => setOpen(o => !o)}
-        title="Change language"
-      >
-        <span style={{ fontSize: 18, lineHeight: 1 }}>{current.flag}</span>
+      <button style={styles.langBtn} onClick={() => setOpen(o => !o)} title="Change language">
+        <span style={ccStyle}>{current.cc}</span>
         <span style={{ fontSize: 11, fontFamily: "sans-serif", letterSpacing: "0.04em", color: C.brownMid }}>{current.name}</span>
         <span style={{ fontSize: 9, color: C.textMuted }}>▾</span>
       </button>
@@ -447,7 +439,7 @@ function LangSelector({ lang, setLang }) {
               }}
               onClick={() => { setLang(l.code); setOpen(false); }}
             >
-              <span style={{ fontSize: 18 }}>{l.flag}</span>
+              <span style={ccStyle}>{l.cc}</span>
               <span style={{ fontSize: 12, fontFamily: "sans-serif" }}>{l.name}</span>
             </button>
           ))}
@@ -1068,13 +1060,17 @@ export default function App() {
             </div>
           )}
 
-          {/* TOP BAR */}
+          {/* TOP BAR — row 1: logo + language, row 2: account (wraps naturally on mobile) */}
           <div style={styles.topBar}>
-            <span style={styles.topBarLogo} onClick={() => { setActiveLesson(null); setLegalPage(null); }} role="button">
-              Parlissimo
-            </span>
-            <div style={styles.topBarRight}>
+            {/* Row 1 */}
+            <div style={styles.topBarRow1}>
+              <span style={styles.topBarLogo} onClick={() => { setActiveLesson(null); setLegalPage(null); }} role="button">
+                Parlissimo
+              </span>
               <LangSelector lang={lang} setLang={setLang} />
+            </div>
+            {/* Row 2 */}
+            <div style={styles.topBarRow2}>
               {user ? (
                 <>
                   <span style={styles.topBarEmail}>{user.email}</span>
@@ -1188,9 +1184,10 @@ const styles = {
   installBtn: { background: C.terracotta, color: C.white, border: "none", borderRadius: 3, padding: "7px 16px", fontSize: 12, cursor: "pointer", fontFamily: "sans-serif", fontWeight: 600 },
   installDismiss: { background: "none", border: "none", color: C.sand, fontSize: 16, cursor: "pointer", padding: "4px 8px" },
   iosHint: { background: C.sand, color: C.brownMid, padding: "10px 14px", borderRadius: 6, marginBottom: 12, fontSize: 12, fontFamily: "sans-serif", lineHeight: 1.5 },
-  topBar: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 0", borderBottom: `1px solid ${C.border}`, marginBottom: 24 },
+  topBar: { padding: "12px 0", borderBottom: `1px solid ${C.border}`, marginBottom: 24 },
+  topBarRow1: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, marginBottom: 8 },
+  topBarRow2: { display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" },
   topBarLogo: { fontSize: 18, fontWeight: 700, color: C.terracotta, letterSpacing: "-0.01em", cursor: "pointer" },
-  topBarRight: { display: "flex", alignItems: "center", gap: 10 },
   topBarEmail: { fontSize: 11, color: C.textMuted, fontFamily: "sans-serif" },
   topBarBadge: { fontSize: 10, background: "#E8F5E9", color: "#2E7D32", padding: "2px 8px", borderRadius: 20, fontFamily: "sans-serif" },
   topBarBtn: { background: "none", border: `1px solid ${C.border}`, borderRadius: 3, padding: "6px 14px", fontSize: 11, cursor: "pointer", color: C.brownMid, fontFamily: "sans-serif", letterSpacing: "0.06em" },
