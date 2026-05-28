@@ -8,7 +8,7 @@ const supabase = createClient(
 
 // ── i18n ──────────────────────────────────────────────────────────────────────
 const LANGUAGES = [
-  { code: "en", cc: "EN", flag: "🇬🇧", name: "English" },
+  { code: "en", cc: "EN", flag: "us", name: "English" },
   { code: "fr", cc: "FR", flag: "🇫🇷", name: "Français" },
   { code: "es", cc: "ES", flag: "🇪🇸", name: "Español" },
   { code: "pt", cc: "PT", flag: "🇧🇷", name: "Português" },
