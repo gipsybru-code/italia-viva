@@ -1,1313 +1,1216 @@
-// lessons/de.js — German translations for all 45 lessons
-// Italian lines (line, italian) are IDENTICAL to en.js — do not change them.
-// Only: keywords[].english, dialogue[].translation, grammar.title/points/note differ.
+import { useState, useEffect, useRef, createContext, useContext, useMemo } from "react";
+import { createClient } from "@supabase/supabase-js";
 
-export const LESSONS = [
-  {
-    id: 1, title: "Begrüßungen", subtitle: "Il Saluto", free: true,
-    keywords: [
-      { italian: "Ciao", english: "Hallo / Tschüss (informell)" },
-      { italian: "Salve", english: "Hallo (neutral/formell)" },
-      { italian: "Buongiorno", english: "Guten Morgen / Guten Tag" },
-      { italian: "Buonasera", english: "Guten Abend" },
-      { italian: "Arrivederci", english: "Auf Wiedersehen (formell)" },
-      { italian: "Tutto bene", english: "Alles gut / Alles in Ordnung" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Buongiorno! Salve.", translation: "Guten Morgen! Hallo." },
-      { speaker: "B", line: "Ciao! Come stai?", translation: "Hallo! Wie geht es dir?" },
-      { speaker: "A", line: "Tutto bene, grazie. E tu?", translation: "Alles gut, danke. Und dir?" },
-      { speaker: "B", line: "Bene, grazie!", translation: "Gut, danke!" },
-    ],
-    grammar: {
-      title: "Come — Wie / Was",
-      points: [
-        { italian: "Come stai?", english: "Wie geht es dir? (informell)" },
-        { italian: "Come sta?", english: "Wie geht es Ihnen? (formell)" },
-        { italian: "Come va?", english: "Wie läuft's?" },
-        { italian: "Come?", english: "Was? / Wie bitte?" },
-      ],
-      note: "\"Come\" bedeutet wörtlich \"wie\" — es ist Ihr Schlüsselwort, um nach Zuständen und Situationen zu fragen.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss vocabulary and grammar from this specific lesson. If asked about anything unrelated reply only: 'Let us stick to this lesson!' Never break character. Always reply in German, but use Italian words and phrases from the lesson. Correct the student gently. You are an Italian language tutor. The student just learned Lesson 1: Greetings. Help them practice: Ciao, Salve, Buongiorno, Buonasera, Arrivederci, Tutto bene, Come stai, Come va. Keep responses short and warm.",
-  },
-  {
-    id: 2, title: "Sich Vorstellen", subtitle: "Presentarsi", free: false,
-    keywords: [
-      { italian: "Mi chiamo…", english: "Ich heiße…" },
-      { italian: "Sono…", english: "Ich bin…" },
-      { italian: "Piacere", english: "Freut mich, Sie kennenzulernen" },
-      { italian: "Di dove sei?", english: "Woher kommst du?" },
-      { italian: "Sono di…", english: "Ich komme aus…" },
-      { italian: "Quanti anni hai?", english: "Wie alt bist du?" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Ciao! Sono Paolo.", translation: "Hallo! Ich bin Paolo." },
-      { speaker: "B", line: "Ciao, Paolo. Sono Monica. Piacere!", translation: "Hallo, Paolo. Ich bin Monica. Freut mich!" },
-      { speaker: "A", line: "Piacere mio. Di dove sei?", translation: "Ganz meinerseits. Woher kommst du?" },
-      { speaker: "B", line: "Sono di Firenze. E tu?", translation: "Ich komme aus Florenz. Und du?" },
-      { speaker: "A", line: "Sono di Milano.", translation: "Ich komme aus Mailand." },
-    ],
-    grammar: {
-      title: "Essere — Das Verb «Sein»",
-      points: [
-        { italian: "Io sono", english: "Ich bin" },
-        { italian: "Tu sei", english: "Du bist (informell)" },
-        { italian: "Lei è", english: "Sie sind (formell) / Sie ist" },
-        { italian: "Lui è", english: "Er ist" },
-        { italian: "Noi siamo", english: "Wir sind" },
-        { italian: "Voi siete", english: "Ihr seid" },
-        { italian: "Loro sono", english: "Sie sind" },
-      ],
-      note: "Im Italienischen muss man selten \"io\" (ich) sagen — die Verbendung verrät, wer spricht.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor. Reply in German. Practice introductions: Mi chiamo, Sono, Piacere, Di dove sei, Sono di. Correct gently.",
-  },
-  {
-    id: 3, title: "Im Café", subtitle: "Al Bar", free: false,
-    keywords: [
-      { italian: "Un caffè, per favore", english: "Einen Kaffee, bitte" },
-      { italian: "Vorrei…", english: "Ich hätte gerne…" },
-      { italian: "Quanto costa?", english: "Wie viel kostet das?" },
-      { italian: "Il conto", english: "Die Rechnung" },
-      { italian: "Un cornetto", english: "Ein Croissant" },
-      { italian: "Grazie mille", english: "Vielen Dank" },
-    ],
-    dialogue: [
-      { speaker: "Cliente", line: "Buongiorno! Un caffè, per favore.", translation: "Guten Morgen! Einen Kaffee, bitte." },
-      { speaker: "Barista", line: "Subito! Vuole anche un cornetto?", translation: "Sofort! Möchten Sie auch ein Croissant?" },
-      { speaker: "Cliente", line: "Sì, grazie. Quanto costa?", translation: "Ja, danke. Wie viel kostet das?" },
-      { speaker: "Barista", line: "Un euro e cinquanta, prego.", translation: "Einen Euro fünfzig, bitte." },
-      { speaker: "Cliente", line: "Ecco. Grazie mille!", translation: "Hier, bitte. Vielen Dank!" },
-    ],
-    grammar: {
-      title: "Vorrei — Höfliche Bitten",
-      points: [
-        { italian: "Vorrei un caffè", english: "Ich hätte gerne einen Kaffee" },
-        { italian: "Vorrei il conto", english: "Ich hätte gerne die Rechnung" },
-        { italian: "Vorrei prenotare", english: "Ich würde gerne reservieren" },
-        { italian: "Vorrei un tavolo", english: "Ich hätte gerne einen Tisch" },
-      ],
-      note: "\"Vorrei\" ist der Konditionalis von \"volere\" (wollen). Höflicher als \"voglio\" — verwenden Sie es immer in Geschäften und Restaurants.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a barista. Reply in German. Use lesson 3 vocabulary. Correct gently.",
-  },
-  {
-    id: 4, title: "In der Gelateria", subtitle: "In Gelateria", free: false,
-    keywords: [
-      { italian: "Un gelato", english: "Ein Eis" },
-      { italian: "Che gusti?", english: "Welche Geschmacksrichtungen?" },
-      { italian: "Cono o coppetta?", english: "Waffel oder Becher?" },
-      { italian: "Piccolo / medio / grande", english: "Klein / mittel / groß" },
-      { italian: "Che buono!", english: "Wie lecker!" },
-      { italian: "Posso assaggiare?", english: "Darf ich probieren?" },
-    ],
-    dialogue: [
-      { speaker: "Cliente", line: "Buonasera! Vorrei un gelato.", translation: "Guten Abend! Ich hätte gerne ein Eis." },
-      { speaker: "Gelataio", line: "Certo! Cono o coppetta?", translation: "Natürlich! Waffel oder Becher?" },
-      { speaker: "Cliente", line: "Cono, grazie. Posso assaggiare il pistacchio?", translation: "Waffel, bitte. Darf ich die Pistazie probieren?" },
-      { speaker: "Gelataio", line: "Certo, ecco a lei.", translation: "Natürlich, bitte sehr." },
-      { speaker: "Cliente", line: "Mmm, che buono! Pistacchio e cioccolato, per favore.", translation: "Mmm, wie lecker! Pistazie und Schokolade, bitte." },
-      { speaker: "Gelataio", line: "Piccolo, medio o grande?", translation: "Klein, mittel oder groß?" },
-      { speaker: "Cliente", line: "Medio. Quanto costa?", translation: "Mittel. Wie viel kostet das?" },
-      { speaker: "Gelataio", line: "Due euro e cinquanta.", translation: "Zwei Euro fünfzig." },
-    ],
-    grammar: {
-      title: "questo / quello — Dieser / Jener",
-      points: [
-        { italian: "Questo gelato", english: "Dieses Eis (in der Nähe)" },
-        { italian: "Quello lì", english: "Das dort (weiter weg)" },
-        { italian: "Questo è buono", english: "Das hier ist gut" },
-        { italian: "Qual è il migliore?", english: "Welches ist das beste?" },
-      ],
-      note: "Verwenden Sie \"questo\" für nahe Dinge und \"quello\" für weiter entfernte — dieselbe Logik wie dieser/jener im Deutschen.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a gelateria worker. Reply in German. Use lesson 4 vocabulary. Correct gently.",
-  },
-  {
-    id: 5, title: "Nach dem Weg fragen", subtitle: "Chiedere la Strada", free: false,
-    keywords: [
-      { italian: "Dov'è…?", english: "Wo ist…?" },
-      { italian: "A destra", english: "Nach rechts" },
-      { italian: "A sinistra", english: "Nach links" },
-      { italian: "Sempre dritto", english: "Geradeaus" },
-      { italian: "Vicino / lontano", english: "Nah / weit" },
-      { italian: "Scusi!", english: "Entschuldigung! (formell)" },
-    ],
-    dialogue: [
-      { speaker: "Turista", line: "Scusi! Dov'è il Colosseo?", translation: "Entschuldigung! Wo ist das Kolosseum?" },
-      { speaker: "Passante", line: "Allora… vada sempre dritto, poi a destra.", translation: "Gehen Sie geradeaus und dann nach rechts." },
-      { speaker: "Turista", line: "È lontano?", translation: "Ist es weit?" },
-      { speaker: "Passante", line: "No, è vicino. Cinque minuti a piedi.", translation: "Nein, es ist nah. Fünf Minuten zu Fuß." },
-      { speaker: "Turista", line: "Grazie mille!", translation: "Vielen Dank!" },
-      { speaker: "Passante", line: "Prego! Buona visita!", translation: "Bitte sehr! Viel Spaß beim Besuch!" },
-    ],
-    grammar: {
-      title: "C'è / Ci sono — Es gibt",
-      points: [
-        { italian: "C'è un autobus?", english: "Gibt es einen Bus?" },
-        { italian: "Ci sono taxi?", english: "Gibt es Taxis?" },
-        { italian: "C'è una fermata vicino?", english: "Gibt es eine Haltestelle in der Nähe?" },
-        { italian: "Non c'è problema", english: "Kein Problem" },
-      ],
-      note: "\"C'è\" und \"ci sono\" sind Ihre Schlüsselphrasen, um zu fragen, ob etwas existiert oder verfügbar ist.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a local Roman. Reply in German. Use lesson 5 vocabulary. Correct gently.",
-  },
-  {
-    id: 6, title: "Am Flughafen", subtitle: "All'Aeroporto", free: false,
-    keywords: [
-      { italian: "Il volo", english: "Der Flug" },
-      { italian: "Il passaporto", english: "Der Reisepass" },
-      { italian: "Il bagaglio", english: "Das Gepäck" },
-      { italian: "Quanti bagagli hai?", english: "Wie viel Gepäck haben Sie?" },
-      { italian: "Il gate", english: "Das Gate" },
-      { italian: "In ritardo / in orario", english: "Verspätet / pünktlich" },
-    ],
-    dialogue: [
-      { speaker: "Agente", line: "Buongiorno! Il passaporto, per favore.", translation: "Guten Morgen! Ihren Reisepass, bitte." },
-      { speaker: "Passeggero", line: "Eccolo. Ho anche un bagaglio da imbarcare.", translation: "Hier. Ich habe auch ein Gepäckstück aufzugeben." },
-      { speaker: "Agente", line: "Quanti bagagli ha?", translation: "Wie viel Gepäck haben Sie?" },
-      { speaker: "Passeggero", line: "Solo uno. Il volo è in orario?", translation: "Nur eins. Ist der Flug pünktlich?" },
-      { speaker: "Agente", line: "Sì, parte alle undici. Gate B7.", translation: "Ja, er geht um elf Uhr. Gate B7." },
-      { speaker: "Passeggero", line: "Grazie mille!", translation: "Vielen Dank!" },
-    ],
-    grammar: {
-      title: "Avere — Das Verb «Haben»",
-      points: [
-        { italian: "Io ho", english: "Ich habe" },
-        { italian: "Tu hai", english: "Du hast (informell)" },
-        { italian: "Lei ha", english: "Sie haben (formell) / Sie hat" },
-        { italian: "Lui ha", english: "Er hat" },
-        { italian: "Noi abbiamo", english: "Wir haben" },
-        { italian: "Voi avete", english: "Ihr habt" },
-        { italian: "Loro hanno", english: "Sie haben" },
-      ],
-      note: "\"Avere\" ist eines der zwei wichtigsten Verben im Italienischen. Auch für das Alter: \"ho trent'anni\" = ich bin dreißig Jahre alt.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing an airport agent. Reply in German. Use lesson 6 vocabulary. Correct gently.",
-  },
-  {
-    id: 7, title: "Im Restaurant", subtitle: "Al Ristorante", free: false,
-    keywords: [
-      { italian: "Un tavolo per due", english: "Einen Tisch für zwei" },
-      { italian: "Il menù", english: "Die Speisekarte" },
-      { italian: "Il primo / il secondo", english: "Der erste / zweite Gang" },
-      { italian: "Sono vegetariano/a", english: "Ich bin Vegetarier/in" },
-      { italian: "È compreso?", english: "Ist es inbegriffen?" },
-      { italian: "Il coperto", english: "Das Gedeck" },
-    ],
-    dialogue: [
-      { speaker: "Cliente", line: "Buonasera! Un tavolo per due, per favore.", translation: "Guten Abend! Einen Tisch für zwei, bitte." },
-      { speaker: "Cameriere", line: "Certo, prego. Ecco il menù.", translation: "Natürlich. Hier ist die Speisekarte." },
-      { speaker: "Cliente", line: "Grazie. Sono vegetariana — cosa consiglia?", translation: "Danke. Ich bin Vegetarierin — was empfehlen Sie?" },
-      { speaker: "Cameriere", line: "Ottime le tagliatelle ai funghi!", translation: "Die Tagliatelle mit Pilzen sind ausgezeichnet!" },
-      { speaker: "Cliente", line: "Perfetto. E il coperto è compreso?", translation: "Perfekt. Ist das Gedeck inbegriffen?" },
-      { speaker: "Cameriere", line: "Sì, è già incluso. Buon appetito!", translation: "Ja, es ist bereits inklusive. Guten Appetit!" },
-    ],
-    grammar: {
-      title: "Mi piace / Mi piacciono — Ich mag",
-      points: [
-        { italian: "Mi piace la pasta", english: "Ich mag Pasta" },
-        { italian: "Mi piacciono i funghi", english: "Ich mag Pilze (Plural)" },
-        { italian: "Non mi piace", english: "Ich mag das nicht" },
-        { italian: "Mi piace molto", english: "Ich mag das sehr" },
-      ],
-      note: "\"Piacere\" funktioniert umgekehrt — man sagt \"es gefällt mir\". Verwenden Sie \"piace\" für eine Sache, \"piacciono\" für mehrere.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a restaurant waiter. Reply in German. Use lesson 7 vocabulary. Correct gently.",
-  },
-  {
-    id: 8, title: "Einkaufen", subtitle: "Fare Shopping", free: false,
-    keywords: [
-      { italian: "Posso provarlo?", english: "Kann ich es anprobieren?" },
-      { italian: "Che taglia?", english: "Welche Größe?" },
-      { italian: "È troppo caro", english: "Es ist zu teuer" },
-      { italian: "C'è lo sconto?", english: "Gibt es einen Rabatt?" },
-      { italian: "Lo prendo", english: "Ich nehme es" },
-      { italian: "Accettate carte di credito?", english: "Akzeptieren Sie Kreditkarten?" },
-    ],
-    dialogue: [
-      { speaker: "Cliente", line: "Buongiorno! Posso provare questa giacca?", translation: "Guten Morgen! Kann ich diese Jacke anprobieren?" },
-      { speaker: "Commessa", line: "Certo! Che taglia porta?", translation: "Natürlich! Welche Größe tragen Sie?" },
-      { speaker: "Cliente", line: "La media, grazie.", translation: "Mittelgroß, danke." },
-      { speaker: "Cliente", line: "Hmm… quanto costa?", translation: "Hmm… wie viel kostet das?" },
-      { speaker: "Commessa", line: "Centoventi euro. C'è il 20% di sconto oggi!", translation: "Einhundertzwanzig Euro. Heute 20% Rabatt!" },
-      { speaker: "Cliente", line: "Perfetto, lo prendo! Accettate carte?", translation: "Perfekt, ich nehme sie! Akzeptieren Sie Karten?" },
-      { speaker: "Commessa", line: "Sì, certo.", translation: "Ja, natürlich." },
-    ],
-    grammar: {
-      title: "Potere — Können",
-      points: [
-        { italian: "Posso provarlo?", english: "Kann ich es anprobieren?" },
-        { italian: "Puoi aiutarmi?", english: "Können Sie mir helfen?" },
-        { italian: "Possiamo pagare con la carta?", english: "Können wir mit Karte bezahlen?" },
-      ],
-      note: "\"Potere\" ist ein Modalverb — es wird mit dem Infinitiv kombiniert für Erlaubnisfragen und Fähigkeitsaussagen.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a shop assistant. Reply in German. Use lesson 8 vocabulary. Correct gently.",
-  },
-  {
-    id: 9, title: "Im Hotel", subtitle: "In Albergo", free: false,
-    keywords: [
-      { italian: "Ho una prenotazione", english: "Ich habe eine Reservierung" },
-      { italian: "La camera", english: "Das Zimmer" },
-      { italian: "A che ora è il check-out?", english: "Wann ist der Check-out?" },
-      { italian: "La colazione è inclusa?", english: "Ist das Frühstück inklusive?" },
-      { italian: "C'è il wifi?", english: "Gibt es WLAN?" },
-      { italian: "La chiave", english: "Der Schlüssel" },
-    ],
-    dialogue: [
-      { speaker: "Ospite", line: "Buonasera! Ho una prenotazione. Mi chiamo Rossi.", translation: "Guten Abend! Ich habe eine Reservierung. Mein Name ist Rossi." },
-      { speaker: "Receptionist", line: "Benvenuto! Sì, camera doppia per tre notti.", translation: "Willkommen! Ja, Doppelzimmer für drei Nächte." },
-      { speaker: "Ospite", line: "Perfetto. La colazione è inclusa?", translation: "Perfekt. Ist das Frühstück inklusive?" },
-      { speaker: "Receptionist", line: "Sì, dalle sette alle dieci. C'è anche il wifi gratuito.", translation: "Ja, von sieben bis zehn Uhr. Es gibt auch kostenloses WLAN." },
-      { speaker: "Ospite", line: "Ottimo. A che ora è il check-out?", translation: "Ausgezeichnet. Wann ist der Check-out?" },
-      { speaker: "Receptionist", line: "Alle undici. Ecco la sua chiave. Buona permanenza!", translation: "Um elf Uhr. Hier ist Ihr Schlüssel. Einen angenehmen Aufenthalt!" },
-    ],
-    grammar: {
-      title: "Präpositionen: a, di, da, in",
-      points: [
-        { italian: "Sono a Roma", english: "Ich bin in Rom (Ort)" },
-        { italian: "Vengo da Londra", english: "Ich komme aus London (Herkunft)" },
-        { italian: "Vado in Italia", english: "Ich fahre nach Italien (Länder)" },
-        { italian: "La chiave di Maria", english: "Marias Schlüssel (Besitz)" },
-      ],
-      note: "Italienische Präpositionen stimmen nicht immer mit deutschen überein. \"In\" wird mit Ländern verwendet, \"a\" mit Städten.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a hotel receptionist. Reply in German. Use lesson 9 vocabulary. Correct gently.",
-  },
-  {
-    id: 10, title: "Im Zug", subtitle: "Sul Treno", free: false,
-    keywords: [
-      { italian: "Un biglietto per…", english: "Eine Fahrkarte nach…" },
-      { italian: "Andata e ritorno", english: "Hin- und Rückfahrt" },
-      { italian: "Il binario", english: "Der Bahnsteig" },
-      { italian: "È occupato?", english: "Ist dieser Platz belegt?" },
-      { italian: "A che ora arriva?", english: "Wann kommt er an?" },
-      { italian: "Il treno è in ritardo", english: "Der Zug hat Verspätung" },
-    ],
-    dialogue: [
-      { speaker: "Viaggiatore", line: "Buongiorno! Un biglietto per Venezia, per favore.", translation: "Guten Morgen! Eine Fahrkarte nach Venedig, bitte." },
-      { speaker: "Bigliettaio", line: "Andata e ritorno?", translation: "Hin- und Rückfahrt?" },
-      { speaker: "Viaggiatore", line: "Solo andata. A che ora arriva?", translation: "Nur einfache Fahrt. Wann kommt er an?" },
-      { speaker: "Bigliettaio", line: "Alle tredici e venti. Binario 4.", translation: "Um dreizehn Uhr zwanzig. Bahnsteig 4." },
-      { speaker: "Viaggiatore", line: "Grazie. È occupato questo posto?", translation: "Danke. Ist dieser Platz belegt?" },
-      { speaker: "Passeggero", line: "No, si accomodi!", translation: "Nein, bitte setzen Sie sich!" },
-    ],
-    grammar: {
-      title: "Die Uhrzeit",
-      points: [
-        { italian: "Sono le tre", english: "Es ist drei Uhr" },
-        { italian: "È mezzogiorno", english: "Es ist Mittag" },
-        { italian: "Alle otto e mezza", english: "Um halb neun" },
-        { italian: "A che ora?", english: "Um wie viel Uhr?" },
-      ],
-      note: "Italiener verwenden die 24-Stunden-Uhr für den Verkehr. \"Sono le tredici\" = 13 Uhr. Man verwendet \"sono le\" außer für 1 Uhr: \"è l'una\".",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a train station agent. Reply in German. Use lesson 10 vocabulary. Correct gently.",
-  },
-  {
-    id: 11, title: "Auf dem Markt", subtitle: "Al Mercato", free: false,
-    keywords: [
-      { italian: "Quanto pesa?", english: "Wie viel wiegt das?" },
-      { italian: "Un chilo di…", english: "Ein Kilo…" },
-      { italian: "Fresco / di stagione", english: "Frisch / der Saison" },
-      { italian: "Me ne dà mezzo chilo", english: "Geben Sie mir ein halbes Kilo" },
-      { italian: "Basta così", english: "Das ist alles" },
-      { italian: "Il resto", english: "Das Wechselgeld" },
-    ],
-    dialogue: [
-      { speaker: "Cliente", line: "Buongiorno! Questi pomodori sono freschi?", translation: "Guten Morgen! Sind diese Tomaten frisch?" },
-      { speaker: "Venditore", line: "Freschissimi! Di stagione. Quanti ne vuole?", translation: "Sehr frisch! Aus der Saison. Wie viele möchten Sie?" },
-      { speaker: "Cliente", line: "Me ne dà un chilo, per favore.", translation: "Geben Sie mir ein Kilo, bitte." },
-      { speaker: "Venditore", line: "Basta così?", translation: "Ist das alles?" },
-      { speaker: "Cliente", line: "Sì, grazie. Ecco cinque euro.", translation: "Ja, danke. Hier sind fünf Euro." },
-      { speaker: "Venditore", line: "Ecco il resto. Grazie, a presto!", translation: "Hier ist das Wechselgeld. Danke, bis bald!" },
-    ],
-    grammar: {
-      title: "Ne — Das Partitivpronomen",
-      points: [
-        { italian: "Ne voglio un chilo", english: "Ich möchte ein Kilo davon" },
-        { italian: "Me ne dà due?", english: "Können Sie mir zwei davon geben?" },
-        { italian: "Non ne ho", english: "Ich habe keine" },
-        { italian: "Quanti ne vuole?", english: "Wie viele möchten Sie?" },
-      ],
-      note: "\"Ne\" ersetzt ein Substantiv mit einer Menge. Bedeutet ungefähr \"davon\". Italiener verwenden es ständig.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a market vendor. Reply in German. Use lesson 11 vocabulary. Correct gently.",
-  },
-  {
-    id: 12, title: "Notfälle und Gesundheit", subtitle: "Emergenze e Salute", free: false,
-    keywords: [
-      { italian: "Aiuto!", english: "Hilfe!" },
-      { italian: "Ho bisogno di un medico", english: "Ich brauche einen Arzt" },
-      { italian: "Mi fa male…", english: "… schmerzt mich" },
-      { italian: "Chiami un'ambulanza!", english: "Rufen Sie einen Krankenwagen!" },
-      { italian: "La farmacia", english: "Die Apotheke" },
-      { italian: "Sono allergico/a a…", english: "Ich bin allergisch gegen…" },
-    ],
-    dialogue: [
-      { speaker: "Turista", line: "Scusi! Ho bisogno di aiuto.", translation: "Entschuldigung! Ich brauche Hilfe." },
-      { speaker: "Passante", line: "Cosa succede?", translation: "Was ist passiert?" },
-      { speaker: "Turista", line: "Mi fa molto male la testa. Ho la febbre.", translation: "Ich habe starke Kopfschmerzen. Ich habe Fieber." },
-      { speaker: "Passante", line: "C'è una farmacia qui vicino.", translation: "Es gibt eine Apotheke hier in der Nähe." },
-      { speaker: "Turista", line: "Sono allergico alla penicillina.", translation: "Ich bin gegen Penicillin allergisch." },
-      { speaker: "Passante", line: "Lo dica al farmacista. Venga, l'accompagno.", translation: "Sagen Sie es dem Apotheker. Kommen Sie, ich begleite Sie." },
-    ],
-    grammar: {
-      title: "Mi fa male — Schmerzen ausdrücken",
-      points: [
-        { italian: "Mi fa male la testa", english: "Mir tut der Kopf weh" },
-        { italian: "Mi fa male lo stomaco", english: "Mir tut der Magen weh" },
-        { italian: "Mi fanno male i piedi", english: "Mir tun die Füße weh (Plural)" },
-        { italian: "Ho la febbre", english: "Ich habe Fieber" },
-      ],
-      note: "\"Mi fa male\" bedeutet \"es macht mir Schmerzen\". Verwenden Sie \"fa male\" für einen Körperteil, \"fanno male\" für mehrere.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor helping practice emergency vocabulary. Reply in German. Correct gently.",
-  },
-  {
-    id: 13, title: "In der Apotheke", subtitle: "In Farmacia", free: false,
-    keywords: [
-      { italian: "Ho bisogno di…", english: "Ich brauche…" },
-      { italian: "Una ricetta", english: "Ein Rezept" },
-      { italian: "Il mal di testa", english: "Kopfschmerzen" },
-      { italian: "La tosse", english: "Husten" },
-      { italian: "Qualcosa per…", english: "Etwas gegen…" },
-      { italian: "Quante volte al giorno?", english: "Wie oft am Tag?" },
-    ],
-    dialogue: [
-      { speaker: "Cliente", line: "Buongiorno. Ho bisogno di qualcosa per il mal di testa.", translation: "Guten Morgen. Ich brauche etwas gegen Kopfschmerzen." },
-      { speaker: "Farmacista", line: "Ha la ricetta?", translation: "Haben Sie ein Rezept?" },
-      { speaker: "Cliente", line: "No, è senza ricetta.", translation: "Nein, es ist rezeptfrei." },
-      { speaker: "Farmacista", line: "Allora le do queste compresse. Due volte al giorno.", translation: "Dann gebe ich Ihnen diese Tabletten. Zweimal täglich." },
-      { speaker: "Cliente", line: "Grazie. Ho anche la tosse.", translation: "Danke. Ich habe auch Husten." },
-      { speaker: "Farmacista", line: "Prenda questo sciroppo, tre volte al giorno dopo i pasti.", translation: "Nehmen Sie diesen Sirup, dreimal täglich nach dem Essen." },
-    ],
-    grammar: {
-      title: "Imperativ — Anweisungen geben",
-      points: [
-        { italian: "Prenda queste pillole", english: "Nehmen Sie diese Pillen (formeller Befehl)" },
-        { italian: "Beva molta acqua", english: "Trinken Sie viel Wasser" },
-        { italian: "Riposi a casa", english: "Ruhen Sie sich zu Hause aus" },
-        { italian: "Torni domani", english: "Kommen Sie morgen wieder" },
-      ],
-      note: "Der formelle Imperativ (Lei-Form) wird von Fachleuten verwendet. Er klingt wie die dritte Person Singular — ein höflicher Befehl.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a pharmacist. Reply in German. Use lesson 13 vocabulary. Correct gently.",
-  },
-  {
-    id: 14, title: "Am Telefon", subtitle: "Al Telefono", free: false,
-    keywords: [
-      { italian: "Pronto!", english: "Hallo! (beim Abheben)" },
-      { italian: "Con chi parlo?", english: "Mit wem spreche ich?" },
-      { italian: "Posso parlare con…?", english: "Kann ich mit… sprechen?" },
-      { italian: "Un momento", english: "Einen Moment" },
-      { italian: "Richiamare", english: "Zurückrufen" },
-      { italian: "È occupato", english: "Die Leitung ist besetzt" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Pronto?", translation: "Hallo?" },
-      { speaker: "B", line: "Buongiorno! Posso parlare con la signora Bianchi?", translation: "Guten Morgen! Kann ich mit Frau Bianchi sprechen?" },
-      { speaker: "A", line: "Sono io. Con chi parlo?", translation: "Am Apparat. Mit wem spreche ich?" },
-      { speaker: "B", line: "Sono Marco Rossi, chiamo per la prenotazione.", translation: "Ich bin Marco Rossi, ich rufe wegen der Reservierung an." },
-      { speaker: "A", line: "Mi dispiace, la linea è occupata. Può richiamare?", translation: "Es tut mir leid, die Leitung ist besetzt. Können Sie zurückrufen?" },
-      { speaker: "B", line: "Certo, richiamo più tardi. Grazie!", translation: "Natürlich, ich rufe später zurück. Danke!" },
-    ],
-    grammar: {
-      title: "Potere + Infinitiv — Um Erlaubnis bitten",
-      points: [
-        { italian: "Posso richiamare?", english: "Kann ich zurückrufen?" },
-        { italian: "Può aspettare?", english: "Können Sie warten? (formell)" },
-        { italian: "Non posso sentire", english: "Ich kann nicht hören" },
-      ],
-      note: "Am Telefon sagen Italiener immer \"Pronto!\" beim Abheben — es bedeutet wörtlich \"bereit\".",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor role-playing phone calls. Reply in German. Use lesson 14 vocabulary. Correct gently.",
-  },
-  {
-    id: 15, title: "Auf der Post", subtitle: "All'Ufficio Postale", free: false,
-    keywords: [
-      { italian: "Spedire un pacco", english: "Ein Paket schicken" },
-      { italian: "Una lettera / una busta", english: "Einen Brief / einen Umschlag" },
-      { italian: "Per via aerea", english: "Per Luftpost" },
-      { italian: "Quanto ci vuole?", english: "Wie lange dauert es?" },
-      { italian: "Il francobollo", english: "Die Briefmarke" },
-      { italian: "Raccomandata", english: "Einschreiben" },
-    ],
-    dialogue: [
-      { speaker: "Cliente", line: "Buongiorno! Vorrei spedire questo pacco in Inghilterra.", translation: "Guten Morgen! Ich möchte dieses Paket nach England schicken." },
-      { speaker: "Impiegato", line: "Per via aerea o normale?", translation: "Per Luftpost oder normal?" },
-      { speaker: "Cliente", line: "Aerea. Quanto ci vuole?", translation: "Luftpost. Wie lange dauert es?" },
-      { speaker: "Impiegato", line: "Circa cinque giorni lavorativi.", translation: "Ungefähr fünf Werktage." },
-      { speaker: "Cliente", line: "Va bene. E vorrei anche tre francobolli.", translation: "Gut. Und ich hätte auch gerne drei Briefmarken." },
-    ],
-    grammar: {
-      title: "Ci vuole / Ci vogliono — Es dauert / Es braucht",
-      points: [
-        { italian: "Ci vuole un'ora", english: "Es dauert eine Stunde" },
-        { italian: "Ci vogliono tre giorni", english: "Es dauert drei Tage" },
-        { italian: "Quanto ci vuole?", english: "Wie lange dauert es?" },
-        { italian: "Ci vuole pazienza!", english: "Man braucht Geduld!" },
-      ],
-      note: "\"Ci vuole\" ist perfekt praktisch — verwenden Sie es immer, wenn Sie sagen möchten, wie lange etwas dauert.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a post office clerk. Reply in German. Use lesson 15 vocabulary. Correct gently.",
-  },
-  {
-    id: 16, title: "Ein Auto mieten", subtitle: "Noleggiare un'Auto", free: false,
-    keywords: [
-      { italian: "Noleggiare un'auto", english: "Ein Auto mieten" },
-      { italian: "La patente", english: "Der Führerschein" },
-      { italian: "Il pieno", english: "Voller Tank" },
-      { italian: "L'assicurazione", english: "Die Versicherung" },
-      { italian: "Quanti chilometri?", english: "Wie viele Kilometer?" },
-      { italian: "Riconsegnare", english: "Zurückgeben (das Auto)" },
-    ],
-    dialogue: [
-      { speaker: "Cliente", line: "Buongiorno! Vorrei noleggiare un'auto per tre giorni.", translation: "Guten Morgen! Ich möchte für drei Tage ein Auto mieten." },
-      { speaker: "Agente", line: "Certo. Ha la patente con sé?", translation: "Natürlich. Haben Sie Ihren Führerschein dabei?" },
-      { speaker: "Cliente", line: "Sì, eccola. L'assicurazione è inclusa?", translation: "Ja, hier ist er. Ist die Versicherung inbegriffen?" },
-      { speaker: "Agente", line: "Sì, quella base è inclusa. Vuole quella completa?", translation: "Ja, die Basisversicherung ist inklusive. Möchten Sie die Vollkasko?" },
-      { speaker: "Cliente", line: "Sì, meglio. I chilometri sono illimitati?", translation: "Ja, besser. Sind die Kilometer unbegrenzt?" },
-      { speaker: "Agente", line: "Sì, nessun limite.", translation: "Ja, kein Limit." },
-    ],
-    grammar: {
-      title: "Dovere — Müssen / Sollen",
-      points: [
-        { italian: "Devo riconsegnare l'auto", english: "Ich muss das Auto zurückgeben" },
-        { italian: "Deve avere la patente", english: "Sie müssen einen Führerschein haben (formell)" },
-        { italian: "Dobbiamo fare il pieno", english: "Wir müssen tanken" },
-      ],
-      note: "\"Dovere\" drückt Verpflichtung aus — kombinieren Sie es mit einem Infinitiv. Eines der drei Hauptmodalverben: potere, volere, dovere.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a car rental agent. Reply in German. Use lesson 16 vocabulary. Correct gently.",
-  },
-  {
-    id: 17, title: "Am Strand", subtitle: "In Spiaggia", free: false,
-    keywords: [
-      { italian: "Un ombrellone", english: "Ein Sonnenschirm am Strand" },
-      { italian: "Una sdraio", english: "Ein Liegestuhl" },
-      { italian: "La crema solare", english: "Die Sonnencreme" },
-      { italian: "Il mare è mosso", english: "Das Meer ist rau" },
-      { italian: "Fare il bagno", english: "Schwimmen / ins Wasser gehen" },
-      { italian: "Che caldo!", english: "So eine Hitze!" },
-    ],
-    dialogue: [
-      { speaker: "Turista", line: "Buongiorno! Vorrei un ombrellone e due sdraio.", translation: "Guten Morgen! Ich hätte gerne einen Sonnenschirm und zwei Liegestühle." },
-      { speaker: "Bagnino", line: "Certo! Prima fila o seconda?", translation: "Natürlich! Erste Reihe oder zweite?" },
-      { speaker: "Turista", line: "Seconda va bene. Si può fare il bagno?", translation: "Die zweite ist gut. Kann man schwimmen?" },
-      { speaker: "Bagnino", line: "Sì, il mare è calmo oggi. Che caldo!", translation: "Ja, das Meer ist heute ruhig. So eine Hitze!" },
-    ],
-    grammar: {
-      title: "Fare — Das Verb «Machen/Tun»",
-      points: [
-        { italian: "Faccio una passeggiata", english: "Ich mache einen Spaziergang" },
-        { italian: "Fa caldo / fa freddo", english: "Es ist heiß / es ist kalt (Wetter)" },
-        { italian: "Fai il bagno?", english: "Gehst du schwimmen?" },
-        { italian: "Fanno un castello di sabbia", english: "Sie bauen eine Sandburg" },
-      ],
-      note: "\"Fare\" ist eines der vielseitigsten italienischen Verben — erscheint in Dutzenden fester Ausdrücke.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a beach attendant. Reply in German. Use lesson 17 vocabulary. Correct gently.",
-  },
-  {
-    id: 18, title: "Über die Familie sprechen", subtitle: "La Famiglia", free: false,
-    keywords: [
-      { italian: "Il marito / la moglie", english: "Ehemann / Ehefrau" },
-      { italian: "I figli", english: "Die Kinder" },
-      { italian: "Il fratello / la sorella", english: "Bruder / Schwester" },
-      { italian: "I genitori", english: "Die Eltern" },
-      { italian: "Sei sposato/a?", english: "Bist du verheiratet?" },
-      { italian: "Hai figli?", english: "Hast du Kinder?" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Sei sposato?", translation: "Bist du verheiratet?" },
-      { speaker: "B", line: "Sì, ho una moglie e due figli. E tu?", translation: "Ja, ich habe eine Frau und zwei Kinder. Und du?" },
-      { speaker: "A", line: "Sono fidanzata. Ci sposiamo l'anno prossimo!", translation: "Ich bin verlobt. Wir heiraten nächstes Jahr!" },
-      { speaker: "B", line: "Congratulazioni! Hai fratelli o sorelle?", translation: "Herzlichen Glückwunsch! Hast du Geschwister?" },
-      { speaker: "A", line: "Ho una sorella. I miei genitori vivono a Napoli.", translation: "Ich habe eine Schwester. Meine Eltern wohnen in Neapel." },
-    ],
-    grammar: {
-      title: "Possessiva — Mein, dein, sein/ihr",
-      points: [
-        { italian: "Il mio gatto", english: "Meine Katze" },
-        { italian: "Il tuo gelato", english: "Dein Eis" },
-        { italian: "La sua mamma", english: "Seine/ihre Mutter" },
-        { italian: "I nostri vicini", english: "Unsere Nachbarn" },
-      ],
-      note: "Italienische Possessiva stimmen in Geschlecht und Zahl mit dem Substantiv überein, nicht mit dem Besitzer.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor having a conversation about family. Reply in German. Use lesson 18 vocabulary. Correct gently.",
-  },
-  {
-    id: 19, title: "Beim Arzt", subtitle: "Dal Medico", free: false,
-    keywords: [
-      { italian: "Ho un appuntamento", english: "Ich habe einen Termin" },
-      { italian: "Da quanto tempo?", english: "Seit wann / wie lange?" },
-      { italian: "Ho la nausea", english: "Mir ist übel" },
-      { italian: "La pressione", english: "Der Blutdruck" },
-      { italian: "Fare una visita", english: "Eine Untersuchung machen" },
-      { italian: "La diagnosi", english: "Die Diagnose" },
-    ],
-    dialogue: [
-      { speaker: "Paziente", line: "Buongiorno, ho un appuntamento con il dottor Marini.", translation: "Guten Morgen, ich habe einen Termin bei Dr. Marini." },
-      { speaker: "Dottore", line: "Da quanto tempo ha questi sintomi?", translation: "Seit wann haben Sie diese Symptome?" },
-      { speaker: "Paziente", line: "Da due giorni. Ho anche un po' di febbre.", translation: "Seit zwei Tagen. Ich habe auch leichtes Fieber." },
-      { speaker: "Dottore", line: "Le misuro la pressione. Respiri profondamente.", translation: "Ich messe Ihren Blutdruck. Atmen Sie tief ein." },
-      { speaker: "Dottore", line: "Non è grave. Le scrivo una ricetta.", translation: "Es ist nicht ernst. Ich schreibe Ihnen ein Rezept." },
-    ],
-    grammar: {
-      title: "Da — Seit (Zeit)",
-      points: [
-        { italian: "Da due giorni", english: "Seit zwei Tagen (andauernd)" },
-        { italian: "Vivo qui da un anno", english: "Ich wohne hier seit einem Jahr" },
-        { italian: "Da stamattina", english: "Seit heute Morgen" },
-        { italian: "Da quanto tempo?", english: "Seit wann?" },
-      ],
-      note: "Im Italienischen beschreibt \"da\" + Präsens etwas, das seit der Vergangenheit andauert. Auf Deutsch entspricht das \"seit\" + Präsens.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a doctor. Reply in German. Use lesson 19 vocabulary. Correct gently.",
-  },
-  {
-    id: 20, title: "Abends ausgehen", subtitle: "Uscire la Sera", free: false,
-    keywords: [
-      { italian: "Andiamo a ballare?", english: "Gehen wir tanzen?" },
-      { italian: "Un locale", english: "Ein Lokal / ein Club / eine Bar" },
-      { italian: "C'è la fila", english: "Es gibt eine Schlange" },
-      { italian: "Offro io", english: "Ich lade ein" },
-      { italian: "Fare tardi", english: "Bis spät bleiben" },
-      { italian: "Che serata!", english: "Was für ein Abend!" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Allora, andiamo a ballare stasera?", translation: "Also, gehen wir heute Abend tanzen?" },
-      { speaker: "B", line: "Sì! Conosco un bel locale in centro.", translation: "Ja! Ich kenne ein tolles Lokal in der Innenstadt." },
-      { speaker: "A", line: "C'è la fila di solito?", translation: "Gibt es normalerweise eine Schlange?" },
-      { speaker: "B", line: "A volte sì, ma entriamo con la lista.", translation: "Manchmal ja, aber wir kommen auf die Liste." },
-      { speaker: "B", line: "Un aperitivo — offro io!", translation: "Ein Aperitif — ich lade ein!" },
-    ],
-    grammar: {
-      title: "Andare — Gehen (+ Orte)",
-      points: [
-        { italian: "Vado al bar", english: "Ich gehe zur Bar" },
-        { italian: "Va bene!", english: "Es ist gut! / In Ordnung!" },
-        { italian: "Andiamo a ballare", english: "Gehen wir tanzen" },
-        { italian: "Vai a casa?", english: "Gehst du nach Hause?" },
-      ],
-      note: "\"Andiamo\" (gehen wir) ist eines der nützlichsten Wörter im italienischen Sozialleben. \"Va bene\" wird ständig verwendet.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a friend planning a night out. Reply in German. Use lesson 20 vocabulary. Correct gently.",
-  },
-  {
-    id: 21, title: "Essen und Kochen", subtitle: "Cibo e Cucina", free: false,
-    keywords: [
-      { italian: "La ricetta", english: "Das Rezept" },
-      { italian: "Gli ingredienti", english: "Die Zutaten" },
-      { italian: "Cuocere / cucinare", english: "Kochen" },
-      { italian: "Aggiungere", english: "Hinzufügen" },
-      { italian: "Mescolare", english: "Rühren / mischen" },
-      { italian: "È pronto!", english: "Es ist fertig!" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Stai cucinando? Che profumo!", translation: "Du kochst? Was für ein herrlicher Duft!" },
-      { speaker: "B", line: "Sto facendo la pasta al pomodoro. Vuoi la ricetta?", translation: "Ich mache Pasta mit Tomaten. Willst du das Rezept?" },
-      { speaker: "A", line: "Sì! Quali ingredienti usi?", translation: "Ja! Welche Zutaten verwendest du?" },
-      { speaker: "B", line: "Pomodori freschi, aglio, basilico e olio d'oliva.", translation: "Frische Tomaten, Knoblauch, Basilikum und Olivenöl." },
-      { speaker: "A", line: "Aggiungi il sale, mescola e aspetta.", translation: "Füge Salz hinzu, rühre und warte." },
-    ],
-    grammar: {
-      title: "Stare + Gerundium — Verlaufsform der Gegenwart",
-      points: [
-        { italian: "Sto cucinando", english: "Ich bin am Kochen (gerade jetzt)" },
-        { italian: "Sta mangiando", english: "Er/Sie ist am Essen" },
-        { italian: "Stiamo aspettando", english: "Wir warten gerade" },
-        { italian: "Cosa state facendo?", english: "Was macht ihr gerade?" },
-      ],
-      note: "Das Italienische hat eine Verlaufsform mit \"stare\" + Gerundium (-ando/-endo) für Dinge, die gerade jetzt passieren.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a friend cooking. Reply in German. Use lesson 21 vocabulary. Correct gently.",
-  },
-  {
-    id: 22, title: "Bei der Bank", subtitle: "In Banca", free: false,
-    keywords: [
-      { italian: "Aprire un conto", english: "Ein Konto eröffnen" },
-      { italian: "Il bancomat", english: "Der Geldautomat / die EC-Karte" },
-      { italian: "Prelevare", english: "Geld abheben" },
-      { italian: "Il tasso di cambio", english: "Der Wechselkurs" },
-      { italian: "Fare un bonifico", english: "Eine Überweisung machen" },
-      { italian: "Lo sportello", english: "Der Schalter" },
-    ],
-    dialogue: [
-      { speaker: "Cliente", line: "Buongiorno. Vorrei prelevare dei contanti.", translation: "Guten Morgen. Ich möchte Bargeld abheben." },
-      { speaker: "Impiegato", line: "Si accomodi allo sportello tre.", translation: "Bitte gehen Sie zu Schalter drei." },
-      { speaker: "Cliente", line: "Qual è il tasso di cambio oggi?", translation: "Wie ist der Wechselkurs heute?" },
-      { speaker: "Cliente", line: "Posso anche fare un bonifico?", translation: "Kann ich auch eine Überweisung machen?" },
-      { speaker: "Impiegato", line: "Certo. Ha il codice IBAN del destinatario?", translation: "Natürlich. Haben Sie die IBAN des Empfängers?" },
-    ],
-    grammar: {
-      title: "Zahlen",
-      points: [
-        { italian: "Uno…dieci", english: "1–10" },
-        { italian: "Undici…venti", english: "11–20" },
-        { italian: "Cento / mille / un milione", english: "100 / 1.000 / 1.000.000" },
-        { italian: "Virgola", english: "Dezimalkomma (Komma im Italienischen)" },
-      ],
-      note: "Im Italienischen werden Dezimalstellen mit Komma geschrieben: \"1,17\" = uno virgola diciassette. Tausender mit Punkt. Das Gegenteil vom Englischen!",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a bank teller. Reply in German. Use lesson 22 vocabulary. Correct gently.",
-  },
-  {
-    id: 23, title: "Pläne machen", subtitle: "Fare Programmi", free: false,
-    keywords: [
-      { italian: "Sei libero/a?", english: "Bist du frei?" },
-      { italian: "Che ne dici di…?", english: "Was hältst du von…?" },
-      { italian: "Mi va!", english: "Ich bin dabei! / Klingt gut!" },
-      { italian: "Ci vediamo", english: "Wir sehen uns" },
-      { italian: "Rimandare", english: "Verschieben" },
-      { italian: "Non vedo l'ora!", english: "Ich kann es kaum erwarten!" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Sei libera sabato?", translation: "Bist du am Samstag frei?" },
-      { speaker: "B", line: "Sì! Che ne dici di andare al museo?", translation: "Ja! Was hältst du davon, ins Museum zu gehen?" },
-      { speaker: "A", line: "Mi va! A che ora ci vediamo?", translation: "Klingt gut! Um wie viel Uhr treffen wir uns?" },
-      { speaker: "B", line: "Alle dieci davanti all'ingresso?", translation: "Um zehn vor dem Eingang?" },
-      { speaker: "A", line: "Perfetto. Non vedo l'ora!", translation: "Perfekt. Ich kann es kaum erwarten!" },
-    ],
-    grammar: {
-      title: "Zukunftsform — Schnell und einfach",
-      points: [
-        { italian: "Andrò al museo", english: "Ich werde ins Museum gehen" },
-        { italian: "Sarà divertente", english: "Es wird Spaß machen" },
-        { italian: "Cosa farai?", english: "Was wirst du tun?" },
-        { italian: "Ci vediamo domani", english: "Wir sehen uns morgen (Präsens für nahe Zukunft)" },
-      ],
-      note: "Italiener verwenden oft das Präsens für nahe Pläne. \"Domani vado al cinema\" ist natürlicher als die Zukunftsform im Alltag.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a friend making plans. Reply in German. Use lesson 23 vocabulary. Correct gently.",
-  },
-  {
-    id: 24, title: "Über das Wetter sprechen", subtitle: "Il Tempo", free: false,
-    keywords: [
-      { italian: "Che tempo fa?", english: "Wie ist das Wetter?" },
-      { italian: "Piove / nevica", english: "Es regnet / schneit" },
-      { italian: "C'è il sole", english: "Es ist sonnig" },
-      { italian: "Afoso", english: "Schwül / drückend" },
-      { italian: "Le previsioni", english: "Die Wettervorhersage" },
-      { italian: "Portare un ombrello", english: "Einen Regenschirm mitnehmen" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Che tempo fa oggi?", translation: "Wie ist das Wetter heute?" },
-      { speaker: "B", line: "È nuvoloso stamattina, ma nel pomeriggio c'è il sole.", translation: "Heute Morgen ist es bewölkt, aber nachmittags scheint die Sonne." },
-      { speaker: "A", line: "E domani? Hai visto le previsioni?", translation: "Und morgen? Hast du die Vorhersage gesehen?" },
-      { speaker: "B", line: "Sì, piove di mattina. Porta l'ombrello!", translation: "Ja, es regnet am Morgen. Nimm einen Regenschirm mit!" },
-    ],
-    grammar: {
-      title: "Imperfetto — Die Vergangenheit (Gewohnheiten & Beschreibungen)",
-      points: [
-        { italian: "Volevo andare al mare", english: "Ich wollte ans Meer gehen" },
-        { italian: "Faceva caldo", english: "Es war heiß (Beschreibung in der Vergangenheit)" },
-        { italian: "Quando ero piccolo…", english: "Als ich jung war…" },
-        { italian: "Di solito prendevo…", english: "Ich pflegte zu nehmen…" },
-      ],
-      note: "Das Imperfetto wird für vergangene Gewohnheiten, Beschreibungen und anhaltende Zustände verwendet.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor talking about the weather. Reply in German. Use lesson 24 vocabulary. Correct gently.",
-  },
-  {
-    id: 25, title: "Im Park", subtitle: "Al Parco", free: false,
-    keywords: [
-      { italian: "Il fiore", english: "Die Blume" },
-      { italian: "L'albero", english: "Der Baum" },
-      { italian: "Il cane", english: "Der Hund" },
-      { italian: "La panchina", english: "Die Bank (Sitzbank)" },
-      { italian: "Bello / bella", english: "Schön / wunderschön" },
-      { italian: "Guarda!", english: "Schau!" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Guarda quel cane!", translation: "Schau diesen Hund!" },
-      { speaker: "B", line: "Che bello! È tuo?", translation: "Wie schön! Ist er deiner?" },
-      { speaker: "A", line: "No, ma vorrei averne uno.", translation: "Nein, aber ich hätte gerne einen." },
-      { speaker: "B", line: "Mi piace quel fiore rosso là.", translation: "Ich mag diese rote Blume dort drüben." },
-      { speaker: "A", line: "Sediamoci sulla panchina?", translation: "Setzen wir uns auf die Bank?" },
-    ],
-    grammar: {
-      title: "I Colori — Die Farben",
-      points: [
-        { italian: "Rosso / rossa", english: "Rot (m/f)" },
-        { italian: "Verde", english: "Grün" },
-        { italian: "Blu", english: "Blau (unveränderlich)" },
-        { italian: "Giallo / gialla", english: "Gelb (m/f)" },
-        { italian: "Un fiore rosso", english: "Eine rote Blume (Adjektiv folgt dem Nomen)" },
-      ],
-      note: "Im Italienischen sind Farben Adjektive und stimmen mit dem Nomen überein. Blu und rosa ändern sich nie.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor taking a walk in an Italian park. Reply in German. Correct gently.",
-  },
-  {
-    id: 26, title: "Personen beschreiben", subtitle: "Parlare delle Persone", free: false,
-    keywords: [
-      { italian: "Alto / basso", english: "Groß / klein" },
-      { italian: "Magro / robusto", english: "Schlank / kräftig" },
-      { italian: "Simpatico / antipatico", english: "Sympathisch / unsympathisch" },
-      { italian: "Timido / estroverso", english: "Schüchtern / extrovertiert" },
-      { italian: "I capelli", english: "Die Haare" },
-      { italian: "Gli occhi", english: "Die Augen" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Conosci Marco?", translation: "Kennst du Marco?" },
-      { speaker: "B", line: "Sì! È alto e molto simpatico.", translation: "Ja! Er ist groß und sehr sympathisch." },
-      { speaker: "A", line: "Ha i capelli scuri, vero?", translation: "Er hat dunkle Haare, oder?" },
-      { speaker: "B", line: "Sì, e gli occhi verdi.", translation: "Ja, und grüne Augen." },
-    ],
-    grammar: {
-      title: "Essere + Adjektive für Beschreibungen",
-      points: [
-        { italian: "È alto e magro", english: "Er ist groß und schlank" },
-        { italian: "È simpatica", english: "Sie ist sympathisch" },
-        { italian: "Ha i capelli biondi", english: "Er/Sie hat blonde Haare" },
-        { italian: "Ha gli occhi azzurri", english: "Er/Sie hat blaue Augen" },
-      ],
-      note: "Körperbeschreibungen verwenden essere (sein) für Eigenschaften und avere (haben) für Merkmale wie Haare und Augen.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor helping describe people. Reply in German. Use lesson 26 vocabulary. Correct gently.",
-  },
-  {
-    id: 27, title: "Mit den Nachbarn", subtitle: "Con i Vicini", free: false,
-    keywords: [
-      { italian: "Come va?", english: "Wie läuft's?" },
-      { italian: "Stanco / stanca", english: "Müde (m/f)" },
-      { italian: "Come mai?", english: "Wie kommt das? / Warum?" },
-      { italian: "Ho dormito poco", english: "Ich habe wenig geschlafen" },
-      { italian: "Tutto bene?", english: "Alles gut?" },
-      { italian: "La settimana", english: "Die Woche" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Buongiorno! Come va?", translation: "Guten Morgen! Wie läuft's?" },
-      { speaker: "B", line: "Un po' stanca oggi.", translation: "Heute ein bisschen müde." },
-      { speaker: "A", line: "Come mai?", translation: "Wie kommt das?" },
-      { speaker: "B", line: "Ho dormito poco stanotte.", translation: "Ich habe letzte Nacht wenig geschlafen." },
-      { speaker: "A", line: "Meno male! Buona giornata!", translation: "Gottseidank! Einen schönen Tag!" },
-    ],
-    grammar: {
-      title: "Alltägliche Gesprächsausdrücke",
-      points: [
-        { italian: "Come mai?", english: "Wie kommt das? / Warum das?" },
-        { italian: "Meno male!", english: "Gottseidank! / Was für eine Erleichterung!" },
-        { italian: "Abbastanza", english: "Ziemlich / recht / genug" },
-        { italian: "Mi dispiace", english: "Es tut mir leid" },
-      ],
-      note: "Come mai ist sanfter als perché — leichte Überraschung. Meno male bedeutet wörtlich \"weniger schlecht\" — ein sehr beliebter Ausdruck.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a friendly neighbour. Reply in German. Correct gently.",
-  },
-  {
-    id: 28, title: "Über den Tag sprechen", subtitle: "Parlare della Giornata", free: false,
-    keywords: [
-      { italian: "Ieri / oggi / domani", english: "Gestern / heute / morgen" },
-      { italian: "Stamattina / stasera", english: "Heute Morgen / heute Abend" },
-      { italian: "Ho lavorato", english: "Ich habe gearbeitet (Vergangenheit)" },
-      { italian: "Sono partito/a", english: "Ich bin abgereist (Vergangenheit)" },
-      { italian: "Cosa hai fatto?", english: "Was hast du gemacht?" },
-      { italian: "Tutto il giorno", english: "Den ganzen Tag" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Cosa hai fatto ieri?", translation: "Was hast du gestern gemacht?" },
-      { speaker: "B", line: "Ho lavorato tutto il giorno.", translation: "Ich habe den ganzen Tag gearbeitet." },
-      { speaker: "B", line: "Sono andato al cinema con Marco.", translation: "Ich war mit Marco im Kino." },
-      { speaker: "A", line: "Bello! E domani?", translation: "Schön! Und morgen?" },
-      { speaker: "B", line: "Domani partiamo per Roma.", translation: "Morgen fahren wir nach Rom." },
-    ],
-    grammar: {
-      title: "Passato Prossimo — Die nahe Vergangenheit",
-      points: [
-        { italian: "Ho lavorato", english: "Ich habe gearbeitet (avere + Partizip)" },
-        { italian: "Sono andato/a", english: "Ich bin gegangen (essere + Partizip)" },
-        { italian: "Abbiamo fatto", english: "Wir haben gemacht" },
-        { italian: "Sei partito/a?", english: "Bist du abgereist?" },
-      ],
-      note: "Das Passato Prossimo verwendet avere oder essere + Partizip Perfekt. Bewegungsverben nehmen essere.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor asking about the student's recent day. Reply in German. Correct gently.",
-  },
-  {
-    id: 29, title: "Erklärungen erfragen", subtitle: "Chiedere Spiegazioni", free: false,
-    keywords: [
-      { italian: "Perché?", english: "Warum?" },
-      { italian: "Come mai?", english: "Wie kommt das?" },
-      { italian: "Allora", english: "Also / dann / nun" },
-      { italian: "Quindi", english: "Deshalb / also" },
-      { italian: "Non capisco", english: "Ich verstehe nicht" },
-      { italian: "Uno sciopero", english: "Ein Streik" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Perché il treno è in ritardo?", translation: "Warum hat der Zug Verspätung?" },
-      { speaker: "B", line: "Perché c'è uno sciopero.", translation: "Weil es einen Streik gibt." },
-      { speaker: "A", line: "Non capisco — c'è un altro treno?", translation: "Ich verstehe nicht — gibt es einen anderen Zug?" },
-      { speaker: "B", line: "Allora, provi l'autobus.", translation: "Also, versuchen Sie den Bus." },
-    ],
-    grammar: {
-      title: "Perché — Warum und Weil",
-      points: [
-        { italian: "Perché sei in ritardo?", english: "Warum bist du spät? (Frage)" },
-        { italian: "Perché c'è traffico", english: "Weil Stau ist (Antwort)" },
-        { italian: "Non lo so", english: "Ich weiß es nicht" },
-        { italian: "Forse", english: "Vielleicht" },
-      ],
-      note: "Perché bedeutet sowohl \"warum\" als auch \"weil\" im Italienischen. Allora ist ständig in italienischen Gesprächen zu hören.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor role-playing situations where things go wrong. Reply in German. Correct gently.",
-  },
-  {
-    id: 30, title: "Träume und Wünsche", subtitle: "Sogni e Desideri", free: false,
-    keywords: [
-      { italian: "Vorrei...", english: "Ich hätte gerne… / Ich würde mir wünschen…" },
-      { italian: "Mi piacerebbe", english: "Es würde mir gefallen" },
-      { italian: "Magari", english: "Vielleicht / wenn doch nur" },
-      { italian: "Forse", english: "Vielleicht" },
-      { italian: "Un giorno", english: "Eines Tages" },
-      { italian: "Davvero?", english: "Wirklich?" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Vorrei vivere in Italia.", translation: "Ich würde gerne in Italien leben." },
-      { speaker: "B", line: "Davvero? In quale città?", translation: "Wirklich? In welcher Stadt?" },
-      { speaker: "A", line: "Firenze. Mi piacerebbe molto.", translation: "Florenz. Das würde mir sehr gefallen." },
-      { speaker: "B", line: "Magari vengo anch'io!", translation: "Vielleicht komme ich auch!" },
-      { speaker: "A", line: "Forse un giorno si può.", translation: "Vielleicht ist es eines Tages möglich." },
-    ],
-    grammar: {
-      title: "Konditional — Vorrei und Mi piacerebbe",
-      points: [
-        { italian: "Vorrei andare a Roma", english: "Ich würde gerne nach Rom gehen" },
-        { italian: "Mi piacerebbe molto", english: "Das würde mir sehr gefallen" },
-        { italian: "Magari!", english: "Wenn doch! / Das würde ich mir so wünschen!" },
-        { italian: "Sarebbe bello", english: "Das wäre schön" },
-      ],
-      note: "Magari kann vielleicht, wenn doch oder ich würde mir wünschen bedeuten, je nach Ton. Italiener lieben dieses Wort!",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor having a conversation about wishes. Reply in German. Use lesson 30 vocabulary. Correct gently.",
-  },
-  {
-    id: 31, title: "Zu Hause", subtitle: "A Casa", free: false,
-    keywords: [
-      { italian: "Il soggiorno", english: "Das Wohnzimmer" },
-      { italian: "La cucina", english: "Die Küche" },
-      { italian: "Il divano", english: "Das Sofa" },
-      { italian: "Cucinare", english: "Kochen" },
-      { italian: "Pulire", english: "Putzen" },
-      { italian: "Rilassarsi", english: "Sich entspannen" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Sei a casa?", translation: "Bist du zu Hause?" },
-      { speaker: "B", line: "Sì, sto cucinando in cucina.", translation: "Ja, ich koche gerade in der Küche." },
-      { speaker: "A", line: "Dopo ti rilassi un po'?", translation: "Wirst du dich danach ein bisschen entspannen?" },
-      { speaker: "B", line: "Spero! Mi butto sul divano.", translation: "Ich hoffe! Ich werfe mich auf das Sofa." },
-    ],
-    grammar: {
-      title: "Reflexive Verben — Verbi Riflessivi",
-      points: [
-        { italian: "Mi rilasso", english: "Ich entspanne mich" },
-        { italian: "Ti svegli?", english: "Wachst du auf?" },
-        { italian: "Si chiama", english: "Er/Sie heißt" },
-        { italian: "Mi butto sul divano", english: "Ich werfe mich auf das Sofa" },
-      ],
-      note: "Reflexive Verben verwenden ein Pronomen (mi, ti, si, ci, vi, si), das auf das Subjekt verweist — für Handlungen, die man an sich selbst vollzieht.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor having a cosy conversation about home. Reply in German. Use lesson 31 vocabulary. Correct gently.",
-  },
-  {
-    id: 32, title: "Der Alltag", subtitle: "La Routine Quotidiana", free: false,
-    keywords: [
-      { italian: "Mi sveglio", english: "Ich stehe auf" },
-      { italian: "Faccio colazione", english: "Ich frühstücke" },
-      { italian: "Mi vesto", english: "Ich ziehe mich an" },
-      { italian: "Torno a casa", english: "Ich komme nach Hause" },
-      { italian: "Di solito", english: "Normalerweise" },
-      { italian: "Mi addormento", english: "Ich schlafe ein" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "A che ora ti svegli di solito?", translation: "Um wie viel Uhr stehst du normalerweise auf?" },
-      { speaker: "B", line: "Mi sveglio alle sette. Faccio colazione e poi mi vesto.", translation: "Ich stehe um sieben auf. Ich frühstücke und ziehe mich dann an." },
-      { speaker: "A", line: "E vai a letto tardi?", translation: "Und gehst du spät schlafen?" },
-      { speaker: "B", line: "No, mi addormento verso le undici.", translation: "Nein, ich schlafe gegen elf ein." },
-    ],
-    grammar: {
-      title: "Reflexive Verben — Der Alltag",
-      points: [
-        { italian: "Mi sveglio alle 7", english: "Ich stehe um 7 auf" },
-        { italian: "Mi lavo", english: "Ich wasche mich" },
-        { italian: "Mi vesto", english: "Ich ziehe mich an" },
-        { italian: "Mi addormento", english: "Ich schlafe ein" },
-      ],
-      note: "Der Alltag auf Italienisch ist voller reflexiver Verben. Das Pronomen steht immer vor dem konjugierten Verb.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor asking about the student's daily routine. Reply in German. Correct gently.",
-  },
-  {
-    id: 33, title: "Im Supermarkt", subtitle: "Al Supermercato", free: false,
-    keywords: [
-      { italian: "Il carrello", english: "Der Einkaufswagen" },
-      { italian: "Il reparto", english: "Der Gang / die Abteilung" },
-      { italian: "La cassa", english: "Die Kasse" },
-      { italian: "Mezzo chilo", english: "Ein halbes Kilo" },
-      { italian: "In offerta", english: "Im Angebot" },
-      { italian: "Dov'è il reparto...?", english: "Wo ist der… Gang?" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Scusi, dov'è il reparto latticini?", translation: "Entschuldigung, wo ist die Molkereiabteilung?" },
-      { speaker: "B", line: "È in fondo a destra.", translation: "Sie ist hinten rechts." },
-      { speaker: "A", line: "Questo formaggio è in offerta?", translation: "Ist dieser Käse im Angebot?" },
-      { speaker: "B", line: "Sì, prenda due e risparmia il 20%.", translation: "Ja, nehmen Sie zwei und sparen Sie 20%." },
-    ],
-    grammar: {
-      title: "Partitiv — «Etwas von» ausdrücken",
-      points: [
-        { italian: "Del pane", english: "Etwas Brot (Partitiv)" },
-        { italian: "Delle mele", english: "Einige Äpfel (Partitiv)" },
-        { italian: "Un chilo di pasta", english: "Ein Kilo Pasta" },
-        { italian: "Mezzo litro di latte", english: "Ein halber Liter Milch" },
-      ],
-      note: "Das Italienische verwendet del/della/dei/delle für \"etwas von\". Vorrei del pane = Ich hätte gerne etwas Brot.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a supermarket assistant. Reply in German. Use lesson 33 vocabulary. Correct gently.",
-  },
-  {
-    id: 34, title: "Im Bus", subtitle: "Sull'Autobus", free: false,
-    keywords: [
-      { italian: "Il biglietto", english: "Das Ticket" },
-      { italian: "La fermata", english: "Die Haltestelle" },
-      { italian: "Scendere", english: "Aussteigen" },
-      { italian: "Salire", english: "Einsteigen" },
-      { italian: "Quante fermate?", english: "Wie viele Haltestellen?" },
-      { italian: "Devo cambiare?", english: "Muss ich umsteigen?" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Scusi, questo autobus va al centro?", translation: "Entschuldigung, fährt dieser Bus in die Innenstadt?" },
-      { speaker: "B", line: "Sì, ma deve cambiare alla fermata San Marco.", translation: "Ja, aber Sie müssen an der Haltestelle San Marco umsteigen." },
-      { speaker: "A", line: "Quante fermate sono?", translation: "Wie viele Haltestellen sind das?" },
-      { speaker: "B", line: "Quattro fermate. Poi scende e aspetta il 14.", translation: "Vier Haltestellen. Dann aussteigen und auf die 14 warten." },
-    ],
-    grammar: {
-      title: "Dovere + Infinitiv im öffentlichen Verkehr",
-      points: [
-        { italian: "Devo scendere qui", english: "Ich muss hier aussteigen" },
-        { italian: "Deve cambiare", english: "Sie müssen umsteigen (formell)" },
-        { italian: "Devi comprare il biglietto", english: "Du musst eine Fahrkarte kaufen" },
-      ],
-      note: "Im öffentlichen Verkehr sind dovere (müssen) und potere (können) unverzichtbar. Immer mit einem Infinitiv kombiniert.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a fellow passenger on an Italian bus. Reply in German. Correct gently.",
-  },
-  {
-    id: 35, title: "Freizeit", subtitle: "Il Tempo Libero", free: false,
-    keywords: [
-      { italian: "Leggere", english: "Lesen" },
-      { italian: "Guardare un film", english: "Einen Film anschauen" },
-      { italian: "Passeggiare", english: "Spazieren gehen" },
-      { italian: "Ascoltare musica", english: "Musik hören" },
-      { italian: "Nel tempo libero", english: "In meiner Freizeit" },
-      { italian: "Mi annoio", english: "Mir ist langweilig" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Cosa fai nel tempo libero?", translation: "Was machst du in deiner Freizeit?" },
-      { speaker: "B", line: "Mi piace leggere e ascoltare musica.", translation: "Ich lese gerne und höre Musik." },
-      { speaker: "A", line: "Guardi film italiani?", translation: "Schaust du italienische Filme?" },
-      { speaker: "B", line: "Sì! È il modo migliore per imparare.", translation: "Ja! Das ist der beste Weg zu lernen." },
-    ],
-    grammar: {
-      title: "Infinitive als Substantive",
-      points: [
-        { italian: "Mi piace leggere", english: "Ich lese gerne" },
-        { italian: "Adoro cucinare", english: "Ich liebe das Kochen" },
-        { italian: "Odio aspettare", english: "Ich hasse Warten" },
-        { italian: "Ho voglia di uscire", english: "Ich habe Lust auszugehen" },
-      ],
-      note: "Wenn man über Aktivitäten spricht, die man mag oder nicht, verwendet man den Infinitiv direkt nach mi piace, preferisco, adoro usw.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor having a relaxed chat about hobbies. Reply in German. Correct gently.",
-  },
-  {
-    id: 36, title: "Einladungen und Absagen", subtitle: "Inviti e Rifiuti", free: false,
-    keywords: [
-      { italian: "Ti va di...?", english: "Hast du Lust auf…?" },
-      { italian: "Volentieri!", english: "Sehr gerne!" },
-      { italian: "Non posso", english: "Ich kann nicht" },
-      { italian: "Peccato", english: "Wie schade" },
-      { italian: "Un'altra volta", english: "Ein anderes Mal" },
-      { italian: "Magari la prossima", english: "Vielleicht beim nächsten Mal" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Ti va di venire a cena stasera?", translation: "Hast du Lust, heute Abend zum Abendessen zu kommen?" },
-      { speaker: "B", line: "Volentieri! A che ora?", translation: "Sehr gerne! Um wie viel Uhr?" },
-      { speaker: "A", line: "Alle otto.", translation: "Um acht." },
-      { speaker: "B", line: "Se non può, peccato — un'altra volta.", translation: "Falls er nicht kann, wie schade — ein anderes Mal." },
-    ],
-    grammar: {
-      title: "Modalverben — Einladungen und Absagen",
-      points: [
-        { italian: "Non posso venire", english: "Ich kann nicht kommen" },
-        { italian: "Dovrei restare", english: "Ich sollte bleiben" },
-        { italian: "Potremmo andare", english: "Wir könnten gehen" },
-        { italian: "Ti va di...?", english: "Hast du Lust auf…? (feste Redewendung)" },
-      ],
-      note: "Ti va di...? ist einer der nützlichsten Einladungsausdrücke — ungezwungen und herzlich. Peccato mildert eine Absage wunderschön.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor role-playing invitations. Reply in German. Use lesson 36 vocabulary. Correct gently.",
-  },
-  {
-    id: 37, title: "Meine Stadt", subtitle: "La Mia Città", free: false,
-    keywords: [
-      { italian: "Ciò che mi piace di più", english: "Was mir am besten gefällt" },
-      { italian: "La cosa più interessante", english: "Das Interessanteste" },
-      { italian: "Quello che non mi piace tanto", english: "Was mir nicht so gefällt" },
-      { italian: "Il quartiere", english: "Das Viertel" },
-      { italian: "Vivace / tranquillo", english: "Lebhaft / ruhig" },
-      { italian: "Mi manca", english: "Ich vermisse es" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Di dove sei?", translation: "Woher kommst du?" },
-      { speaker: "B", line: "Sono di Napoli.", translation: "Ich komme aus Neapel." },
-      { speaker: "A", line: "Cosa ti piace di più?", translation: "Was gefällt dir dort am besten?" },
-      { speaker: "B", line: "Ciò che mi piace di più è il mare e il cibo.", translation: "Was mir am besten gefällt, ist das Meer und das Essen." },
-      { speaker: "B", line: "Quello che non sopporto è il caos del traffico.", translation: "Was ich nicht ausstehen kann, ist das Verkehrschaos." },
-    ],
-    grammar: {
-      title: "Relativsätze — Ciò che / Quello che",
-      points: [
-        { italian: "Ciò che mi piace", english: "Was mir gefällt (das, was mir gefällt)" },
-        { italian: "Quello che voglio", english: "Was ich will" },
-        { italian: "Non è quello che pensavo", english: "Es ist nicht das, was ich dachte" },
-        { italian: "Tutto ciò che sai", english: "Alles, was du weißt" },
-      ],
-      note: "Ciò che und quello che bedeuten beide \"was\" im Sinne von \"das, was\". Austauschbar für elegante Meinungsäußerungen.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor talking about Italian cities. Reply in German. Correct gently.",
-  },
-  {
-    id: 38, title: "In Eile!", subtitle: "Di Fretta", free: false,
-    keywords: [
-      { italian: "Siamo in ritardo!", english: "Wir sind spät dran!" },
-      { italian: "Aspettami!", english: "Warte auf mich!" },
-      { italian: "Forza!", english: "Los! / Beeil dich!" },
-      { italian: "Sbrigati!", english: "Beeil dich!" },
-      { italian: "Prendo la valigia", english: "Ich nehme den Koffer" },
-      { italian: "Corri!", english: "Lauf!" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Sbrigati! Siamo in ritardo!", translation: "Beeil dich! Wir sind spät dran!" },
-      { speaker: "B", line: "Aspettami, prendo la valigia.", translation: "Warte auf mich, ich nehme den Koffer." },
-      { speaker: "A", line: "Prendila e vieni, forza!", translation: "Nimm ihn und komm, los!" },
-      { speaker: "A", line: "Dai, corri! Il treno parte tra cinque minuti.", translation: "Los, lauf! Der Zug fährt in fünf Minuten ab." },
-    ],
-    grammar: {
-      title: "Informeller Imperativ — Befehle mit Pronomen",
-      points: [
-        { italian: "Aspetta! / Aspettami!", english: "Warte! / Warte auf mich!" },
-        { italian: "Sbrigati!", english: "Beeil dich! (reflexiver Imperativ)" },
-        { italian: "Prendila!", english: "Nimm es! (Pronomen an das Verb angehängt)" },
-        { italian: "Aiutami!", english: "Hilf mir!" },
-      ],
-      note: "Bei informellen Befehlen werden Objektpronomen an das Ende des Verbs angehängt: prendila, aspettami, aiutami.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor role-playing a rushed situation. Reply in German. Correct gently.",
-  },
-  {
-    id: 39, title: "Sonntag mit Freunden", subtitle: "Domenica con gli Amici", free: false,
-    keywords: [
-      { italian: "Vi va di...?", english: "Habt ihr Lust auf…?" },
-      { italian: "Preferirei", english: "Ich würde lieber" },
-      { italian: "L'agriturismo", english: "Landrestaurant / Bauernhof-Übernachtung" },
-      { italian: "È affollato", english: "Es ist überfüllt" },
-      { italian: "Non si trova parcheggio", english: "Man findet keinen Parkplatz" },
-      { italian: "Che ne dite?", english: "Was meint ihr?" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Vi va di andare al mare domenica?", translation: "Habt ihr Lust, am Sonntag ans Meer zu gehen?" },
-      { speaker: "B", line: "Preferirei andare a mangiare in un agriturismo.", translation: "Ich würde lieber auf einem Bauernhof essen gehen." },
-      { speaker: "C", line: "Anch'io — la spiaggia è sempre affollata.", translation: "Ich auch — der Strand ist immer überfüllt." },
-      { speaker: "B", line: "Conosco un posto bellissimo in collina. Che ne dite?", translation: "Ich kenne einen wunderschönen Ort in den Hügeln. Was meint ihr?" },
-    ],
-    grammar: {
-      title: "Si Impersonale — Das unpersönliche si",
-      points: [
-        { italian: "Non si trova parcheggio", english: "Man findet keinen Parkplatz" },
-        { italian: "Si mangia bene qui", english: "Hier isst man gut" },
-        { italian: "Come si dice?", english: "Wie sagt man?" },
-        { italian: "Non si sa mai", english: "Man weiß nie" },
-      ],
-      note: "Das unpersönliche si hat kein spezifisches Subjekt — wie \"man\" im Deutschen. Come si dice? ist essenziell für Sprachlernende!",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor role-playing friends planning a Sunday outing. Reply in German. Correct gently.",
-  },
-  {
-    id: 40, title: "Es scheint / Ich erinnere mich", subtitle: "Mi Sembra e Mi Ricordo", free: false,
-    keywords: [
-      { italian: "Mi sembra che", english: "Es scheint mir, dass" },
-      { italian: "Mi pare", english: "Es scheint mir / es kommt mir vor" },
-      { italian: "Ti ricordi?", english: "Erinnerst du dich?" },
-      { italian: "Mi ricordo", english: "Ich erinnere mich" },
-      { italian: "Non mi ricordo", english: "Ich erinnere mich nicht" },
-      { italian: "Mi sembra ieri", english: "Es scheint wie gestern" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Ti ricordi di quella vacanza a Capri?", translation: "Erinnerst du dich an den Urlaub auf Capri?" },
-      { speaker: "B", line: "Certo! Mi sembra ieri.", translation: "Natürlich! Es scheint wie gestern." },
-      { speaker: "A", line: "Ti ricordi quel ristorante sul mare?", translation: "Erinnerst du dich an dieses Restaurant am Meer?" },
-      { speaker: "B", line: "Mi pare di sì, ma non mi ricordo il nome.", translation: "Ich glaube ja, aber ich erinnere mich nicht an den Namen." },
-    ],
-    grammar: {
-      title: "Reflexive Verben — Erinnerung und Wahrnehmung",
-      points: [
-        { italian: "Mi ricordo", english: "Ich erinnere mich" },
-        { italian: "Ti ricordi?", english: "Erinnerst du dich?" },
-        { italian: "Si ricorda", english: "Er/Sie erinnert sich (auch formelles Sie)" },
-        { italian: "Mi sembra / mi pare", english: "Es scheint mir (austauschbar)" },
-      ],
-      note: "Ricordarsi ist reflexiv: mi ricordo, ti ricordi, si ricorda usw. Mi sembra und mi pare sind austauschbar.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor having a nostalgic conversation about shared memories. Reply in German. Correct gently.",
-  },
-  {
-    id: 41, title: "Über die Vergangenheit sprechen", subtitle: "Parlare del Passato", free: false,
-    keywords: [
-      { italian: "Ho fatto", english: "Ich habe gemacht" },
-      { italian: "Ho mangiato", english: "Ich habe gegessen" },
-      { italian: "Sono andato/a", english: "Ich bin gegangen" },
-      { italian: "Siamo arrivati", english: "Wir sind angekommen" },
-      { italian: "L'anno scorso", english: "Letztes Jahr" },
-      { italian: "La settimana scorsa", english: "Letzte Woche" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Come hai passato il weekend?", translation: "Wie hast du das Wochenende verbracht?" },
-      { speaker: "B", line: "Sono andato a Venezia con mia moglie.", translation: "Ich war mit meiner Frau in Venedig." },
-      { speaker: "A", line: "Avete mangiato bene?", translation: "Habt ihr gut gegessen?" },
-      { speaker: "B", line: "Benissimo! Ho mangiato il miglior risotto della mia vita.", translation: "Wunderbar! Ich habe das beste Risotto meines Lebens gegessen." },
-    ],
-    grammar: {
-      title: "Passato Prossimo — Avere vs. Essere",
-      points: [
-        { italian: "Ho mangiato (avere)", english: "Ich habe gegessen — die meisten Verben nehmen avere" },
-        { italian: "Sono andato/a (essere)", english: "Ich bin gegangen — Bewegungsverben nehmen essere" },
-        { italian: "Siamo arrivati (essere)", english: "Wir sind angekommen — Partizip stimmt mit dem Subjekt überein" },
-        { italian: "Non ho capito", english: "Ich habe nicht verstanden" },
-      ],
-      note: "Bewegungsverben und reflexive Verben nehmen essere. Alle anderen nehmen avere. Mit essere stimmt das Partizip überein.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor asking about recent activities. Reply in German. Correct gently.",
-  },
-  {
-    id: 42, title: "Kindheitserinnerungen", subtitle: "Ricordi d'Infanzia", free: false,
-    keywords: [
-      { italian: "Quando ero piccolo/a", english: "Als ich jung war" },
-      { italian: "Giocavo", english: "Ich spielte" },
-      { italian: "La scuola", english: "Die Schule" },
-      { italian: "D'estate", english: "Im Sommer" },
-      { italian: "Ogni giorno", english: "Jeden Tag" },
-      { italian: "Mi piaceva", english: "Ich mochte" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Com'era la tua infanzia?", translation: "Wie war deine Kindheit?" },
-      { speaker: "B", line: "Bellissima! D'estate giocavo sempre fuori.", translation: "Wunderbar! Im Sommer spielte ich immer draußen." },
-      { speaker: "A", line: "E la scuola? Ti piaceva?", translation: "Und die Schule? Mochtest du sie?" },
-      { speaker: "B", line: "Mi piaceva la matematica.", translation: "Ich mochte Mathematik." },
-      { speaker: "A", line: "Quando ero piccola, volevo fare la ballerina.", translation: "Als ich klein war, wollte ich Tänzerin werden." },
-    ],
-    grammar: {
-      title: "Imperfetto — Gewohnheiten und Zustände in der Vergangenheit",
-      points: [
-        { italian: "Giocavo ogni giorno", english: "Ich spielte jeden Tag" },
-        { italian: "Quando ero piccolo...", english: "Als ich jung war..." },
-        { italian: "Mi piaceva la scuola", english: "Ich mochte die Schule" },
-        { italian: "Era bellissimo", english: "Es war wunderbar" },
-      ],
-      note: "Das Imperfetto beschreibt vergangene Zustände, Gewohnheiten und Gefühle. Ho mangiato la pizza (einmal) vs Mangiavo la pizza ogni venerdì (jeden Freitag).",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor having a nostalgic conversation about childhood. Reply in German. Correct gently.",
-  },
-  {
-    id: 43, title: "Meinungen ausdrücken", subtitle: "Esprimere Opinioni", free: false,
-    keywords: [
-      { italian: "Secondo me", english: "Meiner Meinung nach" },
-      { italian: "Penso che", english: "Ich denke, dass" },
-      { italian: "Mi sembra", english: "Es scheint mir" },
-      { italian: "Mi pare", english: "Es scheint mir (dasselbe wie mi sembra)" },
-      { italian: "Sono d'accordo", english: "Ich stimme zu" },
-      { italian: "Hai ragione", english: "Du hast recht" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Secondo te, qual è la città più bella d'Italia?", translation: "Deiner Meinung nach, welches ist die schönste Stadt Italiens?" },
-      { speaker: "B", line: "Secondo me, Firenze. Mi sembra unica.", translation: "Meiner Meinung nach, Florenz. Es scheint mir einzigartig." },
-      { speaker: "A", line: "Penso che Roma sia più interessante.", translation: "Ich denke, Rom ist interessanter." },
-      { speaker: "B", line: "Hai ragione, Roma è straordinaria.", translation: "Du hast recht, Rom ist außergewöhnlich." },
-    ],
-    grammar: {
-      title: "Strukturen zur Meinungsäußerung",
-      points: [
-        { italian: "Secondo me...", english: "Meiner Meinung nach… (wörtl. laut mir)" },
-        { italian: "Mi sembra che", english: "Es scheint mir, dass" },
-        { italian: "Sono / non sono d'accordo", english: "Ich stimme zu / Ich stimme nicht zu" },
-        { italian: "Hai ragione", english: "Du hast recht" },
-      ],
-      note: "Secondo me ist die einfachste Art, eine Meinung zu äußern. Mi sembra und mi pare sind austauschbar und sehr gebräuchlich.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor having a discussion about Italian cities. Reply in German. Correct gently.",
-  },
-  {
-    id: 44, title: "Ratschläge geben", subtitle: "Dare Consigli", free: false,
-    keywords: [
-      { italian: "Dovresti", english: "Du solltest" },
-      { italian: "Ti consiglio di", english: "Ich rate dir" },
-      { italian: "È meglio che", english: "Es wäre besser, wenn" },
-      { italian: "Al posto tuo", english: "An deiner Stelle" },
-      { italian: "Perché non...?", english: "Warum nicht…?" },
-      { italian: "Prova a", english: "Versuch mal" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Non riesco a dormire bene.", translation: "Ich kann nicht gut schlafen." },
-      { speaker: "B", line: "Dovresti andare a letto prima.", translation: "Du solltest früher ins Bett gehen." },
-      { speaker: "B", line: "Ti consiglio di evitare il caffè la sera.", translation: "Ich rate dir, abends keinen Kaffee zu trinken." },
-      { speaker: "A", line: "Al posto tuo, cosa faresti?", translation: "Was würdest du an meiner Stelle tun?" },
-      { speaker: "B", line: "Perché non provi una camomilla prima di dormire?", translation: "Warum versuchst du nicht einen Kamillentee vor dem Schlafen?" },
-    ],
-    grammar: {
-      title: "Konditional für Ratschläge",
-      points: [
-        { italian: "Dovresti riposare", english: "Du solltest dich ausruhen" },
-        { italian: "Potresti provare", english: "Du könntest es versuchen" },
-        { italian: "Al posto tuo, andrei", english: "An deiner Stelle würde ich gehen" },
-        { italian: "Ti consiglio di aspettare", english: "Ich rate dir zu warten" },
-      ],
-      note: "Dovresti (du solltest) und potresti (du könntest) sind Konditionalis-Formen — ideal für Ratschläge ohne zu direkt zu sein.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor playing a wise friend giving advice. Reply in German. Correct gently.",
-  },
-  {
-    id: 45, title: "Real und Hypothetisch", subtitle: "Reale e Ipotetico", free: false,
-    keywords: [
-      { italian: "Se ho i soldi, vado", english: "Wenn ich das Geld habe, gehe ich (reale Möglichkeit)" },
-      { italian: "Se avessi i soldi, andrei", english: "Wenn ich das Geld hätte, würde ich gehen (hypothetisch)" },
-      { italian: "Magari potessi!", english: "Wenn ich nur könnte!" },
-      { italian: "Nel caso in cui", english: "Für den Fall, dass" },
-      { italian: "Dipende da", english: "Es hängt von ab" },
-      { italian: "Chissà", english: "Wer weiß / vielleicht eines Tages" },
-    ],
-    dialogue: [
-      { speaker: "A", line: "Cosa fai a luglio?", translation: "Was machst du im Juli?" },
-      { speaker: "B", line: "Se ho i soldi, vado in Sicilia.", translation: "Wenn ich das Geld habe, fahre ich nach Sizilien." },
-      { speaker: "A", line: "Io sogno in grande — se avessi i soldi, andrei in Giappone!", translation: "Ich träume groß — wenn ich das Geld hätte, würde ich nach Japan fahren!" },
-      { speaker: "B", line: "Magari potessi anch'io! Chissà, un giorno.", translation: "Wenn ich nur auch könnte! Wer weiß, eines Tages." },
-      { speaker: "A", line: "Se vincessi alla lotteria, ci andremmo insieme!", translation: "Wenn ich im Lotto gewänne, würden wir zusammen fahren!" },
-    ],
-    grammar: {
-      title: "Konditionalsätze — Real vs. Hypothetisch",
-      points: [
-        { italian: "Se ho tempo, vengo", english: "Wenn ich Zeit habe, komme ich (real)" },
-        { italian: "Se avessi tempo, verrei", english: "Wenn ich Zeit hätte, würde ich kommen (hypothetisch)" },
-        { italian: "Se fosse possibile", english: "Wenn es möglich wäre" },
-        { italian: "Chissà", english: "Wer weiß (drückt Unsicherheit über die Zukunft aus)" },
-      ],
-      note: "Real: se + Präsens. Hypothetisch: se + Imperfekt Konjunktiv (avessi, fossi) + Konditional (andrei, verrei) = etwas Unwahrscheinliches.",
-    },
-    aiPrompt: "STRICT RULES: Only discuss this lesson. You are an Italian tutor exploring real and hypothetical situations. Reply in German. Correct gently.",
-  },
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
+
+// ── i18n ──────────────────────────────────────────────────────────────────────
+const LANGUAGES = [
+  { code: "en", flag: "🇬🇧", name: "English" },
+  { code: "fr", flag: "🇫🇷", name: "Français" },
+  { code: "es", flag: "🇪🇸", name: "Español" },
+  { code: "pt", flag: "🇧🇷", name: "Português" },
+  { code: "de", flag: "🇩🇪", name: "Deutsch" },
 ];
+
+// ── Lesson imports ───────────────────────────────────────────────────────────
+import { LESSONS as LESSONS_EN } from "./lessons/en.js";
+import { LESSONS as LESSONS_ES } from "./lessons/es.js";
+
+function getLessons(lang) {
+  switch (lang) {
+    case "es": return LESSONS_ES;
+    default:   return LESSONS_EN;
+  }
+}
+
+const T = {
+  en: {
+    heroTag: "Crash Course · Learn Fast · Only What You Need",
+    heroSub: "Situational Italian in minutes — real conversations, essential grammar, nothing extra.",
+    module1: "Module 1 — Travel · Viaggiare",
+    module2: "Module 2 — Everyday Life · La Vita Quotidiana",
+    module3: "Module 3 — Deeper Conversations · Conversazioni Più Profonde",
+    unlockTitle: "Unlock the Full Course",
+    unlockText: "All 45 lessons, AI conversation practice, and grammar flashcards.",
+    monthly: "Monthly — $3",
+    yearly: "Yearly — $30",
+    lifetime: "Lifetime — $49",
+    save: "Save 17%",
+    bestValue: "Best Value",
+    perMonth: "/month",
+    perYear: "/year",
+    privacy: "Privacy Policy",
+    terms: "Terms of Service",
+    logIn: "Log in",
+    logOut: "Log out",
+    manage: "Manage",
+    active: "✓ Active",
+    subscribe: "Subscribe",
+    free: "Free",
+    allLessons: "← All Lessons",
+    lesson: "Lesson",
+    words: "Words",
+    dialogue: "Dialogue",
+    grammar: "Grammar",
+    aiPractice: "AI Practice",
+    listenAll: "Listen All",
+    listen: "Listen",
+    tapForExamples: "Tap to see examples",
+    nextDialogue: "Next: Dialogue",
+    nextGrammar: "Next: Grammar",
+    nextAI: "Next: AI Practice",
+    aiHeader: "AI Practice",
+    aiWelcome: (title, limit) => `Ciao! Ready to practise "${title}"? Let's go! 😊 (${limit} messages available today)`,
+    aiLimitReached: "You have reached your 20 message daily limit for this lesson. Come back tomorrow to keep practising! 🇮🇹",
+    aiSubscribePrompt: "AI conversation practice is unlocked with a subscription. Subscribe from $3/month to practise live with your AI Italian tutor! 🇮🇹",
+    aiPlaceholder: "Type in Italian…",
+    aiError: "Connection error. Please try again!",
+    loginTitle: "Welcome back",
+    signupTitle: "Create account",
+    emailPlaceholder: "Email",
+    passwordPlaceholder: "Password",
+    loginBtn: "Log in",
+    signupBtn: "Sign up",
+    noAccount: "No account?",
+    signUpFree: "Sign up free",
+    haveAccount: "Have an account?",
+    forgotPassword: "Forgot password?",
+    sendResetLink: "Send reset link",
+    resetSent: "✓ Reset link sent — check your email if it is associated with a Parlissimo account.",
+    newPassword: "Create new password",
+    newPasswordPlaceholder: "New password",
+    confirmPasswordPlaceholder: "Confirm new password",
+    updatePassword: "Update password",
+    passwordUpdated: "✓ Password updated!",
+    goToParlissimo: "Go to Parlissimo",
+    passwordShort: "Password must be at least 6 characters.",
+    passwordMismatch: "Passwords do not match.",
+    enterEmailFirst: "Enter your email above first.",
+    loading: "Loading...",
+    installBannerText: "📲 Add Parlissimo to your home screen for the best experience!",
+    installApp: "Install App",
+    iosHint: "📲 On iPhone: tap Share ↑ then Add to Home Screen to install Parlissimo as an app!",
+    or: "or",
+    checkoutError: "Something went wrong. Please try again.",
+    copyright: "© 2026 Parlissimo",
+    translating: "Translating lesson…",
+  },
+  fr: {
+    heroTag: "Cours Intensif · Apprenez Vite · L'Essentiel Seulement",
+    heroSub: "L'italien situationnel en quelques minutes — vraies conversations, grammaire essentielle, rien de superflu.",
+    module1: "Module 1 — Voyages · Viaggiare",
+    module2: "Module 2 — Vie Quotidienne · La Vita Quotidiana",
+    module3: "Module 3 — Conversations Approfondies · Conversazioni Più Profonde",
+    unlockTitle: "Accéder au Cours Complet",
+    unlockText: "45 leçons, entraînement à la conversation avec l'IA et cartes de grammaire.",
+    monthly: "Mensuel — 3 $",
+    yearly: "Annuel — 30 $",
+    lifetime: "À vie — 49 $",
+    save: "Économisez 17 %",
+    bestValue: "Meilleur Prix",
+    perMonth: "/mois",
+    perYear: "/an",
+    privacy: "Politique de Confidentialité",
+    terms: "Conditions d'Utilisation",
+    logIn: "Connexion",
+    logOut: "Déconnexion",
+    manage: "Gérer",
+    active: "✓ Actif",
+    subscribe: "S'abonner",
+    free: "Gratuit",
+    allLessons: "← Toutes les Leçons",
+    lesson: "Leçon",
+    words: "Mots",
+    dialogue: "Dialogue",
+    grammar: "Grammaire",
+    aiPractice: "Pratique IA",
+    listenAll: "Tout Écouter",
+    listen: "Écouter",
+    tapForExamples: "Appuyez pour voir les exemples",
+    nextDialogue: "Suivant : Dialogue",
+    nextGrammar: "Suivant : Grammaire",
+    nextAI: "Suivant : Pratique IA",
+    aiHeader: "Pratique IA",
+    aiWelcome: (title, limit) => `Ciao ! Prêt(e) à pratiquer "${title}" ? Allons-y ! 😊 (${limit} messages disponibles aujourd'hui)`,
+    aiLimitReached: "Vous avez atteint la limite de 20 messages quotidiens pour cette leçon. Revenez demain ! 🇮🇹",
+    aiSubscribePrompt: "La pratique conversationnelle IA est débloquée avec un abonnement. Abonnez-vous dès 3 $/mois ! 🇮🇹",
+    aiPlaceholder: "Écrivez en italien…",
+    aiError: "Erreur de connexion. Veuillez réessayer !",
+    loginTitle: "Bon retour",
+    signupTitle: "Créer un compte",
+    emailPlaceholder: "E-mail",
+    passwordPlaceholder: "Mot de passe",
+    loginBtn: "Se connecter",
+    signupBtn: "S'inscrire",
+    noAccount: "Pas de compte ?",
+    signUpFree: "Inscription gratuite",
+    haveAccount: "Déjà un compte ?",
+    forgotPassword: "Mot de passe oublié ?",
+    sendResetLink: "Envoyer le lien",
+    resetSent: "✓ Lien envoyé — vérifiez votre e-mail.",
+    newPassword: "Créer un nouveau mot de passe",
+    newPasswordPlaceholder: "Nouveau mot de passe",
+    confirmPasswordPlaceholder: "Confirmer le mot de passe",
+    updatePassword: "Mettre à jour",
+    passwordUpdated: "✓ Mot de passe mis à jour !",
+    goToParlissimo: "Aller sur Parlissimo",
+    passwordShort: "Le mot de passe doit comporter au moins 6 caractères.",
+    passwordMismatch: "Les mots de passe ne correspondent pas.",
+    enterEmailFirst: "Entrez d'abord votre e-mail ci-dessus.",
+    loading: "Chargement…",
+    installBannerText: "📲 Ajoutez Parlissimo à votre écran d'accueil pour la meilleure expérience !",
+    installApp: "Installer",
+    iosHint: "📲 Sur iPhone : appuyez sur Partager ↑ puis Ajouter à l'écran d'accueil pour installer Parlissimo !",
+    or: "ou",
+    checkoutError: "Une erreur s'est produite. Veuillez réessayer.",
+    copyright: "© 2026 Parlissimo",
+    translating: "Traduction de la leçon en cours…",
+  },
+  es: {
+    heroTag: "Curso Intensivo · Aprende Rápido · Solo lo Esencial",
+    heroSub: "Italiano situacional en minutos — conversaciones reales, gramática esencial, nada más.",
+    module1: "Módulo 1 — Viajes · Viaggiare",
+    module2: "Módulo 2 — Vida Cotidiana · La Vita Quotidiana",
+    module3: "Módulo 3 — Conversaciones Profundas · Conversazioni Più Profonde",
+    unlockTitle: "Desbloquear el Curso Completo",
+    unlockText: "45 lecciones, práctica de conversación con IA y tarjetas de gramática.",
+    monthly: "Mensual — $3",
+    yearly: "Anual — $30",
+    lifetime: "De por vida — $49",
+    save: "Ahorra 17 %",
+    bestValue: "Mejor Precio",
+    perMonth: "/mes",
+    perYear: "/año",
+    privacy: "Política de Privacidad",
+    terms: "Términos de Servicio",
+    logIn: "Iniciar sesión",
+    logOut: "Cerrar sesión",
+    manage: "Gestionar",
+    active: "✓ Activo",
+    subscribe: "Suscribirse",
+    free: "Gratis",
+    allLessons: "← Todas las Lecciones",
+    lesson: "Lección",
+    words: "Palabras",
+    dialogue: "Diálogo",
+    grammar: "Gramática",
+    aiPractice: "Práctica IA",
+    listenAll: "Escuchar Todo",
+    listen: "Escuchar",
+    tapForExamples: "Toca para ver ejemplos",
+    nextDialogue: "Siguiente: Diálogo",
+    nextGrammar: "Siguiente: Gramática",
+    nextAI: "Siguiente: Práctica IA",
+    aiHeader: "Práctica IA",
+    aiWelcome: (title, limit) => `¡Ciao! ¿Listo/a para practicar "${title}"? ¡Vamos! 😊 (${limit} mensajes disponibles hoy)`,
+    aiLimitReached: "Has alcanzado el límite de 20 mensajes diarios. ¡Vuelve mañana! 🇮🇹",
+    aiSubscribePrompt: "La práctica conversacional con IA se desbloquea con una suscripción. ¡Suscríbete desde $3/mes! 🇮🇹",
+    aiPlaceholder: "Escribe en italiano…",
+    aiError: "Error de conexión. ¡Inténtalo de nuevo!",
+    loginTitle: "Bienvenido/a de nuevo",
+    signupTitle: "Crear cuenta",
+    emailPlaceholder: "Correo electrónico",
+    passwordPlaceholder: "Contraseña",
+    loginBtn: "Iniciar sesión",
+    signupBtn: "Registrarse",
+    noAccount: "¿Sin cuenta?",
+    signUpFree: "Regístrate gratis",
+    haveAccount: "¿Ya tienes cuenta?",
+    forgotPassword: "¿Olvidaste tu contraseña?",
+    sendResetLink: "Enviar enlace",
+    resetSent: "✓ Enlace enviado — revisa tu correo.",
+    newPassword: "Crear nueva contraseña",
+    newPasswordPlaceholder: "Nueva contraseña",
+    confirmPasswordPlaceholder: "Confirmar contraseña",
+    updatePassword: "Actualizar",
+    passwordUpdated: "✓ ¡Contraseña actualizada!",
+    goToParlissimo: "Ir a Parlissimo",
+    passwordShort: "La contraseña debe tener al menos 6 caracteres.",
+    passwordMismatch: "Las contraseñas no coinciden.",
+    enterEmailFirst: "Introduce primero tu correo arriba.",
+    loading: "Cargando…",
+    installBannerText: "📲 ¡Añade Parlissimo a tu pantalla de inicio para la mejor experiencia!",
+    installApp: "Instalar",
+    iosHint: "📲 En iPhone: toca Compartir ↑ y luego Añadir a pantalla de inicio.",
+    or: "o",
+    checkoutError: "Algo salió mal. Inténtalo de nuevo.",
+    copyright: "© 2026 Parlissimo",
+    translating: "Traduciendo la lección…",
+  },
+  pt: {
+    heroTag: "Curso Intensivo · Aprenda Rápido · Só o Essencial",
+    heroSub: "Italiano situacional em minutos — conversas reais, gramática essencial, nada a mais.",
+    module1: "Módulo 1 — Viagens · Viaggiare",
+    module2: "Módulo 2 — Vida Cotidiana · La Vita Quotidiana",
+    module3: "Módulo 3 — Conversas Aprofundadas · Conversazioni Più Profonde",
+    unlockTitle: "Desbloquear o Curso Completo",
+    unlockText: "45 lições, prática de conversação com IA e cartões de gramática.",
+    monthly: "Mensal — $3",
+    yearly: "Anual — $30",
+    lifetime: "Vitalício — $49",
+    save: "Economize 17%",
+    bestValue: "Melhor Valor",
+    perMonth: "/mês",
+    perYear: "/ano",
+    privacy: "Política de Privacidade",
+    terms: "Termos de Serviço",
+    logIn: "Entrar",
+    logOut: "Sair",
+    manage: "Gerenciar",
+    active: "✓ Ativo",
+    subscribe: "Assinar",
+    free: "Grátis",
+    allLessons: "← Todas as Lições",
+    lesson: "Lição",
+    words: "Palavras",
+    dialogue: "Diálogo",
+    grammar: "Gramática",
+    aiPractice: "Prática IA",
+    listenAll: "Ouvir Tudo",
+    listen: "Ouvir",
+    tapForExamples: "Toque para ver exemplos",
+    nextDialogue: "Próximo: Diálogo",
+    nextGrammar: "Próximo: Gramática",
+    nextAI: "Próximo: Prática IA",
+    aiHeader: "Prática IA",
+    aiWelcome: (title, limit) => `Ciao! Pronto/a para praticar "${title}"? Vamos lá! 😊 (${limit} mensagens disponíveis hoje)`,
+    aiLimitReached: "Você atingiu o limite de 20 mensagens diárias desta lição. Volte amanhã! 🇮🇹",
+    aiSubscribePrompt: "A prática conversacional com IA é desbloqueada com uma assinatura. Assine a partir de $3/mês! 🇮🇹",
+    aiPlaceholder: "Escreva em italiano…",
+    aiError: "Erro de conexão. Tente novamente!",
+    loginTitle: "Bem-vindo(a) de volta",
+    signupTitle: "Criar conta",
+    emailPlaceholder: "E-mail",
+    passwordPlaceholder: "Senha",
+    loginBtn: "Entrar",
+    signupBtn: "Cadastrar",
+    noAccount: "Sem conta?",
+    signUpFree: "Cadastre-se grátis",
+    haveAccount: "Já tem conta?",
+    forgotPassword: "Esqueceu a senha?",
+    sendResetLink: "Enviar link",
+    resetSent: "✓ Link enviado — verifique seu e-mail.",
+    newPassword: "Criar nova senha",
+    newPasswordPlaceholder: "Nova senha",
+    confirmPasswordPlaceholder: "Confirmar senha",
+    updatePassword: "Atualizar",
+    passwordUpdated: "✓ Senha atualizada!",
+    goToParlissimo: "Ir para o Parlissimo",
+    passwordShort: "A senha deve ter pelo menos 6 caracteres.",
+    passwordMismatch: "As senhas não coincidem.",
+    enterEmailFirst: "Digite seu e-mail acima primeiro.",
+    loading: "Carregando…",
+    installBannerText: "📲 Adicione o Parlissimo à sua tela inicial para a melhor experiência!",
+    installApp: "Instalar",
+    iosHint: "📲 No iPhone: toque em Compartilhar ↑ e depois em Adicionar à Tela de Início.",
+    or: "ou",
+    checkoutError: "Algo deu errado. Tente novamente.",
+    copyright: "© 2026 Parlissimo",
+    translating: "Traduzindo a lição…",
+  },
+  de: {
+    heroTag: "Intensivkurs · Schnell Lernen · Nur das Wesentliche",
+    heroSub: "Situatives Italienisch in Minuten — echte Gespräche, wesentliche Grammatik, nichts Überflüssiges.",
+    module1: "Modul 1 — Reisen · Viaggiare",
+    module2: "Modul 2 — Alltag · La Vita Quotidiana",
+    module3: "Modul 3 — Tiefere Gespräche · Conversazioni Più Profonde",
+    unlockTitle: "Den Vollständigen Kurs Freischalten",
+    unlockText: "Alle 45 Lektionen, KI-Konversationsübungen und Grammatikkarten.",
+    monthly: "Monatlich — 3 $",
+    yearly: "Jährlich — 30 $",
+    lifetime: "Lebenslang — 49 $",
+    save: "17 % sparen",
+    bestValue: "Bestes Angebot",
+    perMonth: "/Monat",
+    perYear: "/Jahr",
+    privacy: "Datenschutzrichtlinie",
+    terms: "Nutzungsbedingungen",
+    logIn: "Anmelden",
+    logOut: "Abmelden",
+    manage: "Verwalten",
+    active: "✓ Aktiv",
+    subscribe: "Abonnieren",
+    free: "Kostenlos",
+    allLessons: "← Alle Lektionen",
+    lesson: "Lektion",
+    words: "Wörter",
+    dialogue: "Dialog",
+    grammar: "Grammatik",
+    aiPractice: "KI-Übung",
+    listenAll: "Alles Anhören",
+    listen: "Anhören",
+    tapForExamples: "Tippen für Beispiele",
+    nextDialogue: "Weiter: Dialog",
+    nextGrammar: "Weiter: Grammatik",
+    nextAI: "Weiter: KI-Übung",
+    aiHeader: "KI-Übung",
+    aiWelcome: (title, limit) => `Ciao! Bereit, „${title}" zu üben? Los geht's! 😊 (${limit} Nachrichten heute verfügbar)`,
+    aiLimitReached: "Sie haben das Tageslimit von 20 Nachrichten für diese Lektion erreicht. Kommen Sie morgen wieder! 🇮🇹",
+    aiSubscribePrompt: "KI-Konversationsübungen werden mit einem Abonnement freigeschaltet. Ab 3 $/Monat! 🇮🇹",
+    aiPlaceholder: "Auf Italienisch schreiben…",
+    aiError: "Verbindungsfehler. Bitte erneut versuchen!",
+    loginTitle: "Willkommen zurück",
+    signupTitle: "Konto erstellen",
+    emailPlaceholder: "E-Mail",
+    passwordPlaceholder: "Passwort",
+    loginBtn: "Anmelden",
+    signupBtn: "Registrieren",
+    noAccount: "Kein Konto?",
+    signUpFree: "Kostenlos registrieren",
+    haveAccount: "Haben Sie ein Konto?",
+    forgotPassword: "Passwort vergessen?",
+    sendResetLink: "Link senden",
+    resetSent: "✓ Link gesendet — prüfen Sie Ihre E-Mail.",
+    newPassword: "Neues Passwort erstellen",
+    newPasswordPlaceholder: "Neues Passwort",
+    confirmPasswordPlaceholder: "Passwort bestätigen",
+    updatePassword: "Aktualisieren",
+    passwordUpdated: "✓ Passwort aktualisiert!",
+    goToParlissimo: "Zu Parlissimo",
+    passwordShort: "Das Passwort muss mindestens 6 Zeichen lang sein.",
+    passwordMismatch: "Die Passwörter stimmen nicht überein.",
+    enterEmailFirst: "Geben Sie zuerst Ihre E-Mail-Adresse ein.",
+    loading: "Wird geladen…",
+    installBannerText: "📲 Fügen Sie Parlissimo Ihrem Startbildschirm hinzu!",
+    installApp: "Installieren",
+    iosHint: "📲 Auf iPhone: Tippen Sie auf Teilen ↑ und dann auf Zum Home-Bildschirm.",
+    or: "oder",
+    checkoutError: "Etwas ist schiefgelaufen. Bitte erneut versuchen.",
+    copyright: "© 2026 Parlissimo",
+    translating: "Lektion wird übersetzt…",
+  },
+};
+
+const LangContext = createContext({ lang: "en", t: T.en });
+const useLang = () => useContext(LangContext);
+
+// ── Text-to-Speech ────────────────────────────────────────────────────────────
+
+// ── Text-to-Speech ────────────────────────────────────────────────────────────
+function speak(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "it-IT";
+  u.rate = 0.85;
+  window.speechSynthesis.speak(u);
+}
+
+// ── Icons ─────────────────────────────────────────────────────────────────────
+const PlayIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21" /></svg>
+);
+const ChevronRight = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9,18 15,12 9,6" /></svg>
+);
+const LockIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>
+);
+
+// ── Language Selector ─────────────────────────────────────────────────────────
+function LangSelector({ lang, setLang }) {
+  const [open, setOpen] = useState(false);
+  const current = LANGUAGES.find(l => l.code === lang);
+  // Force emoji font so flags render on Windows/Chrome desktop
+  const flagStyle = { fontSize: 18, lineHeight: 1, fontFamily: '"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif' };
+  return (
+    <div style={{ position: "relative" }}>
+      <button
+        style={styles.langBtn}
+        onClick={() => setOpen(o => !o)}
+        title="Change language"
+      >
+        <span style={flagStyle}>{current.flag}</span>
+        <span style={{ fontSize: 11, fontFamily: "sans-serif", letterSpacing: "0.04em", color: C.brownMid }}>{current.name}</span>
+        <span style={{ fontSize: 9, color: C.textMuted }}>▾</span>
+      </button>
+      {open && (
+        <div style={styles.langDropdown}>
+          {LANGUAGES.map(l => (
+            <button
+              key={l.code}
+              style={{
+                ...styles.langOption,
+                background: l.code === lang ? C.sand : "transparent",
+                fontWeight: l.code === lang ? 700 : 400,
+              }}
+              onClick={() => { setLang(l.code); setOpen(false); }}
+            >
+              <span style={flagStyle}>{l.flag}</span>
+              <span style={{ fontSize: 12, fontFamily: "sans-serif" }}>{l.name}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── AI Chat Component ─────────────────────────────────────────────────────────
+function AiChat({ lesson }) {
+  const { t } = useLang();
+  const DAILY_LIMIT = 20;
+  const storageKey = `msgCount_${lesson.id}_${new Date().toDateString()}`;
+  const [messages, setMessages] = useState([
+    { role: "assistant", content: t.aiWelcome(lesson.title, DAILY_LIMIT) }
+  ]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [msgCount, setMsgCount] = useState(() => parseInt(localStorage.getItem(storageKey) || "0"));
+  const bottomRef = useRef(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  async function sendMessage() {
+    if (!input.trim() || loading) return;
+    if (msgCount >= DAILY_LIMIT) {
+      setMessages(prev => [...prev, { role: "assistant", content: t.aiLimitReached }]);
+      return;
+    }
+    const userMsg = { role: "user", content: input.trim() };
+    setMessages(prev => [...prev, userMsg]);
+    setInput("");
+    setLoading(true);
+    const newCount = msgCount + 1;
+    setMsgCount(newCount);
+    localStorage.setItem(storageKey, newCount.toString());
+    if (lesson.free) {
+      await new Promise(r => setTimeout(r, 600));
+      setMessages(prev => [...prev, { role: "assistant", content: t.aiSubscribePrompt }]);
+      setLoading(false);
+      return;
+    }
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-6",
+          max_tokens: 1000,
+          system: lesson.aiPrompt,
+          messages: [...messages, userMsg],
+        }),
+      });
+      const data = await response.json();
+      const reply = data.content?.find(b => b.type === "text")?.text || t.aiError;
+      setMessages(prev => [...prev, { role: "assistant", content: reply }]);
+    } catch {
+      setMessages(prev => [...prev, { role: "assistant", content: t.aiError }]);
+    }
+    setLoading(false);
+  }
+
+  return (
+    <div style={styles.chatWrap}>
+      <div style={styles.chatHeader}>
+        <span style={styles.chatHeaderDot} />
+        {t.aiHeader} — {lesson.title}
+      </div>
+      <div style={styles.chatMessages}>
+        {messages.map((m, i) => (
+          <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start", marginBottom: 10 }}>
+            <div style={m.role === "user" ? styles.bubbleUser : styles.bubbleAI}>{m.content}</div>
+          </div>
+        ))}
+        {loading && (
+          <div style={{ display: "flex", justifyContent: "flex-start", marginBottom: 10 }}>
+            <div style={styles.bubbleAI}><span style={styles.typingDots}>●&nbsp;●&nbsp;●</span></div>
+          </div>
+        )}
+        <div ref={bottomRef} />
+      </div>
+      <div style={styles.chatInput}>
+        <input
+          style={styles.chatInputField}
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && sendMessage()}
+          placeholder={t.aiPlaceholder}
+        />
+        <button style={styles.chatSend} onClick={sendMessage} disabled={loading}>
+          {loading ? "…" : "→"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ── Lesson View ───────────────────────────────────────────────────────────────
+function LessonView({ lessonId, lang, onBack }) {
+  const { t } = useLang();
+  const [step, setStep] = useState(0);
+  const [kwIndex, setKwIndex] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+
+  const lesson = getLessons(lang).find(l => l.id === lessonId);
+  if (!lesson) return <div style={{ padding: 32 }}>Lesson not found</div>;
+
+  const steps = [t.words, t.dialogue, t.grammar, t.aiPractice];
+
+  return (
+    <div style={styles.lessonWrap}>
+      <button style={styles.backBtn} onClick={onBack}>{t.allLessons}</button>
+      <div style={styles.lessonHeader}>
+        <span style={styles.lessonNum}>{t.lesson} {lesson.id}</span>
+        <h2 style={styles.lessonTitle}>{lesson.title}</h2>
+        <p style={styles.lessonSubtitle}>{lesson.subtitle}</p>
+      </div>
+      <div style={styles.tabs}>
+        {steps.map((s, i) => (
+          <button key={i} style={i === step ? styles.tabActive : styles.tab}
+            onClick={() => { setStep(i); setKwIndex(0); setFlipped(false); }}>
+            {s}
+          </button>
+        ))}
+      </div>
+
+      {/* KEYWORDS */}
+      {step === 0 && (
+        <div style={styles.card}>
+          <div style={styles.kwCount}>{kwIndex + 1} / {lesson.keywords.length}</div>
+          <div style={styles.kwItalian}>{lesson.keywords[kwIndex].italian}</div>
+          <div style={styles.kwEnglish}>{lesson.keywords[kwIndex].english}</div>
+          <button style={styles.speakBtn} onClick={() => speak(lesson.keywords[kwIndex].italian)}>
+            <PlayIcon /> {t.listen}
+          </button>
+          <div style={styles.kwNav}>
+            <button style={styles.navBtn} onClick={() => setKwIndex(i => Math.max(0, i - 1))} disabled={kwIndex === 0}>‹</button>
+            <button style={styles.navBtn} onClick={() => setKwIndex(i => Math.min(lesson.keywords.length - 1, i + 1))} disabled={kwIndex === lesson.keywords.length - 1}>›</button>
+          </div>
+          {kwIndex === lesson.keywords.length - 1 && (
+            <button style={styles.nextStepBtn} onClick={() => setStep(1)}>
+              {t.nextDialogue} <ChevronRight />
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* DIALOGUE */}
+      {step === 1 && (
+        <div style={styles.card}>
+          <h3 style={styles.sectionLabel}>{t.dialogue}</h3>
+          <div style={styles.dialogueWrap}>
+            {lesson.dialogue.map((line, i) => (
+              <div key={i} style={styles.dialogueLine}>
+                <span style={styles.dialogueSpeaker}>{line.speaker}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={styles.dialogueText}>{line.line}</div>
+                  {line.translation && <div style={styles.dialogueTranslation}>{line.translation}</div>}
+                </div>
+                <button style={styles.speakSmall} onClick={() => speak(line.line)} title={t.listen}><PlayIcon /></button>
+              </div>
+            ))}
+          </div>
+          <button style={styles.speakBtn} onClick={() => lesson.dialogue.forEach((l, i) => setTimeout(() => speak(l.line), i * 2200))}>
+            <PlayIcon /> {t.listenAll}
+          </button>
+          <button style={styles.nextStepBtn} onClick={() => setStep(2)}>
+            {t.nextGrammar} <ChevronRight />
+          </button>
+        </div>
+      )}
+
+      {/* GRAMMAR */}
+      {step === 2 && (
+        <div style={styles.card}>
+          <h3 style={styles.sectionLabel}>{t.grammar}</h3>
+          <div style={{ ...styles.flashcard, ...(flipped ? styles.flashcardFlipped : {}) }} onClick={() => setFlipped(f => !f)}>
+            {!flipped ? (
+              <div>
+                <div style={styles.flashFront}>{lesson.grammar.title}</div>
+                <div style={styles.flashHint}>{t.tapForExamples}</div>
+              </div>
+            ) : (
+              <div>
+                {lesson.grammar.points.map((p, i) => (
+                  <div key={i} style={styles.grammarRow}>
+                    <span style={styles.grammarIT}>{p.italian}</span>
+                    <span style={styles.grammarEN}>{p.english}</span>
+                  </div>
+                ))}
+                <div style={styles.grammarNote}>{lesson.grammar.note}</div>
+              </div>
+            )}
+          </div>
+          <button style={styles.nextStepBtn} onClick={() => setStep(3)}>
+            {t.nextAI} <ChevronRight />
+          </button>
+        </div>
+      )}
+
+      {/* AI CHAT */}
+      {step === 3 && <AiChat lesson={lesson} />}
+    </div>
+  );
+}
+
+// ── Checkout ──────────────────────────────────────────────────────────────────
+async function handleCheckout(plan, errorMsg) {
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    const userId = session?.user?.id;
+    const response = await fetch("/api/create-checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan, userId }),
+    });
+    const data = await response.json();
+    if (data.url) window.location.href = data.url;
+  } catch {
+    alert(errorMsg);
+  }
+}
+
+// ── Home ──────────────────────────────────────────────────────────────────────
+function Home({ onSelect, user, isSubscribed, onAuthClick, onLegal }) {
+  const { lang, t } = useLang();
+  const lessons = getLessons(lang);
+  return (
+    <div style={styles.home}>
+      <div style={styles.hero}>
+        <div style={styles.heroTag}>{t.heroTag}</div>
+        <h1 style={styles.heroTitle}>Parli<span style={styles.heroAccent}>ssimo</span></h1>
+        <p style={styles.heroSub}>{t.heroSub}</p>
+      </div>
+
+      <div style={styles.lessonList}>
+        <h3 style={styles.listHeading}>{t.module1}</h3>
+        {lessons.filter(l => l.id <= 20).map(lesson => (
+          <LessonCard key={lesson.id} lesson={lesson} onSelect={onSelect} isSubscribed={isSubscribed} t={t} />
+        ))}
+        <h3 style={{ ...styles.listHeading, marginTop: 28 }}>{t.module2}</h3>
+        {lessons.filter(l => l.id >= 21 && l.id <= 40).map(lesson => (
+          <LessonCard key={lesson.id} lesson={lesson} onSelect={onSelect} isSubscribed={isSubscribed} t={t} />
+        ))}
+        <h3 style={{ ...styles.listHeading, marginTop: 28 }}>{t.module3}</h3>
+        {lessons.filter(l => l.id >= 41).map(lesson => (
+          <LessonCard key={lesson.id} lesson={lesson} onSelect={onSelect} isSubscribed={isSubscribed} t={t} />
+        ))}
+      </div>
+
+      <div id="pricing-section" style={styles.pricingBox}>
+        <div style={styles.pricingTitle}>{t.unlockTitle}</div>
+        <p style={styles.pricingText}>{t.unlockText}</p>
+        <div style={styles.pricingOptions}>
+          <div style={styles.pricingOpt}>
+            <span style={styles.pricingPrice}>$3</span>
+            <span style={styles.pricingPer}>{t.perMonth}</span>
+          </div>
+          <div style={styles.pricingDivider}>{t.or}</div>
+          <div style={styles.pricingOpt}>
+            <span style={styles.pricingPrice}>$30</span>
+            <span style={styles.pricingPer}>{t.perYear}</span>
+            <span style={styles.pricingSave}>{t.save}</span>
+          </div>
+          <div style={styles.pricingDivider}>{t.or}</div>
+          <div style={styles.pricingOpt}>
+            <span style={styles.pricingPrice}>$49</span>
+            <span style={styles.pricingPer}>lifetime</span>
+            <span style={styles.pricingSaveBest}>{t.bestValue}</span>
+          </div>
+        </div>
+        <div style={styles.pricingButtons}>
+          <button style={styles.ctaBtn} onClick={() => handleCheckout("monthly", t.checkoutError)}>{t.monthly}</button>
+          <button style={styles.ctaBtn} onClick={() => handleCheckout("yearly", t.checkoutError)}>{t.yearly}</button>
+          <button style={{ ...styles.ctaBtn, background: "#B8860B" }} onClick={() => handleCheckout("lifetime", t.checkoutError)}>{t.lifetime}</button>
+        </div>
+      </div>
+
+      <div style={styles.footer}>
+        <span style={styles.footerLink} onClick={() => onLegal("privacy")}>{t.privacy}</span>
+        <span style={styles.footerDot}>·</span>
+        <span style={styles.footerLink} onClick={() => onLegal("terms")}>{t.terms}</span>
+        <span style={styles.footerDot}>·</span>
+        <span style={styles.footerText}>{t.copyright}</span>
+      </div>
+    </div>
+  );
+}
+
+function LessonCard({ lesson, onSelect, isSubscribed, t }) {
+  return (
+    <div style={styles.lessonCard} onClick={() => onSelect(lesson)}>
+      <div style={styles.lessonCardLeft}>
+        <span style={styles.lessonCardNum}>{lesson.id < 10 ? `0${lesson.id}` : lesson.id}</span>
+        <div>
+          <div style={styles.lessonCardTitle}>{lesson.title}</div>
+          <div style={styles.lessonCardSub}>{lesson.subtitle}</div>
+        </div>
+      </div>
+      <div style={styles.lessonCardRight}>
+        {lesson.free
+          ? <span style={styles.freeBadge}>{t.free}</span>
+          : isSubscribed
+            ? <span style={styles.freeBadge}>✓</span>
+            : <span style={styles.lockBadge}><LockIcon /> {t.subscribe}</span>}
+        <ChevronRight />
+      </div>
+    </div>
+  );
+}
+
+// ── Auth Modal ────────────────────────────────────────────────────────────────
+function AuthModal({ onClose, onAuth }) {
+  const { t } = useLang();
+  const [mode, setMode] = useState("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [resetSent, setResetSent] = useState(false);
+
+  async function handleSubmit() {
+    setLoading(true); setMessage("");
+    if (mode === "login") {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) setMessage(error.message); else onAuth();
+    } else {
+      const { error } = await supabase.auth.signUp({ email, password });
+      if (error) setMessage(error.message);
+      else setMessage("Check your email to confirm your account!");
+    }
+    setLoading(false);
+  }
+
+  async function handleReset() {
+    if (!email.trim()) { setMessage(t.enterEmailFirst); return; }
+    if (resetSent) return;
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: "https://parlissimo.live" });
+    if (error) setMessage(error.message); else setResetSent(true);
+    setLoading(false);
+  }
+
+  return (
+    <div style={styles.modalOverlay}>
+      <div style={styles.modal}>
+        <button style={styles.modalClose} onClick={onClose}>×</button>
+        <h2 style={styles.modalTitle}>{mode === "login" ? t.loginTitle : t.signupTitle}</h2>
+        <input style={styles.authInput} type="email" placeholder={t.emailPlaceholder} value={email} onChange={e => setEmail(e.target.value)} />
+        <input style={styles.authInput} type="password" placeholder={t.passwordPlaceholder} value={password} onChange={e => setPassword(e.target.value)} onKeyDown={e => e.key === "Enter" && handleSubmit()} />
+        {message && <div style={styles.authMessage}>{message}</div>}
+        <button style={styles.ctaBtn} onClick={handleSubmit} disabled={loading}>
+          {loading ? "..." : mode === "login" ? t.loginBtn : t.signupBtn}
+        </button>
+        <div style={styles.authSwitch}>
+          {mode === "login" ? (
+            <div>
+              <div style={{ marginBottom: 8 }}>{t.noAccount} <span style={styles.authLink} onClick={() => setMode("signup")}>{t.signUpFree}</span></div>
+              {resetSent
+                ? <div style={{ color: "#2E7D32", fontSize: 12 }}>{t.resetSent}</div>
+                : <div>{t.forgotPassword} <span style={styles.authLink} onClick={handleReset}>{t.sendResetLink}</span></div>}
+            </div>
+          ) : (
+            <span>{t.haveAccount} <span style={styles.authLink} onClick={() => setMode("login")}>{t.logIn}</span></span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Reset Password Page ───────────────────────────────────────────────────────
+function ResetPasswordPage({ onDone }) {
+  const { t } = useLang();
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [done, setDone] = useState(false);
+
+  async function handleReset() {
+    if (password.length < 6) { setMessage(t.passwordShort); return; }
+    if (password !== confirm) { setMessage(t.passwordMismatch); return; }
+    setLoading(true);
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) setMessage(error.message);
+    else { setDone(true); setTimeout(() => { if (onDone) onDone(); }, 2000); }
+    setLoading(false);
+  }
+
+  return (
+    <div style={styles.shell}>
+      <div style={styles.container}>
+        <div style={{ paddingTop: 60, maxWidth: 380, margin: "0 auto" }}>
+          <h2 style={styles.modalTitle}>{t.newPassword}</h2>
+          {done ? (
+            <div style={{ color: "#2E7D32", marginBottom: 20, fontFamily: "sans-serif", fontSize: 14 }}>
+              {t.passwordUpdated} <a href="https://parlissimo.live" style={{ color: C.terracotta }}>{t.goToParlissimo}</a>
+            </div>
+          ) : (
+            <div>
+              <input style={styles.authInput} type="password" placeholder={t.newPasswordPlaceholder} value={password} onChange={e => setPassword(e.target.value)} />
+              <input style={styles.authInput} type="password" placeholder={t.confirmPasswordPlaceholder} value={confirm} onChange={e => setConfirm(e.target.value)} onKeyDown={e => e.key === "Enter" && handleReset()} />
+              {message && <div style={styles.authMessage}>{message}</div>}
+              <button style={styles.ctaBtn} onClick={handleReset} disabled={loading}>{loading ? "..." : t.updatePassword}</button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Legal Pages ───────────────────────────────────────────────────────────────
+function LegalPage({ type, onClose }) {
+  const { t } = useLang();
+  return (
+    <div style={styles.shell}>
+      <div style={styles.container}>
+        <button style={styles.backBtn} onClick={onClose}>← {type === "privacy" ? t.privacy : t.terms}</button>
+        <div style={styles.legalWrap}>
+          {type === "privacy" ? <PrivacyPolicy /> : <TermsOfService />}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PrivacyPolicy() {
+  return (
+    <div>
+      <h1 style={styles.legalTitle}>Privacy Policy</h1>
+      <p style={styles.legalDate}>Last updated: May 2026</p>
+      <p style={styles.legalText}>Parlissimo ("we", "us", "our") operates the website parlissimo.live. This Privacy Policy explains how we collect, use, and protect your personal information when you use our service.</p>
+      <h2 style={styles.legalH2}>1. Information We Collect</h2>
+      <p style={styles.legalText}><strong>Account information:</strong> When you register, we collect your email address and encrypted password.</p>
+      <p style={styles.legalText}><strong>Payment information:</strong> Payments are processed by Stripe. We do not store your credit card details.</p>
+      <p style={styles.legalText}><strong>AI conversations:</strong> Messages you send to the AI practice chat are processed by Anthropic's API. We do not permanently store your conversation history.</p>
+      <h2 style={styles.legalH2}>2. How We Use Your Information</h2>
+      <p style={styles.legalText}>We use your information to provide and maintain the service, process payments and manage your subscription, send transactional emails, and improve our content. We do not sell, rent, or share your personal data with third parties for marketing purposes.</p>
+      <h2 style={styles.legalH2}>3. Contact</h2>
+      <p style={styles.legalText}>For any privacy-related questions, contact us at: <strong>hello@parlissimo.live</strong></p>
+    </div>
+  );
+}
+
+function TermsOfService() {
+  return (
+    <div>
+      <h1 style={styles.legalTitle}>Terms of Service</h1>
+      <p style={styles.legalDate}>Last updated: May 2026</p>
+      <p style={styles.legalText}>Please read these Terms of Service carefully before using Parlissimo. By accessing or using our service, you agree to be bound by these terms.</p>
+
+      <h2 style={styles.legalH2}>1. Service Description</h2>
+      <p style={styles.legalText}>Parlissimo is an online Italian language learning platform offering structured lessons, grammar guides, audio pronunciation, and AI-powered conversation practice. The first lesson is available free of charge. Access to all lessons and AI practice requires a paid subscription.</p>
+
+      <h2 style={styles.legalH2}>2. Account Registration</h2>
+      <p style={styles.legalText}>To access paid features, you must create an account with a valid email address. You are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account. You must not share your account with others.</p>
+
+      <h2 style={styles.legalH2}>3. Subscriptions and Payments</h2>
+      <p style={styles.legalText}><strong>Monthly subscription:</strong> $3.00 USD per month, billed monthly and automatically renewed until cancelled.</p>
+      <p style={styles.legalText}><strong>Annual subscription:</strong> $30.00 USD per year, billed annually and automatically renewed until cancelled.</p>
+      <p style={styles.legalText}><strong>Lifetime access:</strong> $49.00 USD, one-time payment, permanent access with no recurring charges.</p>
+      <p style={styles.legalText}>All payments are processed securely by Stripe. By subscribing, you authorise us to charge your payment method on a recurring basis until you cancel. Prices may be subject to local taxes.</p>
+
+      <h2 style={styles.legalH2}>4. Cancellation and Refunds</h2>
+      <p style={styles.legalText}>You may cancel your subscription at any time through the "Manage" option in the app. Upon cancellation, you will retain access until the end of your current billing period. No refunds are provided for partial billing periods.</p>
+      <p style={styles.legalText}>Lifetime access purchases are non-refundable once made, except where required by applicable consumer protection law.</p>
+      <p style={styles.legalText}>If you experience a technical issue that prevents access to the service, please contact us at hello@parlissimo.live and we will resolve it or offer a fair remedy at our discretion.</p>
+
+      <h2 style={styles.legalH2}>5. AI Practice — Acceptable Use</h2>
+      <p style={styles.legalText}>The AI conversation feature is provided solely for Italian language practice related to the lesson content. You agree not to use the AI chat to request content unrelated to the lesson, attempt to circumvent content restrictions, generate harmful or offensive content, or probe for vulnerabilities. Misuse may result in immediate suspension of your account without refund.</p>
+
+      <h2 style={styles.legalH2}>6. Daily Usage Limits</h2>
+      <p style={styles.legalText}>AI conversation practice is limited to 20 messages per lesson per day. This limit resets daily and is designed to ensure fair access and sustainable service operation.</p>
+
+      <h2 style={styles.legalH2}>7. Intellectual Property</h2>
+      <p style={styles.legalText}>All content on Parlissimo — including lesson texts, dialogues, grammar explanations, audio, and design — is the intellectual property of Parlissimo and is protected by copyright law. You may not reproduce, distribute, or create derivative works from our content without prior written permission.</p>
+
+      <h2 style={styles.legalH2}>8. Disclaimer of Warranties</h2>
+      <p style={styles.legalText}>Parlissimo is provided "as is" without warranty of any kind. We do not guarantee that the service will be uninterrupted or error-free, or that it will meet your specific language learning goals. Language learning outcomes depend on individual effort and practice.</p>
+
+      <h2 style={styles.legalH2}>9. Limitation of Liability</h2>
+      <p style={styles.legalText}>To the fullest extent permitted by law, Parlissimo and its operators shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the service. Our total liability to you shall not exceed the amount you paid us in the 12 months preceding the claim.</p>
+
+      <h2 style={styles.legalH2}>10. Modifications and Discontinuation of Service</h2>
+      <p style={styles.legalText}>We reserve the right to modify, suspend, or discontinue any part of the service at any time, including discontinuing the service entirely.</p>
+      <p style={styles.legalText}>In the event of a full discontinuation of Parlissimo: monthly or annual subscribers will receive at least 30 days notice and will not be charged beyond their current billing period — unused portions of annual subscriptions will be refunded pro-rata. Lifetime access holders will receive at least 30 days notice; as a courtesy we will endeavour to offer a partial refund at our discretion, but by purchasing lifetime access you acknowledge that "lifetime" refers to the lifetime of the service, not the lifetime of the user. All user data will be deleted within 60 days of discontinuation.</p>
+      <p style={styles.legalText}>Notice will be sent to your registered email address and posted on the app.</p>
+
+      <h2 style={styles.legalH2}>11. Governing Law</h2>
+      <p style={styles.legalText}>These Terms shall be governed by and construed in accordance with applicable law. Any disputes shall be resolved through good-faith negotiation. If unresolved, disputes shall be subject to the jurisdiction of the courts of the country in which the operator is based.</p>
+
+      <h2 style={styles.legalH2}>12. Contact</h2>
+      <p style={styles.legalText}>For any questions regarding these Terms, contact us at: <strong>hello@parlissimo.live</strong></p>
+    </div>
+  );
+}
+
+// ── App Shell ─────────────────────────────────────────────────────────────────
+export default function App() {
+  const [lang, setLang] = useState(() => localStorage.getItem("parlissimo_lang") || "en");
+  const t = T[lang] || T.en;
+
+  useEffect(() => {
+    localStorage.setItem("parlissimo_lang", lang);
+  }, [lang]);
+
+  const [activeLesson, setActiveLesson] = useState(null);
+  const [legalPage, setLegalPage] = useState(null);
+  const [user, setUser] = useState(null);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
+  const [loadingAuth, setLoadingAuth] = useState(true);
+  const [installPrompt, setInstallPrompt] = useState(null);
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
+  const [isResetMode, setIsResetMode] = useState(() => {
+    const hash = new URLSearchParams(window.location.hash.replace("#", "?"));
+    return hash.get("type") === "recovery";
+  });
+  const isResetModeRef = useRef(false);
+  useEffect(() => { isResetModeRef.current = isResetMode; }, [isResetMode]);
+
+  useEffect(() => {
+    if (isResetModeRef.current) { setLoadingAuth(false); return; }
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      if (session?.user) checkSubscription(session.user.id);
+      else setLoadingAuth(false);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY") { setIsResetMode(true); setLoadingAuth(false); return; }
+      if (event === "USER_UPDATED") { setIsResetMode(false); window.location.hash = ""; setLoadingAuth(false); return; }
+      if (isResetModeRef.current) return;
+      setUser(session?.user ?? null);
+      if (session?.user) checkSubscription(session.user.id);
+      else { setIsSubscribed(false); setLoadingAuth(false); }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const handler = (e) => { e.preventDefault(); setInstallPrompt(e); setShowInstallBanner(true); };
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
+  async function handleInstall() {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === "accepted") setShowInstallBanner(false);
+  }
+
+  async function checkSubscription(userId) {
+    const { data } = await supabase.from("subscriptions").select("*").eq("user_id", userId).eq("status", "active").single();
+    setIsSubscribed(!!data);
+    setLoadingAuth(false);
+  }
+
+  async function handleManageSubscription() {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const response = await fetch("/api/customer-portal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: session?.user?.id }),
+      });
+      const data = await response.json();
+      if (data.url) window.location.href = data.url;
+    } catch { alert(t.checkoutError); }
+  }
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    setUser(null); setIsSubscribed(false); setActiveLesson(null);
+  }
+
+  function handleLessonSelect(lesson) {
+    if (!lesson.free && !isSubscribed) {
+      document.getElementById("pricing-section")?.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+    setActiveLesson(lesson);
+  }
+
+  if (isResetMode) return (
+    <LangContext.Provider value={{ lang, t }}>
+      <ResetPasswordPage onDone={() => { setIsResetMode(false); window.location.hash = ""; }} />
+    </LangContext.Provider>
+  );
+
+  if (loadingAuth) return (
+    <div style={{ ...styles.shell, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ color: C.terracotta, fontSize: 14, fontFamily: "sans-serif" }}>{t.loading}</div>
+    </div>
+  );
+
+  return (
+    <LangContext.Provider value={{ lang, t }}>
+      <div style={styles.shell}>
+        <div style={styles.container}>
+          {showInstallBanner && (
+            <div style={styles.installBanner}>
+              <span style={styles.installBannerText}>{t.installBannerText}</span>
+              <div style={styles.installBannerButtons}>
+                <button style={styles.installBtn} onClick={handleInstall}>{t.installApp}</button>
+                <button style={styles.installDismiss} onClick={() => setShowInstallBanner(false)}>✕</button>
+              </div>
+            </div>
+          )}
+          {!installPrompt && (
+            <div style={{ ...styles.iosHint, display: /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.navigator.standalone ? "block" : "none" }}>
+              {t.iosHint}
+            </div>
+          )}
+
+          {/* TOP BAR — row 1: logo + language, row 2: account (wraps naturally on mobile) */}
+          <div style={styles.topBar}>
+            {/* Row 1 */}
+            <div style={styles.topBarRow1}>
+              <span style={styles.topBarLogo} onClick={() => { setActiveLesson(null); setLegalPage(null); }} role="button">
+                Parlissimo
+              </span>
+              <LangSelector lang={lang} setLang={setLang} />
+            </div>
+            {/* Row 2 */}
+            <div style={styles.topBarRow2}>
+              {user ? (
+                <>
+                  <span style={styles.topBarEmail}>{user.email}</span>
+                  {isSubscribed && <span style={styles.topBarBadge}>{t.active}</span>}
+                  {isSubscribed && <button style={styles.topBarBtn} onClick={handleManageSubscription}>{t.manage}</button>}
+                  <button style={styles.topBarBtn} onClick={handleLogout}>{t.logOut}</button>
+                </>
+              ) : (
+                <button style={styles.topBarBtn} onClick={() => setShowAuth(true)}>{t.logIn}</button>
+              )}
+            </div>
+          </div>
+
+          {showAuth && <AuthModal onClose={() => setShowAuth(false)} onAuth={() => setShowAuth(false)} />}
+
+          {legalPage
+            ? <LegalPage type={legalPage} onClose={() => setLegalPage(null)} />
+            : activeLesson
+              ? <LessonView lessonId={activeLesson.id} lang={lang} onBack={() => setActiveLesson(null)} isSubscribed={isSubscribed} />
+              : <Home onSelect={handleLessonSelect} user={user} isSubscribed={isSubscribed} onAuthClick={() => setShowAuth(true)} onLegal={setLegalPage} />
+          }
+        </div>
+      </div>
+    </LangContext.Provider>
+  );
+}
+
+// ── Styles ────────────────────────────────────────────────────────────────────
+const C = {
+  cream: "#FAF7F2", sand: "#EDE8DF", terracotta: "#C4622D", terracottaLight: "#E8835A",
+  brown: "#3D2B1F", brownMid: "#6B4C3B", gold: "#B8860B", white: "#FFFFFF",
+  offWhite: "#F5F0E8", border: "#D9D0C4", textMuted: "#9A8A7A",
+};
+
+const styles = {
+  shell: { minHeight: "100vh", background: C.cream, fontFamily: "'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif", color: C.brown },
+  container: { maxWidth: 560, margin: "0 auto", padding: "0 16px 60px" },
+  home: {},
+  hero: { textAlign: "center", padding: "48px 16px 32px", borderBottom: `1px solid ${C.border}`, marginBottom: 32 },
+  heroTag: { fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: C.terracotta, marginBottom: 16, fontFamily: "'Gill Sans', 'Optima', sans-serif" },
+  heroTitle: { fontSize: 52, fontWeight: 700, margin: "0 0 12px", letterSpacing: "-0.02em", lineHeight: 1, color: C.brown },
+  heroAccent: { color: C.terracotta },
+  heroSub: { fontSize: 15, color: C.brownMid, lineHeight: 1.6, maxWidth: 360, margin: "0 auto", fontStyle: "italic" },
+  listHeading: { fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: C.textMuted, marginBottom: 14, fontFamily: "'Gill Sans', 'Optima', sans-serif", fontWeight: 400 },
+  lessonList: { marginBottom: 36 },
+  lessonCard: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", background: C.white, border: `1px solid ${C.border}`, borderRadius: 4, marginBottom: 8, cursor: "pointer" },
+  lessonCardLeft: { display: "flex", alignItems: "center", gap: 16 },
+  lessonCardNum: { fontSize: 22, color: C.border, fontWeight: 300, minWidth: 32, fontFamily: "'Palatino Linotype', Georgia, serif" },
+  lessonCardTitle: { fontSize: 16, fontWeight: 600, color: C.brown, marginBottom: 2 },
+  lessonCardSub: { fontSize: 12, color: C.textMuted, fontStyle: "italic" },
+  lessonCardRight: { display: "flex", alignItems: "center", gap: 10, color: C.textMuted },
+  freeBadge: { fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", background: "#E8F5E9", color: "#2E7D32", padding: "3px 8px", borderRadius: 20, fontFamily: "sans-serif" },
+  lockBadge: { fontSize: 11, color: C.textMuted, display: "flex", alignItems: "center", gap: 4, fontFamily: "sans-serif" },
+  pricingBox: { background: C.brown, borderRadius: 6, padding: "32px 28px", textAlign: "center", color: C.cream },
+  pricingTitle: { fontSize: 20, fontWeight: 600, marginBottom: 8 },
+  pricingText: { fontSize: 13, color: C.sand, fontStyle: "italic", marginBottom: 24, lineHeight: 1.5 },
+  pricingOptions: { display: "flex", alignItems: "center", justifyContent: "center", gap: 20, marginBottom: 24 },
+  pricingOpt: { display: "flex", alignItems: "baseline", gap: 4, flexDirection: "column", alignItems: "center" },
+  pricingPrice: { fontSize: 32, fontWeight: 700, color: C.white },
+  pricingPer: { fontSize: 12, color: C.sand, fontFamily: "sans-serif" },
+  pricingSave: { fontSize: 10, background: C.terracotta, color: C.white, padding: "2px 7px", borderRadius: 10, letterSpacing: "0.06em", fontFamily: "sans-serif" },
+  pricingSaveBest: { fontSize: 10, background: C.gold, color: C.white, padding: "2px 7px", borderRadius: 10, letterSpacing: "0.06em", fontFamily: "sans-serif" },
+  pricingDivider: { color: C.textMuted, fontSize: 12, fontStyle: "italic" },
+  pricingButtons: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 16 },
+  ctaBtn: { background: C.terracotta, color: C.white, border: "none", borderRadius: 3, padding: "13px 36px", fontSize: 14, fontFamily: "'Gill Sans', 'Optima', sans-serif", letterSpacing: "0.08em", cursor: "pointer", fontWeight: 600 },
+  lessonWrap: { paddingTop: 24 },
+  backBtn: { background: "none", border: "none", color: C.terracotta, fontSize: 13, cursor: "pointer", padding: 0, marginBottom: 24, fontFamily: "'Gill Sans', 'Optima', sans-serif", letterSpacing: "0.06em" },
+  lessonHeader: { marginBottom: 28, paddingBottom: 20, borderBottom: `1px solid ${C.border}` },
+  lessonNum: { fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: C.terracotta, fontFamily: "sans-serif", display: "block", marginBottom: 6 },
+  lessonTitle: { fontSize: 32, fontWeight: 700, margin: "0 0 4px", color: C.brown },
+  lessonSubtitle: { fontSize: 15, fontStyle: "italic", color: C.brownMid, margin: 0 },
+  tabs: { display: "flex", gap: 4, marginBottom: 24, background: C.sand, borderRadius: 4, padding: 4 },
+  tab: { flex: 1, padding: "8px 4px", border: "none", background: "none", color: C.textMuted, fontSize: 11, cursor: "pointer", fontFamily: "'Gill Sans', 'Optima', sans-serif", letterSpacing: "0.08em", textTransform: "uppercase", borderRadius: 3 },
+  tabActive: { flex: 1, padding: "8px 4px", border: "none", background: C.white, color: C.terracotta, fontSize: 11, cursor: "pointer", fontFamily: "'Gill Sans', 'Optima', sans-serif", letterSpacing: "0.08em", textTransform: "uppercase", borderRadius: 3, boxShadow: "0 1px 4px rgba(0,0,0,0.08)", fontWeight: 600 },
+  card: { background: C.white, border: `1px solid ${C.border}`, borderRadius: 6, padding: 28 },
+  kwCount: { fontSize: 11, color: C.textMuted, letterSpacing: "0.1em", marginBottom: 24, fontFamily: "sans-serif" },
+  kwItalian: { fontSize: 36, fontWeight: 700, color: C.brown, marginBottom: 10, letterSpacing: "-0.01em" },
+  kwEnglish: { fontSize: 16, color: C.brownMid, fontStyle: "italic", marginBottom: 24 },
+  speakBtn: { display: "inline-flex", alignItems: "center", gap: 8, background: C.cream, border: `1px solid ${C.border}`, borderRadius: 3, padding: "9px 18px", cursor: "pointer", fontSize: 12, color: C.brownMid, fontFamily: "'Gill Sans', 'Optima', sans-serif", letterSpacing: "0.06em", marginBottom: 24 },
+  kwNav: { display: "flex", gap: 10, marginBottom: 8 },
+  navBtn: { width: 42, height: 42, borderRadius: "50%", border: `1px solid ${C.border}`, background: C.cream, cursor: "pointer", fontSize: 20, color: C.brownMid, display: "flex", alignItems: "center", justifyContent: "center" },
+  nextStepBtn: { marginTop: 20, display: "inline-flex", alignItems: "center", gap: 8, background: C.terracotta, color: C.white, border: "none", borderRadius: 3, padding: "11px 22px", fontSize: 12, cursor: "pointer", fontFamily: "'Gill Sans', 'Optima', sans-serif", letterSpacing: "0.08em" },
+  sectionLabel: { fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: C.textMuted, fontFamily: "sans-serif", fontWeight: 400, marginBottom: 20 },
+  dialogueWrap: { marginBottom: 20 },
+  dialogueLine: { display: "flex", alignItems: "center", gap: 12, padding: "10px 0", borderBottom: `1px solid ${C.sand}` },
+  dialogueSpeaker: { minWidth: 52, fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: C.terracotta, fontFamily: "sans-serif" },
+  dialogueText: { fontSize: 15, color: C.brown, lineHeight: 1.5, marginBottom: 2 },
+  dialogueTranslation: { fontSize: 12, color: C.textMuted, fontStyle: "italic" },
+  speakSmall: { background: "none", border: "none", color: C.textMuted, cursor: "pointer", padding: 4, display: "flex", alignItems: "center" },
+  flashcard: { background: C.offWhite, border: `1px solid ${C.border}`, borderRadius: 6, padding: 28, cursor: "pointer", minHeight: 140, marginBottom: 20, transition: "background 0.3s", display: "flex", alignItems: "center", justifyContent: "center" },
+  flashcardFlipped: { background: C.sand },
+  flashFront: { fontSize: 22, fontWeight: 600, color: C.brown, textAlign: "center", marginBottom: 12 },
+  flashHint: { fontSize: 11, color: C.textMuted, textAlign: "center", fontStyle: "italic", fontFamily: "sans-serif" },
+  grammarRow: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: `1px solid ${C.border}` },
+  grammarIT: { fontSize: 15, fontWeight: 600, color: C.brown },
+  grammarEN: { fontSize: 13, color: C.brownMid, fontStyle: "italic" },
+  grammarNote: { fontSize: 12, color: C.textMuted, marginTop: 14, lineHeight: 1.6, fontStyle: "italic", fontFamily: "sans-serif" },
+  chatWrap: { background: C.white, border: `1px solid ${C.border}`, borderRadius: 6, overflow: "hidden" },
+  chatHeader: { background: C.brown, color: C.cream, padding: "14px 20px", fontSize: 13, display: "flex", alignItems: "center", gap: 10, fontFamily: "'Gill Sans', 'Optima', sans-serif", letterSpacing: "0.04em" },
+  chatHeaderDot: { width: 8, height: 8, borderRadius: "50%", background: C.terracottaLight, display: "inline-block" },
+  chatMessages: { padding: 20, minHeight: 260, maxHeight: 340, overflowY: "auto", background: C.offWhite },
+  bubbleAI: { background: C.white, border: `1px solid ${C.border}`, borderRadius: "4px 16px 16px 16px", padding: "10px 14px", fontSize: 14, color: C.brown, maxWidth: "82%", lineHeight: 1.55 },
+  bubbleUser: { background: C.terracotta, color: C.white, borderRadius: "16px 4px 16px 16px", padding: "10px 14px", fontSize: 14, maxWidth: "82%", lineHeight: 1.55 },
+  typingDots: { color: C.textMuted, letterSpacing: 3 },
+  chatInput: { display: "flex", borderTop: `1px solid ${C.border}`, background: C.white },
+  chatInputField: { flex: 1, border: "none", outline: "none", padding: "14px 18px", fontSize: 14, color: C.brown, background: "transparent", fontFamily: "'Palatino Linotype', Georgia, serif" },
+  chatSend: { border: "none", background: C.terracotta, color: C.white, width: 52, fontSize: 20, cursor: "pointer" },
+  installBanner: { background: C.brown, color: C.cream, padding: "12px 16px", borderRadius: 6, marginBottom: 12, display: "flex", flexDirection: "column", gap: 8 },
+  installBannerText: { fontSize: 13, lineHeight: 1.4, fontFamily: "sans-serif" },
+  installBannerButtons: { display: "flex", gap: 8, alignItems: "center" },
+  installBtn: { background: C.terracotta, color: C.white, border: "none", borderRadius: 3, padding: "7px 16px", fontSize: 12, cursor: "pointer", fontFamily: "sans-serif", fontWeight: 600 },
+  installDismiss: { background: "none", border: "none", color: C.sand, fontSize: 16, cursor: "pointer", padding: "4px 8px" },
+  iosHint: { background: C.sand, color: C.brownMid, padding: "10px 14px", borderRadius: 6, marginBottom: 12, fontSize: 12, fontFamily: "sans-serif", lineHeight: 1.5 },
+  topBar: { display: "flex", flexDirection: "column", gap: 6, padding: "12px 0", borderBottom: `1px solid ${C.border}`, marginBottom: 24 },
+  topBarRow1: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 },
+  topBarRow2: { display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" },
+  topBarLogo: { fontSize: 18, fontWeight: 700, color: C.terracotta, letterSpacing: "-0.01em", cursor: "pointer" },
+  topBarEmail: { fontSize: 11, color: C.textMuted, fontFamily: "sans-serif" },
+  topBarBadge: { fontSize: 10, background: "#E8F5E9", color: "#2E7D32", padding: "2px 8px", borderRadius: 20, fontFamily: "sans-serif" },
+  topBarBtn: { background: "none", border: `1px solid ${C.border}`, borderRadius: 3, padding: "6px 14px", fontSize: 11, cursor: "pointer", color: C.brownMid, fontFamily: "sans-serif", letterSpacing: "0.06em" },
+  // Language selector
+  langBtn: { display: "flex", alignItems: "center", gap: 6, background: C.cream, border: `1px solid ${C.border}`, borderRadius: 3, padding: "5px 10px", cursor: "pointer", color: C.brownMid, fontFamily: "sans-serif" },
+  langDropdown: { position: "absolute", top: "calc(100% + 6px)", right: 0, background: C.white, border: `1px solid ${C.border}`, borderRadius: 4, boxShadow: "0 4px 16px rgba(0,0,0,0.1)", zIndex: 200, minWidth: 140, overflow: "hidden" },
+  langOption: { display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "9px 14px", border: "none", cursor: "pointer", color: C.brown, textAlign: "left" },
+  translatingBanner: { display: "flex", alignItems: "center", gap: 8, padding: "10px 16px", background: C.sand, borderRadius: 4, marginBottom: 16, fontSize: 12, color: C.brownMid, fontFamily: "sans-serif", fontStyle: "italic" },
+  modalOverlay: { position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 100 },
+  modal: { background: C.white, borderRadius: 8, padding: 32, width: "90%", maxWidth: 380, position: "relative" },
+  modalClose: { position: "absolute", top: 12, right: 16, background: "none", border: "none", fontSize: 22, cursor: "pointer", color: C.textMuted },
+  modalTitle: { fontSize: 22, fontWeight: 700, color: C.brown, marginBottom: 20 },
+  authInput: { width: "100%", padding: "11px 14px", border: `1px solid ${C.border}`, borderRadius: 3, fontSize: 14, marginBottom: 12, boxSizing: "border-box", fontFamily: "'Palatino Linotype', Georgia, serif", color: C.brown, background: C.cream, outline: "none" },
+  authMessage: { fontSize: 12, color: C.terracotta, marginBottom: 12, fontFamily: "sans-serif" },
+  authSwitch: { marginTop: 16, fontSize: 12, color: C.textMuted, textAlign: "center", fontFamily: "sans-serif" },
+  authLink: { color: C.terracotta, cursor: "pointer", textDecoration: "underline" },
+  legalWrap: { padding: "24px 0 60px" },
+  legalTitle: { fontSize: 28, fontWeight: 700, color: C.brown, marginBottom: 4 },
+  legalDate: { fontSize: 12, color: C.textMuted, fontFamily: "sans-serif", marginBottom: 28, fontStyle: "italic" },
+  legalH2: { fontSize: 16, fontWeight: 600, color: C.brown, marginTop: 28, marginBottom: 8 },
+  legalText: { fontSize: 13, color: C.brownMid, lineHeight: 1.7, marginBottom: 10, fontFamily: "sans-serif" },
+  footer: { textAlign: "center", padding: "32px 0 16px", borderTop: `1px solid ${C.border}`, marginTop: 32, display: "flex", justifyContent: "center", alignItems: "center", gap: 8, flexWrap: "wrap" },
+  footerLink: { fontSize: 11, color: C.textMuted, cursor: "pointer", fontFamily: "sans-serif", textDecoration: "underline", letterSpacing: "0.04em" },
+  footerDot: { fontSize: 11, color: C.border },
+  footerText: { fontSize: 11, color: C.textMuted, fontFamily: "sans-serif" },
+};
