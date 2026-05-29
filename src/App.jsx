@@ -486,12 +486,22 @@ function AiChat({ lesson, lang }) {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  function toggleMic() {
+    if (!micSupported) return;
+    if (listening) {
+      stopMic();
+    } else {
+      startMic();
+    }
+  }
+
   function startMic() {
     if (!micSupported || listening) return;
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SR();
     recognition.lang = micLang === "it" ? "it-IT" : (LANG_BCP47[lang] || "en-US");
     recognition.interimResults = false;
+    recognition.continuous = false;
     recognition.maxAlternatives = 1;
     recognition.onstart = () => setListening(true);
     recognition.onend = () => setListening(false);
@@ -594,11 +604,8 @@ function AiChat({ lesson, lang }) {
         {micSupported && (
           <button
             style={{ ...styles.micBtn, ...(listening ? styles.micBtnActive : {}) }}
-            onMouseDown={startMic}
-            onMouseUp={stopMic}
-            onTouchStart={e => { e.preventDefault(); startMic(); }}
-            onTouchEnd={e => { e.preventDefault(); stopMic(); }}
-            title={listening ? "Listening…" : "Hold to speak"}
+            onClick={toggleMic}
+            title={listening ? "Tap to stop" : "Tap to speak"}
           >
             {listening ? "●" : "🎤"}
           </button>
