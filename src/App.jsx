@@ -800,25 +800,15 @@ function Home({ onSelect, user, isSubscribed, onAuthClick, onLegal }) {
       </div>
 
       <div style={styles.socialFooter}>
-        <a href="https://facebook.com/parlissimo" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>
-          📘 Facebook
-        </a>
-        <span style={styles.footerDot}>·</span>
-        <a href="https://instagram.com/parlissimo" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>
-          📷 Instagram
-        </a>
-        <span style={styles.footerDot}>·</span>
-        <a href="mailto:hello@parlissimo.live" style={styles.socialLink}>
-          ✉️ Email
-        </a>
-      </div>
-
-      <div style={styles.socialFooter}>
         <a href="https://facebook.com/Parlissimo" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>Facebook</a>
         <span style={styles.footerDot}>·</span>
         <a href="https://instagram.com/Parlissimo.live" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>Instagram</a>
         <span style={styles.footerDot}>·</span>
-        <a href="mailto:hello@parlissimo.live" style={styles.socialLink}>hello@parlissimo.live</a>
+       </a>
+        <span style={styles.footerDot}>·</span>
+        <a href="mailto:hello@parlissimo.live" style={styles.socialLink}>
+          ✉️ Email:hello@parlissimo.live
+        </a>
       </div>
 
       <div style={styles.footer}>
