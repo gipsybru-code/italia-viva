@@ -800,15 +800,11 @@ function Home({ onSelect, user, isSubscribed, onAuthClick, onLegal }) {
       </div>
 
       <div style={styles.socialFooter}>
-        <a href="https://facebook.com/Parlissimo" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>Facebook</a>
+        <a href="https://www.facebook.com/share/183ZWKoD1/?mibextid=wwXifr" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>Facebook</a>
         <span style={styles.footerDot}>·</span>
         <a href="https://instagram.com/Parlissimo.live" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>Instagram</a>
         <span style={styles.footerDot}>·</span>
-       </a>
-        <span style={styles.footerDot}>·</span>
-        <a href="mailto:hello@parlissimo.live" style={styles.socialLink}>
-          ✉️ Email:hello@parlissimo.live
-        </a>
+        <a href="mailto:hello@parlissimo.live" style={styles.socialLink}>hello@parlissimo.live</a>
       </div>
 
       <div style={styles.footer}>
@@ -1312,4 +1308,3 @@ const styles = {
   footerDot: { fontSize: 11, color: C.border },
   footerText: { fontSize: 11, color: C.textMuted, fontFamily: "sans-serif" },
 };
-
