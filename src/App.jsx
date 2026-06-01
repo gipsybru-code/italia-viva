@@ -799,6 +799,28 @@ function Home({ onSelect, user, isSubscribed, onAuthClick, onLegal }) {
         </div>
       </div>
 
+      <div style={styles.socialFooter}>
+        <a href="https://facebook.com/parlissimo" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>
+          📘 Facebook
+        </a>
+        <span style={styles.footerDot}>·</span>
+        <a href="https://instagram.com/parlissimo" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>
+          📷 Instagram
+        </a>
+        <span style={styles.footerDot}>·</span>
+        <a href="mailto:hello@parlissimo.live" style={styles.socialLink}>
+          ✉️ Email
+        </a>
+      </div>
+
+      <div style={styles.socialFooter}>
+        <a href="https://facebook.com/Parlissimo" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>Facebook</a>
+        <span style={styles.footerDot}>·</span>
+        <a href="https://instagram.com/Parlissimo.live" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>Instagram</a>
+        <span style={styles.footerDot}>·</span>
+        <a href="mailto:hello@parlissimo.live" style={styles.socialLink}>hello@parlissimo.live</a>
+      </div>
+
       <div style={styles.footer}>
         <span style={styles.footerLink} onClick={() => onLegal("privacy")}>{t.privacy}</span>
         <span style={styles.footerDot}>·</span>
@@ -1293,8 +1315,11 @@ const styles = {
   legalDate: { fontSize: 12, color: C.textMuted, fontFamily: "sans-serif", marginBottom: 28, fontStyle: "italic" },
   legalH2: { fontSize: 16, fontWeight: 600, color: C.brown, marginTop: 28, marginBottom: 8 },
   legalText: { fontSize: 13, color: C.brownMid, lineHeight: 1.7, marginBottom: 10, fontFamily: "sans-serif" },
-  footer: { textAlign: "center", padding: "32px 0 16px", borderTop: `1px solid ${C.border}`, marginTop: 32, display: "flex", justifyContent: "center", alignItems: "center", gap: 8, flexWrap: "wrap" },
+  socialFooter: { textAlign: "center", padding: "24px 0 8px", display: "flex", justifyContent: "center", alignItems: "center", gap: 8, flexWrap: "wrap" },
+  socialLink: { fontSize: 12, color: C.brownMid, textDecoration: "none", fontFamily: "sans-serif", transition: "color 0.2s" },
+  footer: { textAlign: "center", padding: "16px 0 16px", borderTop: `1px solid ${C.border}`, marginTop: 8, display: "flex", justifyContent: "center", alignItems: "center", gap: 8, flexWrap: "wrap" },
   footerLink: { fontSize: 11, color: C.textMuted, cursor: "pointer", fontFamily: "sans-serif", textDecoration: "underline", letterSpacing: "0.04em" },
   footerDot: { fontSize: 11, color: C.border },
   footerText: { fontSize: 11, color: C.textMuted, fontFamily: "sans-serif" },
 };
+
