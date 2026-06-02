@@ -800,7 +800,7 @@ function Home({ onSelect, user, isSubscribed, onAuthClick, onLegal }) {
       </div>
 
       <div style={styles.socialFooter}>
-        <a href="https://www.facebook.com/share/183ZWKoD1/?mibextid=wwXifr" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>Facebook</a>
+        <a href="https://www.facebook.com/share/1HGPSwRHwX/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>Facebook</a>
         <span style={styles.footerDot}>·</span>
         <a href="https://instagram.com/Parlissimo.live" target="_blank" rel="noopener noreferrer" style={styles.socialLink}>Instagram</a>
         <span style={styles.footerDot}>·</span>
