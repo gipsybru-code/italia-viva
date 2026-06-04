@@ -994,11 +994,12 @@ function TermsOfService() {
       <p style={styles.legalText}><strong>Lifetime access:</strong> $49.00 USD, one-time payment, permanent access with no recurring charges.</p>
       <p style={styles.legalText}>All payments are processed securely by Stripe. By subscribing, you authorise us to charge your payment method on a recurring basis until you cancel. Prices may be subject to local taxes.</p>
 
-      <h2 style={styles.legalH2}>4. Cancellation and Refunds</h2>
-      <p style={styles.legalText}>You may cancel your subscription at any time through the "Manage" option in the app. Upon cancellation, you will retain access until the end of your current billing period. No refunds are provided for partial billing periods.</p>
-      <p style={styles.legalText}>Lifetime access purchases are non-refundable once made, except where required by applicable consumer protection law.</p>
-      <p style={styles.legalText}>If you experience a technical issue that prevents access to the service, please contact us at hello@parlissimo.live and we will resolve it or offer a fair remedy at our discretion.</p>
-
+     <h2 style={styles.legalH2}>4. Cancellation and Refunds</h2>
+<p style={styles.legalText}>You may cancel your subscription at any time through the "Manage" option in the app. Upon cancellation, you will retain access until the end of your current billing period. No refunds are provided for partial billing periods.</p>
+<p style={styles.legalText}>Lifetime access purchases are non-refundable once made, except where required by applicable consumer protection law.</p>
+<p style={styles.legalText}>If you experience a technical issue that prevents access to the service, please contact us at hello@parlissimo.live and we will resolve it or offer a fair remedy at our discretion.</p>
+<p style={styles.legalText}><strong>Right of Withdrawal:</strong> As a consumer in the EU/EEA, you normally have the right to withdraw from a digital service contract within 14 days without giving a reason. However, by completing your purchase and accessing the service immediately, you expressly request immediate access to the digital content and acknowledge that you thereby waive your right of withdrawal in accordance with Article 16(m) of the EU Consumer Rights Directive (2011/83/EU). If you have not accessed any content within 14 days of purchase, you may contact us at hello@parlissimo.live to request a withdrawal.</p>
+     
       <h2 style={styles.legalH2}>5. AI Practice — Acceptable Use</h2>
       <p style={styles.legalText}>The AI conversation feature is provided solely for Italian language practice related to the lesson content. You agree not to use the AI chat to request content unrelated to the lesson, attempt to circumvent content restrictions, generate harmful or offensive content, or probe for vulnerabilities. Misuse may result in immediate suspension of your account without refund.</p>
 
@@ -1009,22 +1010,26 @@ function TermsOfService() {
       <p style={styles.legalText}>All content on Parlissimo — including lesson texts, dialogues, grammar explanations, audio, and design — is the intellectual property of Parlissimo and is protected by copyright law. You may not reproduce, distribute, or create derivative works from our content without prior written permission.</p>
 
       <h2 style={styles.legalH2}>8. Disclaimer of Warranties</h2>
-      <p style={styles.legalText}>Parlissimo is provided "as is" without warranty of any kind. We do not guarantee that the service will be uninterrupted or error-free, or that it will meet your specific language learning goals. Language learning outcomes depend on individual effort and practice.</p>
-
+      <p style={styles.legalText}>Parlissimo is provided "as is" without warranty of any kind. We provide a language learning platform offering structured content, tools, and AI-assisted practice. We do not guarantee any specific learning outcomes, level of fluency, or proficiency as a result of using the service. Language acquisition depends entirely on the individual user's effort, consistency, prior knowledge, and aptitude. No results are guaranteed and no refund will be issued on the basis that expected learning outcomes were not achieved.</p>
+      
       <h2 style={styles.legalH2}>9. Limitation of Liability</h2>
-      <p style={styles.legalText}>To the fullest extent permitted by law, Parlissimo and its operators shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the service. Our total liability to you shall not exceed the amount you paid us in the 12 months preceding the claim.</p>
-
+<p style={styles.legalText}>To the fullest extent permitted by applicable law, Parlissimo and its operator shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the service, including but not limited to loss of data, loss of revenue, loss of profits, or failure to achieve expected learning outcomes.</p>
+<p style={styles.legalText}>Our total aggregate liability to you for any claim arising out of or relating to these Terms or the service shall not exceed the total amount you have paid to Parlissimo in the 12 months immediately preceding the claim. If you have not made any payment, we accept no liability beyond what is required by applicable law.</p>
+<p style={styles.legalText}>Nothing in these Terms excludes or limits liability for death or personal injury caused by negligence, fraud, or any other liability that cannot be excluded under Danish or EU law.</p>
+     
       <h2 style={styles.legalH2}>10. Modifications and Discontinuation of Service</h2>
       <p style={styles.legalText}>We reserve the right to modify, suspend, or discontinue any part of the service at any time, including discontinuing the service entirely.</p>
       <p style={styles.legalText}>In the event of a full discontinuation of Parlissimo: monthly or annual subscribers will receive at least 30 days notice and will not be charged beyond their current billing period — unused portions of annual subscriptions will be refunded pro-rata. Lifetime access holders will receive at least 30 days notice; as a courtesy we will endeavour to offer a partial refund at our discretion, but by purchasing lifetime access you acknowledge that "lifetime" refers to the lifetime of the service, not the lifetime of the user. All user data will be deleted within 60 days of discontinuation.</p>
       <p style={styles.legalText}>Notice will be sent to your registered email address and posted on the app.</p>
 
       <h2 style={styles.legalH2}>11. Governing Law</h2>
-      <p style={styles.legalText}>These Terms shall be governed by and construed in accordance with applicable law. Any disputes shall be resolved through good-faith negotiation. If unresolved, disputes shall be subject to the jurisdiction of the courts of the country in which the operator is based.</p>
-
+<p style={styles.legalText}>These Terms shall be governed by and construed in accordance with the laws of Denmark. Any disputes arising from or relating to these Terms or the use of Parlissimo shall first be attempted to be resolved through good-faith negotiation. If unresolved, disputes shall be subject to the exclusive jurisdiction of the Danish courts. As a consumer in the EU/EEA, you may also be entitled to use the European Online Dispute Resolution platform at ec.europa.eu/consumers/odr.</p>
+     
       <h2 style={styles.legalH2}>12. Contact</h2>
       <p style={styles.legalText}>For any questions regarding these Terms, contact us at: <strong>hello@parlissimo.live</strong></p>
-    </div>
+<h2 style={styles.legalH2}>13. Data Controller</h2>
+<p style={styles.legalText}>Parlissimo is operated as a personal business. For the purposes of the EU General Data Protection Regulation (GDPR), the data controller is the individual operator of Parlissimo, based in Denmark. For any data protection queries, contact: hello@parlissimo.live. You have the right to lodge a complaint with the Danish Data Protection Authority (Datatilsynet) at datatilsynet.dk.</p>
+        </div>
   );
 }
 
